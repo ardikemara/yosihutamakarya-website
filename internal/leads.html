@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Leads Sales · Portal Internal YK</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../shared/style.css" />
+</head>
+<body>
+
+<div class="internal-shell">
+  <div id="yk-sidebar"></div>
+
+  <main class="workspace">
+    <div class="workspace-head">
+      <div>
+        <h1>Leads Sales</h1>
+        <p>Semua permintaan masuk dari formulir kontak website publik.</p>
+      </div>
+    </div>
+
+    <div class="card" style="padding: 0;">
+      <table class="tbl" id="leads-table">
+        <thead>
+          <tr>
+            <th>Tanggal</th>
+            <th>Nama / Perusahaan</th>
+            <th>Kontak</th>
+            <th>Produk</th>
+            <th>Status</th>
+            <th>Aksi</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </main>
+</div>
+
+<script src="../shared/data.js"></script>
+<script src="../shared/db.js"></script>
+<script src="sidebar.js"></script>
+<script>
+  mountSidebar('leads');
+
+  function render() {
+    const leads = DB.listLeads();
+    const tbody = document.querySelector('#leads-table tbody');
+    if (!leads.length) {
+      tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; padding: 40px; color: var(--yk-grey);">Belum ada lead. Coba submit form di <a href="../kontak.html">halaman kontak publik</a>.</td></tr>';
+      return;
+    }
+    tbody.innerHTML = leads.map(l => {
+      const d = new Date(l.createdAt);
+      const dateStr = d.toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' });
+      return `
+        <tr>
+          <td style="font-size: 13px;">${dateStr}</td>
+          <td><strong>${l.name}</strong><div class="muted text-sm">${l.company || '-'}</div></td>
+          <td>${l.phone || '-'}<div class="muted text-sm">${l.email || ''}</div></td>
+          <td>${l.product || '-'}</td>
+          <td><span class="pill pill-${l.status === 'new' ? 'unpaid' : l.status === 'qualified' ? 'paid' : 'draft'}">${l.status}</span></td>
+          <td>
+            ${l.phone ? `<a href="https://wa.me/${l.phone.replace(/[^0-9]/g, '')}" target="_blank" class="btn btn-ghost btn-sm">WhatsApp</a>` : ''}
+            ${l.email ? `<a href="mailto:${l.email}" class="btn btn-ghost btn-sm">Email</a>` : ''}
+          </td>
+        </tr>
+      `;
+    }).join('');
+  }
+  render();
+</script>
+</body>
+</html>

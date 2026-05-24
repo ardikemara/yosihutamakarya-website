@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Content Library · Portal Internal YK</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../shared/style.css" />
+</head>
+<body>
+
+<div class="internal-shell">
+  <div id="yk-sidebar"></div>
+
+  <main class="workspace">
+    <div class="workspace-head">
+      <div>
+        <h1>Content Marketing Library</h1>
+        <p>Konten siap pakai untuk semua karyawan: caption IG, broadcast WA, email template, talking points.</p>
+      </div>
+      <div>
+        <input id="lib-search" type="search" placeholder="🔍 Cari konten..." style="width: 280px;" />
+      </div>
+    </div>
+
+    <div class="lib-filters" id="lib-filters">
+      <button class="lib-chip active" data-type="all">Semua</button>
+      <button class="lib-chip" data-type="caption_ig">📷 Caption IG</button>
+      <button class="lib-chip" data-type="whatsapp">💬 WhatsApp</button>
+      <button class="lib-chip" data-type="email">✉️ Email</button>
+      <button class="lib-chip" data-type="slogan">⚡ Slogan & Tagline</button>
+      <button class="lib-chip" data-type="talking_points">🎯 Talking Points</button>
+    </div>
+
+    <div class="lib-grid" id="lib-grid"></div>
+  </main>
+</div>
+
+<!-- DETAIL MODAL -->
+<div class="modal-bg" id="content-modal">
+  <div class="modal">
+    <div class="modal-head">
+      <h3 id="modal-title">-</h3>
+      <button class="modal-close" onclick="closeModal()">×</button>
+    </div>
+    <div class="modal-body">
+      <div style="margin-bottom: 12px;"><span class="pill pill-paid" id="modal-type">-</span> <span class="muted text-sm" id="modal-cat">-</span></div>
+      <pre id="modal-text" style="font-family: var(--font-sans); font-size: 14px; line-height: 1.7; white-space: pre-wrap; word-wrap: break-word; padding: 16px; background: var(--yk-bg-soft); border: 1px solid var(--yk-border); max-height: 50vh; overflow-y: auto;"></pre>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" onclick="closeModal()">Tutup</button>
+      <button class="btn btn-outline" onclick="downloadAsTxt()">↓ Download .txt</button>
+      <button class="btn btn-primary" onclick="copyContent()">📋 Copy ke Clipboard</button>
+    </div>
+  </div>
+</div>
+
+<script src="../shared/data.js"></script>
+<script src="../shared/db.js"></script>
+<script src="sidebar.js"></script>
+<script>
+  mountSidebar('library');
+
+  let activeType = 'all';
+  let searchQuery = '';
+  let currentContent = null;
+
+  const TYPE_LABEL = {
+    caption_ig: 'Caption IG',
+    whatsapp: 'WhatsApp',
+    email: 'Email',
+    slogan: 'Slogan',
+    talking_points: 'Talking Points'
+  };
+
+  function render() {
+    let items = CONTENT_LIBRARY.slice();
+    if (activeType !== 'all') items = items.filter(c => c.type === activeType);
+    if (searchQuery) {
+      const q = searchQuery.toLowerCase();
+      items = items.filter(c =>
+        c.title.toLowerCase().includes(q) ||
+        c.text.toLowerCase().includes(q) ||
+        c.category.toLowerCase().includes(q)
+      );
+    }
+
+    const grid = document.getElementById('lib-grid');
+    if (!items.length) {
+      grid.innerHTML = '<div style="grid-column: 1 / -1; text-align: center; padding: 60px; color: var(--yk-grey);">Tidak ada konten yang cocok dengan filter / pencarian.</div>';
+      return;
+    }
+
+    grid.innerHTML = items.map(c => `
+      <div class="lib-card">
+        <div class="type">${TYPE_LABEL[c.type]} · ${c.category}</div>
+        <h4>${c.title}</h4>
+        <div class="preview">${c.text}</div>
+        <div class="actions">
+          <button class="btn btn-ghost btn-sm" onclick="openModal('${c.id}')">Lihat</button>
+          <button class="btn btn-blue btn-sm" onclick="quickCopy('${c.id}')">📋 Copy</button>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  // Filter chips
+  document.querySelectorAll('#lib-filters .lib-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      activeType = chip.dataset.type;
+      document.querySelectorAll('#lib-filters .lib-chip').forEach(c => c.classList.toggle('active', c === chip));
+      render();
+    });
+  });
+
+  // Search
+  document.getElementById('lib-search').addEventListener('input', (e) => {
+    searchQuery = e.target.value;
+    render();
+  });
+
+  // Modal
+  function openModal(id) {
+    const c = CONTENT_LIBRARY.find(x => x.id === id);
+    if (!c) return;
+    currentContent = c;
+    document.getElementById('modal-title').textContent = c.title;
+    document.getElementById('modal-type').textContent = TYPE_LABEL[c.type];
+    document.getElementById('modal-cat').textContent = c.category;
+    document.getElementById('modal-text').textContent = c.text;
+    document.getElementById('content-modal').classList.add('open');
+  }
+  function closeModal() {
+    document.getElementById('content-modal').classList.remove('open');
+  }
+  function copyContent() {
+    if (!currentContent) return;
+    navigator.clipboard.writeText(currentContent.text).then(() => {
+      showToast('✓ Tersalin ke clipboard');
+      closeModal();
+    });
+  }
+  function quickCopy(id) {
+    const c = CONTENT_LIBRARY.find(x => x.id === id);
+    if (!c) return;
+    navigator.clipboard.writeText(c.text).then(() => showToast('✓ "' + c.title + '" tersalin'));
+  }
+  function downloadAsTxt() {
+    if (!currentContent) return;
+    const blob = new Blob([currentContent.text], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${currentContent.id}-${currentContent.title.replace(/[^a-zA-Z0-9]/g,'_')}.txt`;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  // Close modal on bg click
+  document.getElementById('content-modal').addEventListener('click', (e) => {
+    if (e.target.id === 'content-modal') closeModal();
+  });
+
+  function showToast(msg, type) {
+    type = type || 'success';
+    let t = document.getElementById('yk-toast');
+    if (!t) { t = document.createElement('div'); t.id = 'yk-toast'; t.className = 'toast'; document.body.appendChild(t); }
+    t.textContent = msg;
+    t.className = 'toast show ' + type;
+    setTimeout(() => { t.className = 'toast ' + type; }, 2500);
+  }
+
+  // Pre-filter from query string
+  const params = new URLSearchParams(location.search);
+  if (params.get('type')) {
+    activeType = params.get('type');
+    document.querySelectorAll('#lib-filters .lib-chip').forEach(c => c.classList.toggle('active', c.dataset.type === activeType));
+  }
+
+  render();
+</script>
+</body>
+</html>

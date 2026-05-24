@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Surat Generator · Portal Internal YK</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../shared/style.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+<body>
+
+<div class="internal-shell">
+  <div id="yk-sidebar"></div>
+
+  <main class="workspace">
+    <div class="workspace-head">
+      <div>
+        <h1>Surat Generator</h1>
+        <p>Pilih template → isi data → live preview → download PDF dengan kop surat resmi.</p>
+      </div>
+      <div class="flex gap-2 no-print">
+        <button class="btn btn-outline btn-sm" onclick="window.print()">🖨️ Print</button>
+        <button class="btn btn-primary btn-sm" onclick="downloadPDF()">↓ Download PDF</button>
+      </div>
+    </div>
+
+    <!-- TEMPLATE PICKER -->
+    <div id="template-picker-wrap" class="no-print">
+      <h3 style="font-size: 13px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--yk-grey); margin-bottom: 12px;">1. Pilih Template Surat</h3>
+      <div class="template-grid" id="template-grid"></div>
+    </div>
+
+    <!-- EDITOR + PREVIEW -->
+    <div id="editor-section" class="editor-grid" style="display:none;">
+      <div class="editor-pane no-print">
+        <h3>2. Isi Data Surat</h3>
+        <div class="card" style="padding: 24px;">
+          <div id="meta-fields" style="margin-bottom: 20px;">
+            <div class="form-grid">
+              <div>
+                <label>Nomor Surat</label>
+                <input type="text" id="f_nomor" />
+              </div>
+              <div>
+                <label>Tanggal Surat</label>
+                <input type="text" id="f_tanggal" />
+              </div>
+            </div>
+          </div>
+          <div id="template-fields"></div>
+
+          <div style="margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--yk-border); display: flex; gap: 12px;">
+            <button class="btn btn-ghost btn-sm" onclick="resetTemplate()">← Ganti Template</button>
+            <button class="btn btn-blue btn-sm" onclick="logToHistory()" style="margin-left: auto;">Simpan ke Log</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="editor-pane">
+        <h3 class="no-print">3. Live Preview</h3>
+        <div id="surat-preview" class="surat-preview"></div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="../shared/data.js"></script>
+<script src="../shared/db.js"></script>
+<script src="sidebar.js"></script>
+<script>
+  mountSidebar('surat');
+
+  // ============ STATE ============
+  let currentTemplate = null;
+  let formData = {};
+
+  // ============ TEMPLATE ICONS ============
+  const ICONS = {
+    tag: '<path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/>',
+    chat: '<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>',
+    check: '<polyline points="20 6 9 17 4 12"/>',
+    pin: '<path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>',
+    box: '<path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>',
+    heart: '<path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>'
+  };
+
+  // ============ RENDER TEMPLATE PICKER ============
+  document.getElementById('template-grid').innerHTML = SURAT_TEMPLATES.map(t => `
+    <div class="template-card" data-id="${t.id}" onclick="pickTemplate('${t.id}')">
+      <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">${ICONS[t.icon] || ICONS.tag}</svg>
+      <h4>${t.name}</h4>
+      <p>${t.desc}</p>
+    </div>
+  `).join('');
+
+  // ============ PICK TEMPLATE ============
+  function pickTemplate(id) {
+    currentTemplate = SURAT_TEMPLATES.find(t => t.id === id);
+    formData = {};
+
+    // Mark active
+    document.querySelectorAll('.template-card').forEach(el => el.classList.toggle('active', el.dataset.id === id));
+
+    // Init meta fields
+    document.getElementById('f_nomor').value = generateRef('YHK');
+    document.getElementById('f_tanggal').value = todayID();
+
+    // Render template fields
+    const wrap = document.getElementById('template-fields');
+    wrap.innerHTML = currentTemplate.fields.map(f => `
+      <div style="margin-bottom: 14px;">
+        <label>${f.label}${f.required ? ' *' : ''}</label>
+        ${f.type === 'textarea'
+          ? `<textarea rows="3" data-key="${f.key}" placeholder="${f.placeholder || ''}"></textarea>`
+          : `<input type="${f.type}" data-key="${f.key}" placeholder="${f.placeholder || ''}" />`
+        }
+      </div>
+    `).join('');
+
+    // Show editor section
+    document.getElementById('editor-section').style.display = 'grid';
+    document.getElementById('template-picker-wrap').style.display = 'none';
+
+    // Bind input handlers
+    wrap.querySelectorAll('input, textarea').forEach(el => {
+      el.addEventListener('input', () => {
+        formData[el.dataset.key] = el.value;
+        renderPreview();
+      });
+    });
+    document.getElementById('f_nomor').addEventListener('input', renderPreview);
+    document.getElementById('f_tanggal').addEventListener('input', renderPreview);
+
+    renderPreview();
+  }
+
+  function resetTemplate() {
+    currentTemplate = null;
+    formData = {};
+    document.getElementById('editor-section').style.display = 'none';
+    document.getElementById('template-picker-wrap').style.display = 'block';
+    document.querySelectorAll('.template-card').forEach(el => el.classList.remove('active'));
+  }
+
+  // ============ RENDER PREVIEW ============
+  function renderPreview() {
+    if (!currentTemplate) return;
+    const nomor = document.getElementById('f_nomor').value;
+    const tanggal = document.getElementById('f_tanggal').value;
+    const body = currentTemplate.body(formData);
+    const recipientLines = [
+      'Kepada Yth.',
+      formData.recipient_attn ? formData.recipient_attn : 'Pimpinan',
+      formData.recipient_company || '-',
+      formData.recipient_address || '-'
+    ].join('<br/>');
+
+    document.getElementById('surat-preview').innerHTML = `
+      <div class="kop-surat-top">
+        <div class="logo-circle">YK</div>
+        <div class="brand-block">
+          <div class="name">PT. YOSI HUTAMA KARYA</div>
+          <div class="sub">BUILD · PROTECT · PERFORM</div>
+        </div>
+      </div>
+      <div class="kop-surat-body">
+        <div class="meta">
+          <div class="meta-l">
+            Nomor &nbsp;: ${nomor}<br/>
+            Lampiran : -<br/>
+            Perihal &nbsp;: <strong>${currentTemplate.perihal}</strong>
+          </div>
+          <div style="text-align: right;">
+            Jakarta, ${tanggal}
+          </div>
+        </div>
+
+        <div style="margin-bottom: 24px;">
+          ${recipientLines}
+        </div>
+
+        <div class="body-text">${body}</div>
+
+        <div class="signature">
+          <div>Hormat kami,</div>
+          <div style="font-size: 11px; color: var(--yk-grey); margin-top: 4px;">PT. Yosi Hutama Karya</div>
+          <div class="signature-name">${formData.signer_name || '[Nama Penanda Tangan]'}</div>
+          <div style="font-size: 11px; color: var(--yk-grey); margin-top: -2px;">${formData.signer_title || '[Jabatan]'}</div>
+        </div>
+      </div>
+      <div class="kop-surat-bottom">
+        <div class="col">
+          <strong>Kantor</strong>
+          Jl. Jend. Ahmad Yani Kav. 3<br/>
+          Kayu Putih, Pulo Gadung<br/>
+          Jakarta Timur 13210
+        </div>
+        <div class="col">
+          <strong>Kontak</strong>
+          Ph: +62 21 475 7386 · Fx: +62 21 475 7387<br/>
+          E: info@yosihutamankarya.com<br/>
+          W: www.yosihutamakarya.com
+        </div>
+        <div class="footer-mark">YK</div>
+      </div>
+    `;
+  }
+
+  // ============ DOWNLOAD PDF ============
+  function downloadPDF() {
+    if (!currentTemplate) {
+      showToast('Pilih template dulu', 'error');
+      return;
+    }
+    const el = document.getElementById('surat-preview');
+    const filename = `Surat-${currentTemplate.id}-${(formData.recipient_company || 'klien').replace(/[^a-zA-Z0-9]/g, '_')}.pdf`;
+
+    showToast('Generating PDF...');
+
+    html2pdf().set({
+      margin: 0,
+      filename,
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2, useCORS: true },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    }).from(el).save().then(() => {
+      logToHistory(true);
+    });
+  }
+
+  function logToHistory(silent) {
+    if (!currentTemplate) return;
+    DB.logSurat({
+      templateId: currentTemplate.id,
+      templateName: currentTemplate.name,
+      recipient: formData.recipient_company || '-',
+      nomor: document.getElementById('f_nomor').value,
+      signer: formData.signer_name || '-'
+    });
+    if (!silent) showToast('✓ Disimpan ke log');
+  }
+
+  // Helper for toast (defined in layout.js for public; we redeclare for internal):
+  function showToast(msg, type) {
+    type = type || 'success';
+    let t = document.getElementById('yk-toast');
+    if (!t) { t = document.createElement('div'); t.id = 'yk-toast'; t.className = 'toast'; document.body.appendChild(t); }
+    t.textContent = msg;
+    t.className = 'toast show ' + type;
+    setTimeout(() => { t.className = 'toast ' + type; }, 2500);
+  }
+</script>
+</body>
+</html>

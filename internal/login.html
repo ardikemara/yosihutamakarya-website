@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Portal Internal · Yosi Hutama Karya</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../shared/style.css" />
+</head>
+<body style="background: var(--yk-black); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 24px;">
+
+<div style="max-width: 440px; width: 100%;">
+  <div style="text-align: center; margin-bottom: 32px;">
+    <img src="../assets/yk-logo.svg" alt="YK Logo" width="80" height="80" style="margin: 0 auto 16px; display: block; object-fit: contain; filter: invert(1) brightness(2);" />
+    <h2 style="color: #fff; font-size: 1.5rem;">Portal Internal Karyawan</h2>
+    <p style="color: rgba(255,255,255,0.6); font-size: 14px; margin-top: 6px;">PT. Yosi Hutama Karya</p>
+  </div>
+
+  <div class="card" style="padding: 32px;">
+    <form id="login-form">
+      <label>Email Karyawan</label>
+      <input type="email" name="email" required placeholder="nama@yosihutamankarya.com" value="ardi@yosihutamankarya.com" />
+
+      <label style="margin-top: 16px;">Password</label>
+      <input type="password" name="password" required placeholder="••••••••" value="demo123" />
+
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 16px; font-size: 13px;">
+        <label style="display: flex; align-items: center; gap: 6px; margin: 0; font-weight: 500;">
+          <input type="checkbox" style="width: auto;" checked /> Ingat saya
+        </label>
+        <a href="#" style="font-size: 13px;">Lupa password?</a>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-lg" style="width: 100%; margin-top: 24px;">Masuk ke Portal</button>
+    </form>
+
+    <div class="panel" style="margin-top: 24px; padding: 14px 16px; font-size: 12px; background: #FEF3C7; border: 1px solid #FCD34D; border-left: 3px solid #D97706;">
+      <strong style="color: #D97706;">DEMO MODE:</strong> Email & password sudah dipre-fill. Klik tombol di atas untuk masuk.
+    </div>
+  </div>
+
+  <div style="text-align: center; margin-top: 24px;">
+    <a href="../index.html" style="color: rgba(255,255,255,0.6); font-size: 13px;">← Kembali ke website publik</a>
+  </div>
+</div>
+
+<script src="../shared/db.js"></script>
+<script>
+  document.getElementById('login-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const fd = new FormData(e.target);
+    DB.setUser({
+      email: fd.get('email'),
+      name: 'Ardi Kemara',
+      role: 'Sales Manager',
+      loginAt: new Date().toISOString()
+    });
+    location.href = 'dashboard.html';
+  });
+</script>
+</body>
+</html>

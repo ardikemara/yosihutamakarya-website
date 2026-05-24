@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Invoice Generator · Portal Internal YK</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../shared/style.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<style>
+  .item-row { display: grid; grid-template-columns: 1fr 80px 80px 110px 30px; gap: 8px; align-items: end; margin-bottom: 8px; }
+  .item-row input { padding: 8px 10px; font-size: 13px; }
+  .item-row .remove-btn { background: var(--yk-danger); color: #fff; width: 30px; height: 36px; display: flex; align-items: center; justify-content: center; font-weight: 700; }
+  .item-row label { font-size: 11px; }
+  .filter-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; align-items: center; }
+</style>
+</head>
+<body>
+
+<div class="internal-shell">
+  <div id="yk-sidebar"></div>
+
+  <main class="workspace">
+    <!-- LIST VIEW -->
+    <div id="view-list">
+      <div class="workspace-head">
+        <div>
+          <h1>Invoice Generator</h1>
+          <p>Buat invoice baru atau follow-up pembayaran. Semua tersimpan otomatis di database.</p>
+        </div>
+        <button class="btn btn-primary" onclick="newInvoice()">+ Buat Invoice Baru</button>
+      </div>
+
+      <div class="kpi-row" id="inv-kpi"></div>
+
+      <div class="filter-row">
+        <strong style="font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--yk-grey); margin-right: 8px;">Filter:</strong>
+        <button class="lib-chip active" data-status="all" onclick="filterInvoices('all')">Semua</button>
+        <button class="lib-chip" data-status="unpaid" onclick="filterInvoices('unpaid')">Unpaid</button>
+        <button class="lib-chip" data-status="overdue" onclick="filterInvoices('overdue')">Overdue</button>
+        <button class="lib-chip" data-status="paid" onclick="filterInvoices('paid')">Paid</button>
+      </div>
+
+      <div class="card" style="padding: 0;">
+        <table class="tbl" id="inv-table">
+          <thead>
+            <tr>
+              <th>No. Invoice</th>
+              <th>Klien</th>
+              <th>Tanggal</th>
+              <th>Jatuh Tempo</th>
+              <th>Total</th>
+              <th>Status</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- EDITOR VIEW -->
+    <div id="view-editor" style="display:none;">
+      <div class="workspace-head">
+        <div>
+          <h1 id="editor-title">Invoice Baru</h1>
+          <p>Isi data → live preview → download PDF & save ke database.</p>
+        </div>
+        <div class="flex gap-2 no-print">
+          <button class="btn btn-ghost btn-sm" onclick="backToList()">← Kembali</button>
+          <button class="btn btn-outline btn-sm" onclick="window.print()">🖨️ Print</button>
+          <button class="btn btn-blue btn-sm" onclick="saveInvoice()">💾 Save</button>
+          <button class="btn btn-primary btn-sm" onclick="downloadInvoicePDF()">↓ Download PDF</button>
+        </div>
+      </div>
+
+      <div class="editor-grid">
+        <div class="editor-pane no-print">
+          <h3>Data Invoice</h3>
+          <div class="card">
+            <div class="form-grid">
+              <div>
+                <label>No. Invoice</label>
+                <input id="iv_number" type="text" />
+              </div>
+              <div>
+                <label>Tanggal Invoice</label>
+                <input id="iv_date" type="date" />
+              </div>
+              <div class="full">
+                <label>Nama Klien *</label>
+                <input id="iv_client" type="text" placeholder="PT. Karya Bangun Persada" />
+              </div>
+              <div class="full">
+                <label>Alamat Klien</label>
+                <textarea id="iv_addr" rows="2" placeholder="Jl. Sudirman No. 45, Jakarta Selatan"></textarea>
+              </div>
+              <div>
+                <label>NPWP Klien (opsional)</label>
+                <input id="iv_npwp" type="text" placeholder="01.234.567.8-901.000" />
+              </div>
+              <div>
+                <label>Jatuh Tempo</label>
+                <input id="iv_due" type="date" />
+              </div>
+            </div>
+
+            <h4 style="margin-top: 24px; margin-bottom: 12px; font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em;">Item Invoice</h4>
+            <div id="item-rows"></div>
+            <button class="btn btn-ghost btn-sm" onclick="addItemRow()" style="margin-top: 8px;">+ Tambah Item</button>
+
+            <div class="form-grid" style="margin-top: 20px;">
+              <div>
+                <label>PPN (%)</label>
+                <input id="iv_ppn" type="number" value="11" />
+              </div>
+              <div>
+                <label>Status Awal</label>
+                <select id="iv_status">
+                  <option value="unpaid">Unpaid</option>
+                  <option value="paid">Paid</option>
+                  <option value="overdue">Overdue</option>
+                </select>
+              </div>
+              <div class="full">
+                <label>Catatan / Termin</label>
+                <textarea id="iv_notes" rows="2">Termin: 30 hari sejak invoice diterbitkan. Pembayaran ditransfer ke rekening tertera.</textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="editor-pane">
+          <h3 class="no-print">Live Preview</h3>
+          <div id="inv-preview" class="invoice-preview"></div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="../shared/data.js"></script>
+<script src="../shared/db.js"></script>
+<script src="sidebar.js"></script>
+<script>
+  mountSidebar('invoice');
+
+  let editingId = null;
+  let currentItems = [];
+  let activeFilter = 'all';
+
+  // ============ LIST VIEW ============
+  function renderList() {
+    const all = DB.listInvoices();
+    const filtered = activeFilter === 'all' ? all : all.filter(i => i.status === activeFilter);
+
+    // KPI
+    const totalUnpaid = all.filter(i => i.status !== 'paid').reduce((s, i) => s + invoiceTotal(i), 0);
+    const totalPaid = all.filter(i => i.status === 'paid').reduce((s, i) => s + invoiceTotal(i), 0);
+    document.getElementById('inv-kpi').innerHTML = `
+      <div class="kpi"><div class="label">Total Invoice</div><div class="value">${all.length}</div></div>
+      <div class="kpi"><div class="label">Paid</div><div class="value">${all.filter(i=>i.status==='paid').length}</div><div class="sub">${fmtIDR(totalPaid)}</div></div>
+      <div class="kpi" style="border-left-color: var(--yk-warn);"><div class="label">Unpaid</div><div class="value">${all.filter(i=>i.status==='unpaid').length}</div></div>
+      <div class="kpi" style="border-left-color: var(--yk-danger);"><div class="label">Overdue</div><div class="value">${all.filter(i=>i.status==='overdue').length}</div></div>
+      <div class="kpi"><div class="label">Outstanding</div><div class="value">${fmtIDR(totalUnpaid)}</div></div>
+    `;
+
+    const tbody = document.querySelector('#inv-table tbody');
+    if (!filtered.length) {
+      tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; padding: 40px; color: var(--yk-grey);">Belum ada invoice di filter ini.</td></tr>';
+      return;
+    }
+
+    tbody.innerHTML = filtered.map(i => {
+      const total = invoiceTotal(i);
+      const d = new Date(i.createdAt);
+      const dateStr = d.toLocaleDateString('id-ID', { day:'2-digit', month:'short', year:'numeric' });
+      return `
+        <tr>
+          <td><strong style="color: var(--yk-blue); font-family: var(--font-mono); font-size: 13px;">${i.invNumber}</strong></td>
+          <td>${i.clientName}</td>
+          <td style="font-size: 13px;">${dateStr}</td>
+          <td style="font-size: 13px;">${i.dueDate}</td>
+          <td><strong>${fmtIDR(total)}</strong></td>
+          <td><span class="pill pill-${i.status}">${i.status}</span></td>
+          <td>
+            <button class="btn btn-ghost btn-sm" onclick="editInvoice('${i.id}')">Lihat</button>
+            ${i.status !== 'paid' ? `<button class="btn btn-ghost btn-sm" onclick="markPaid('${i.id}')" style="color: var(--yk-success);">✓ Lunas</button>` : ''}
+            ${i.status === 'overdue' || i.status === 'unpaid' ? `<button class="btn btn-ghost btn-sm" onclick="sendReminder('${i.id}')">Reminder</button>` : ''}
+          </td>
+        </tr>
+      `;
+    }).join('');
+  }
+
+  function invoiceTotal(i) {
+    const sub = i.items.reduce((s, it) => s + (it.qty * it.price), 0);
+    return sub + (sub * (i.ppnRate || 0) / 100);
+  }
+
+  function filterInvoices(status) {
+    activeFilter = status;
+    document.querySelectorAll('.lib-chip').forEach(el => el.classList.toggle('active', el.dataset.status === status));
+    renderList();
+  }
+
+  function markPaid(id) {
+    if (!confirm('Tandai invoice ini sebagai LUNAS?')) return;
+    DB.updateInvoiceStatus(id, 'paid');
+    showToast('✓ Invoice ditandai lunas');
+    renderList();
+  }
+
+  function sendReminder(id) {
+    const inv = DB.listInvoices().find(x => x.id === id);
+    if (!inv) return;
+    const msg = `Halo ${inv.clientName}, mohon konfirmasi pembayaran untuk Invoice ${inv.invNumber} sebesar ${fmtIDR(invoiceTotal(inv))} yang jatuh tempo ${inv.dueDate}. Terima kasih, Sales Yosi Hutama Karya.`;
+    navigator.clipboard.writeText(msg).then(() => {
+      showToast('✓ Reminder text disalin ke clipboard, paste ke WhatsApp/Email');
+    });
+  }
+
+  // ============ EDITOR VIEW ============
+  function newInvoice() {
+    editingId = null;
+    document.getElementById('editor-title').textContent = 'Invoice Baru';
+    document.getElementById('iv_number').value = 'INV/' + new Date().toISOString().slice(0,7).replace('-', '/') + '/' + String(DB.listInvoices().length + 1).padStart(3, '0');
+    document.getElementById('iv_date').value = new Date().toISOString().slice(0,10);
+    const due = new Date(); due.setDate(due.getDate() + 30);
+    document.getElementById('iv_due').value = due.toISOString().slice(0,10);
+    document.getElementById('iv_client').value = '';
+    document.getElementById('iv_addr').value = '';
+    document.getElementById('iv_npwp').value = '';
+    document.getElementById('iv_ppn').value = 11;
+    document.getElementById('iv_status').value = 'unpaid';
+    document.getElementById('iv_notes').value = 'Termin: 30 hari sejak invoice diterbitkan. Pembayaran ditransfer ke rekening tertera.';
+    currentItems = [{ desc: '', qty: 1, unit: 'pcs', price: 0 }];
+    renderItemRows();
+    showView('editor');
+  }
+
+  function editInvoice(id) {
+    const inv = DB.listInvoices().find(x => x.id === id);
+    if (!inv) return;
+    editingId = id;
+    document.getElementById('editor-title').textContent = 'Invoice ' + inv.invNumber;
+    document.getElementById('iv_number').value = inv.invNumber;
+    document.getElementById('iv_date').value = inv.createdAt.slice(0,10);
+    document.getElementById('iv_due').value = inv.dueDate;
+    document.getElementById('iv_client').value = inv.clientName;
+    document.getElementById('iv_addr').value = inv.clientAddress || '';
+    document.getElementById('iv_npwp').value = inv.clientNPWP || '';
+    document.getElementById('iv_ppn').value = inv.ppnRate;
+    document.getElementById('iv_status').value = inv.status;
+    document.getElementById('iv_notes').value = inv.notes || '';
+    currentItems = JSON.parse(JSON.stringify(inv.items));
+    renderItemRows();
+    showView('editor');
+  }
+
+  function backToList() {
+    showView('list');
+    renderList();
+  }
+
+  function showView(v) {
+    document.getElementById('view-list').style.display = v === 'list' ? 'block' : 'none';
+    document.getElementById('view-editor').style.display = v === 'editor' ? 'block' : 'none';
+    if (v === 'editor') renderPreview();
+  }
+
+  function renderItemRows() {
+    const wrap = document.getElementById('item-rows');
+    wrap.innerHTML = `
+      <div class="item-row" style="font-weight: 700; font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--yk-grey); margin-bottom: 4px;">
+        <div>Deskripsi</div><div>Qty</div><div>Unit</div><div style="text-align: right;">Harga Satuan</div><div></div>
+      </div>
+    ` + currentItems.map((it, idx) => `
+      <div class="item-row">
+        <input type="text" value="${escapeAttr(it.desc)}" oninput="updateItem(${idx}, 'desc', this.value)" placeholder="YK NN® Drum 240kg" />
+        <input type="number" value="${it.qty}" oninput="updateItem(${idx}, 'qty', this.value)" />
+        <input type="text" value="${escapeAttr(it.unit)}" oninput="updateItem(${idx}, 'unit', this.value)" />
+        <input type="number" value="${it.price}" oninput="updateItem(${idx}, 'price', this.value)" style="text-align: right;" />
+        <button class="remove-btn" onclick="removeItem(${idx})" title="Hapus">×</button>
+      </div>
+    `).join('');
+  }
+
+  function escapeAttr(s) { return String(s || '').replace(/"/g, '&quot;'); }
+
+  function updateItem(idx, key, val) {
+    if (key === 'qty' || key === 'price') val = Number(val) || 0;
+    currentItems[idx][key] = val;
+    renderPreview();
+  }
+
+  function addItemRow() {
+    currentItems.push({ desc: '', qty: 1, unit: 'pcs', price: 0 });
+    renderItemRows();
+    renderPreview();
+  }
+
+  function removeItem(idx) {
+    if (currentItems.length === 1) {
+      showToast('Minimal harus ada 1 item', 'error');
+      return;
+    }
+    currentItems.splice(idx, 1);
+    renderItemRows();
+    renderPreview();
+  }
+
+  // Bind metadata change to live preview
+  ['iv_number','iv_date','iv_due','iv_client','iv_addr','iv_npwp','iv_ppn','iv_notes'].forEach(id => {
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById(id).addEventListener('input', renderPreview);
+    });
+  });
+  // Direct binding (since DOMContentLoaded may have fired)
+  setTimeout(() => {
+    ['iv_number','iv_date','iv_due','iv_client','iv_addr','iv_npwp','iv_ppn','iv_notes'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.addEventListener('input', renderPreview);
+    });
+  }, 0);
+
+  function renderPreview() {
+    const data = {
+      invNumber: document.getElementById('iv_number').value,
+      date: document.getElementById('iv_date').value,
+      due: document.getElementById('iv_due').value,
+      client: document.getElementById('iv_client').value || '[Nama Klien]',
+      addr: document.getElementById('iv_addr').value || '',
+      npwp: document.getElementById('iv_npwp').value || '',
+      ppn: Number(document.getElementById('iv_ppn').value) || 0,
+      notes: document.getElementById('iv_notes').value || '',
+    };
+    const sub = currentItems.reduce((s, it) => s + (it.qty * it.price), 0);
+    const ppnAmt = sub * data.ppn / 100;
+    const total = sub + ppnAmt;
+
+    document.getElementById('inv-preview').innerHTML = `
+      <div class="kop-surat-top" style="height: 80px;">
+        <div class="logo-circle" style="width: 52px; height: 52px;">YK</div>
+        <div class="brand-block">
+          <div class="name">PT. YOSI HUTAMA KARYA</div>
+          <div class="sub">BUILD · PROTECT · PERFORM</div>
+        </div>
+      </div>
+      <div class="body">
+        <div class="head-row">
+          <div class="inv-title">INVOICE</div>
+          <div class="inv-meta">
+            <div class="num">${data.invNumber}</div>
+            <div>Tanggal: ${data.date ? new Date(data.date).toLocaleDateString('id-ID', {day:'2-digit',month:'long',year:'numeric'}) : '-'}</div>
+            <div>Jatuh Tempo: <strong>${data.due ? new Date(data.due).toLocaleDateString('id-ID', {day:'2-digit',month:'long',year:'numeric'}) : '-'}</strong></div>
+          </div>
+        </div>
+
+        <div class="billto">
+          <small>Tagihan Kepada</small>
+          <strong>${data.client}</strong>
+          ${data.addr ? `<div>${data.addr.replace(/\n/g, '<br/>')}</div>` : ''}
+          ${data.npwp ? `<div style="font-size: 11px; color: var(--yk-grey); margin-top: 4px;">NPWP: ${data.npwp}</div>` : ''}
+        </div>
+
+        <table class="inv-tbl">
+          <thead>
+            <tr>
+              <th style="width: 50%;">Deskripsi</th>
+              <th class="right" style="width: 80px;">Qty</th>
+              <th style="width: 60px;">Unit</th>
+              <th class="right">Harga Satuan</th>
+              <th class="right">Subtotal</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${currentItems.map(it => `
+              <tr>
+                <td>${it.desc || '<em style="color:var(--yk-grey);">[deskripsi]</em>'}</td>
+                <td class="right">${it.qty}</td>
+                <td>${it.unit}</td>
+                <td class="right">${fmtIDR(it.price)}</td>
+                <td class="right">${fmtIDR(it.qty * it.price)}</td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+
+        <div class="inv-totals">
+          <div class="row"><span>Subtotal</span><span>${fmtIDR(sub)}</span></div>
+          <div class="row"><span>PPN ${data.ppn}%</span><span>${fmtIDR(ppnAmt)}</span></div>
+          <div class="row total"><span>TOTAL TAGIHAN</span><span>${fmtIDR(total)}</span></div>
+        </div>
+
+        <div class="inv-notes">
+          <strong style="color: var(--yk-black); display: block; margin-bottom: 6px;">Pembayaran Transfer:</strong>
+          ${BRAND.bank.name} · ${BRAND.bank.account}<br/>
+          a.n. ${BRAND.bank.holder}<br/><br/>
+          ${data.notes}
+        </div>
+      </div>
+    `;
+  }
+
+  function saveInvoice() {
+    const number = document.getElementById('iv_number').value;
+    const client = document.getElementById('iv_client').value.trim();
+    if (!client) { showToast('Nama klien wajib diisi', 'error'); return; }
+    if (currentItems.every(i => !i.desc)) { showToast('Minimal 1 item harus ada deskripsi', 'error'); return; }
+
+    const payload = {
+      invNumber: number,
+      createdAt: new Date(document.getElementById('iv_date').value).toISOString(),
+      clientName: client,
+      clientAddress: document.getElementById('iv_addr').value,
+      clientNPWP: document.getElementById('iv_npwp').value,
+      items: currentItems.filter(i => i.desc),
+      ppnRate: Number(document.getElementById('iv_ppn').value) || 0,
+      dueDate: document.getElementById('iv_due').value,
+      status: document.getElementById('iv_status').value,
+      notes: document.getElementById('iv_notes').value
+    };
+
+    if (editingId) {
+      // Update existing
+      const all = DB.listInvoices();
+      const idx = all.findIndex(x => x.id === editingId);
+      if (idx >= 0) {
+        all[idx] = { ...all[idx], ...payload };
+        DB.write(DB.KEYS.invoices, all);
+        showToast('✓ Invoice diperbarui');
+      }
+    } else {
+      const created = DB.addInvoice(payload);
+      editingId = created.id;
+      showToast('✓ Invoice baru disimpan ke database');
+    }
+  }
+
+  function downloadInvoicePDF() {
+    const el = document.getElementById('inv-preview');
+    const num = document.getElementById('iv_number').value.replace(/\//g, '-');
+    const client = document.getElementById('iv_client').value.replace(/[^a-zA-Z0-9]/g, '_');
+    showToast('Generating PDF...');
+    html2pdf().set({
+      margin: 0,
+      filename: `Invoice-${num}-${client}.pdf`,
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2, useCORS: true },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    }).from(el).save().then(() => {
+      // Auto-save if new
+      if (!editingId) saveInvoice();
+    });
+  }
+
+  function showToast(msg, type) {
+    type = type || 'success';
+    let t = document.getElementById('yk-toast');
+    if (!t) { t = document.createElement('div'); t.id = 'yk-toast'; t.className = 'toast'; document.body.appendChild(t); }
+    t.textContent = msg;
+    t.className = 'toast show ' + type;
+    setTimeout(() => { t.className = 'toast ' + type; }, 2500);
+  }
+
+  // Init
+  renderList();
+</script>
+</body>
+</html>

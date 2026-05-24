@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Dashboard · Portal Internal YK</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../shared/style.css" />
+</head>
+<body>
+
+<div class="internal-shell">
+  <div id="yk-sidebar"></div>
+
+  <main class="workspace">
+    <div class="workspace-head">
+      <div>
+        <h1>Dashboard</h1>
+        <p id="greeting">Selamat datang kembali.</p>
+      </div>
+    </div>
+
+    <div class="kpi-row" id="kpi-row"></div>
+
+    <div style="display: grid; grid-template-columns: 1.5fr 1fr; gap: 24px; margin-top: 8px;">
+      <div>
+        <div class="card">
+          <h3 style="margin-bottom: 16px;">3 Tools Utama</h3>
+          <div style="display: grid; grid-template-columns: 1fr; gap: 12px;">
+            <a href="surat.html" style="display: flex; gap: 16px; padding: 18px; border: 1px solid var(--yk-border); text-decoration: none; color: inherit; transition: all 0.15s;" onmouseover="this.style.borderColor='var(--yk-blue)';this.style.background='#EFF6FF'" onmouseout="this.style.borderColor='var(--yk-border)';this.style.background='transparent'">
+              <div style="background: var(--yk-blue); color: #fff; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              </div>
+              <div style="flex: 1;">
+                <strong style="display: block; color: var(--yk-black); font-size: 15px;">Surat Generator</strong>
+                <span style="color: var(--yk-grey); font-size: 13px;">Pilih template → isi form → preview → download PDF</span>
+              </div>
+              <span style="color: var(--yk-blue); align-self: center;">→</span>
+            </a>
+            <a href="invoice.html" style="display: flex; gap: 16px; padding: 18px; border: 1px solid var(--yk-border); text-decoration: none; color: inherit;" onmouseover="this.style.borderColor='var(--yk-blue)';this.style.background='#EFF6FF'" onmouseout="this.style.borderColor='var(--yk-border)';this.style.background='transparent'">
+              <div style="background: var(--yk-black); color: #fff; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="1"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              </div>
+              <div style="flex: 1;">
+                <strong style="display: block; color: var(--yk-black); font-size: 15px;">Invoice Generator</strong>
+                <span style="color: var(--yk-grey); font-size: 13px;">Buat invoice baru atau lihat list invoice untuk follow-up finance</span>
+              </div>
+              <span style="color: var(--yk-blue); align-self: center;">→</span>
+            </a>
+            <a href="library.html" style="display: flex; gap: 16px; padding: 18px; border: 1px solid var(--yk-border); text-decoration: none; color: inherit;" onmouseover="this.style.borderColor='var(--yk-blue)';this.style.background='#EFF6FF'" onmouseout="this.style.borderColor='var(--yk-border)';this.style.background='transparent'">
+              <div style="background: var(--yk-charcoal); color: #fff; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+              </div>
+              <div style="flex: 1;">
+                <strong style="display: block; color: var(--yk-black); font-size: 15px;">Content Marketing Library</strong>
+                <span style="color: var(--yk-grey); font-size: 13px;">Caption IG, broadcast WA, email template, talking points</span>
+              </div>
+              <span style="color: var(--yk-blue); align-self: center;">→</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top: 24px;">
+          <h3 style="margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center;">
+            Leads Terbaru
+            <a href="leads.html" style="font-size: 13px; font-weight: 500;">Lihat semua →</a>
+          </h3>
+          <div id="recent-leads"></div>
+        </div>
+      </div>
+
+      <div>
+        <div class="card">
+          <h3 style="margin-bottom: 16px;">Invoice Butuh Follow-Up</h3>
+          <div id="overdue-invoices"></div>
+        </div>
+
+        <div class="card" style="margin-top: 24px; background: var(--yk-black); color: #fff; border: none;">
+          <h3 style="color: #fff; margin-bottom: 12px;">💡 Tips Hari Ini</h3>
+          <p style="color: rgba(255,255,255,0.8); font-size: 14px; line-height: 1.6;">Gunakan <strong style="color: #fff;">Content Library → Talking Points</strong> sebelum sales call. Ada 2 cheatsheet baru tentang objection handling soal harga.</p>
+          <a href="library.html?type=talking_points" class="btn btn-blue" style="margin-top: 12px; font-size: 12px;">Buka Library →</a>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="../shared/data.js"></script>
+<script src="../shared/db.js"></script>
+<script src="sidebar.js"></script>
+<script>
+  mountSidebar('dashboard');
+
+  const user = DB.getUser();
+  const hour = new Date().getHours();
+  const greeting = hour < 12 ? 'Selamat pagi' : hour < 15 ? 'Selamat siang' : hour < 18 ? 'Selamat sore' : 'Selamat malam';
+  document.getElementById('greeting').textContent = `${greeting}, ${user.name.split(' ')[0]}. Berikut ringkasan hari ini.`;
+
+  // KPIs
+  const leads = DB.listLeads();
+  const invoices = DB.listInvoices();
+  const overdue = invoices.filter(i => i.status === 'overdue');
+  const unpaid = invoices.filter(i => i.status === 'unpaid');
+  const totalUnpaid = [...unpaid, ...overdue].reduce((sum, i) => {
+    const sub = i.items.reduce((s, it) => s + (it.qty * it.price), 0);
+    const tot = sub + (sub * i.ppnRate / 100);
+    return sum + tot;
+  }, 0);
+
+  document.getElementById('kpi-row').innerHTML = `
+    <div class="kpi"><div class="label">Lead Baru</div><div class="value">${leads.filter(l => l.status === 'new').length}</div><div class="sub">total lead: ${leads.length}</div></div>
+    <div class="kpi"><div class="label">Invoice Unpaid</div><div class="value">${unpaid.length}</div><div class="sub">menunggu pembayaran</div></div>
+    <div class="kpi" style="border-left-color: var(--yk-danger);"><div class="label">Invoice Overdue</div><div class="value" style="color: var(--yk-danger);">${overdue.length}</div><div class="sub">urgent follow-up</div></div>
+    <div class="kpi"><div class="label">Outstanding</div><div class="value">${fmtIDR(totalUnpaid)}</div><div class="sub">total piutang</div></div>
+  `;
+
+  // Recent leads
+  document.getElementById('recent-leads').innerHTML = leads.slice(0, 4).map(l => `
+    <div style="padding: 12px 0; border-bottom: 1px solid var(--yk-border); display: flex; justify-content: space-between; gap: 12px;">
+      <div>
+        <strong style="font-size: 14px;">${l.name}</strong> <span class="muted text-sm">· ${l.company || '-'}</span>
+        <div class="text-sm muted" style="margin-top: 2px;">${l.product || 'Umum'} · ${l.message ? l.message.substring(0, 60) + '...' : 'Tidak ada pesan'}</div>
+      </div>
+      <span class="pill ${l.status === 'new' ? 'pill-unpaid' : 'pill-paid'}">${l.status}</span>
+    </div>
+  `).join('') || '<p class="muted">Belum ada lead.</p>';
+
+  // Overdue invoices
+  document.getElementById('overdue-invoices').innerHTML = [...overdue, ...unpaid].slice(0, 4).map(i => {
+    const sub = i.items.reduce((s, it) => s + (it.qty * it.price), 0);
+    const tot = sub + (sub * i.ppnRate / 100);
+    return `
+      <div style="padding: 12px 0; border-bottom: 1px solid var(--yk-border);">
+        <div style="display: flex; justify-content: space-between;"><strong style="font-size: 13px;">${i.invNumber}</strong><span class="pill ${i.status === 'overdue' ? 'pill-overdue' : 'pill-unpaid'}">${i.status}</span></div>
+        <div class="text-sm muted" style="margin-top: 2px;">${i.clientName}</div>
+        <div class="text-sm" style="margin-top: 4px; font-weight: 600;">${fmtIDR(tot)} · jatuh tempo ${i.dueDate}</div>
+      </div>
+    `;
+  }).join('') || '<p class="muted">Semua invoice lunas. 🎉</p>';
+</script>
+</body>
+</html>
