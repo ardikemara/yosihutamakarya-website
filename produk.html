@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Katalog Produk · Yosi Hutama Karya</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="shared/style.css" />
+<style>
+  .prod-section { padding: 64px 0; border-top: 1px solid var(--yk-border); }
+  .prod-section:first-of-type { border-top: none; }
+  .prod-section.alt { background: var(--yk-bg-soft); }
+  .prod-head { display: grid; grid-template-columns: 1fr 1.5fr; gap: 48px; margin-bottom: 40px; }
+  @media (max-width: 800px) { .prod-head { grid-template-columns: 1fr; gap: 16px; } }
+  .prod-num { font-size: 80px; font-weight: 800; color: var(--yk-blue); line-height: 1; letter-spacing: -0.05em; }
+  .prod-num small { display: block; font-size: 11px; color: var(--yk-grey); font-weight: 600; letter-spacing: 0.2em; margin-top: 8px; text-transform: uppercase; }
+  .prod-item-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+  .prod-item {
+    background: var(--yk-white); border: 1px solid var(--yk-border); padding: 28px;
+    display: flex; flex-direction: column; gap: 16px;
+  }
+  .prod-item .item-name { font-size: 1.5rem; font-weight: 800; color: var(--yk-black); }
+  .prod-item .item-type { font-size: 11px; color: var(--yk-blue); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-top: -8px; }
+  .prod-item .stats { display: flex; gap: 12px; flex-wrap: wrap; margin: 4px 0; }
+  .prod-item .stat-pill {
+    background: var(--yk-bg-soft); border: 1px solid var(--yk-border); padding: 6px 12px;
+    font-size: 12px; font-weight: 600; color: var(--yk-charcoal);
+  }
+  .prod-item .meta { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; padding-top: 14px; border-top: 1px solid var(--yk-border); font-size: 13px; }
+  .prod-item .meta strong { display: block; font-size: 10px; letter-spacing: 0.1em; color: var(--yk-grey); text-transform: uppercase; margin-bottom: 4px; }
+</style>
+</head>
+<body>
+<div id="yk-nav"></div>
+
+<section class="section" style="padding: 60px 0 40px; background: var(--yk-black); color: #fff;">
+  <div class="container">
+    <div class="eyebrow" style="color: var(--yk-blue-light);">Katalog Produk Lengkap</div>
+    <h1 style="color: #fff; margin-top: 8px;">9 Lini Produk Yosi Hutama Karya</h1>
+    <p class="lead" style="color: rgba(255,255,255,0.7); margin-top: 16px; max-width: 720px;">Dari concrete admixture untuk pengecoran struktur sampai bonding agent untuk renovasi, semua dengan kualitas yang konsisten.</p>
+  </div>
+</section>
+
+<div id="product-list"></div>
+
+<!-- CTA STRIP -->
+<section class="cta-strip">
+  <div class="container">
+    <h2>Butuh Konsultasi Teknis?</h2>
+    <p>Tim aplikator senior siap site visit gratis ke lokasi proyek Bapak/Ibu.</p>
+    <a href="kontak.html" class="btn btn-primary btn-lg" style="background: #fff; color: var(--yk-black);">Hubungi Sales</a>
+  </div>
+</section>
+
+<div id="yk-footer"></div>
+
+<script src="shared/data.js"></script>
+<script src="shared/layout.js"></script>
+<script>
+  mountLayout('produk');
+
+  const list = document.getElementById('product-list');
+  list.innerHTML = PRODUCTS.map((p, i) => `
+    <section class="prod-section ${i % 2 ? 'alt' : ''}" id="${p.slug}">
+      <div class="container">
+        <div class="prod-head">
+          <div>
+            <div class="prod-num">${p.num}<small>${p.audience}</small></div>
+          </div>
+          <div>
+            <h2 style="margin-bottom: 12px;">${p.name}</h2>
+            <p class="lead">${p.description}</p>
+            <a href="produk-detail.html?slug=${p.slug}" class="btn btn-blue btn-sm" style="margin-top: 16px;">Lihat Detail Lengkap (Problem & Solusi) →</a>
+          </div>
+        </div>
+        <div class="prod-item-grid">
+          ${p.items.map(it => {
+            const slug = it.name.toLowerCase().replace(/[®()/]/g, '').replace(/\s+/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '');
+            return `
+            <div class="prod-item">
+              <div class="img-ph" style="aspect-ratio: 4/3;">
+                <div class="ph-name">${slug}.jpg</div>
+                <div class="ph-size">800 × 600 px (4:3)</div>
+                <div class="ph-desc">Foto: kemasan ${(it.pack||'').split(' / ')[0]}</div>
+              </div>
+              <div>
+                <div class="item-name">${it.name}</div>
+                <div class="item-type">${it.type}</div>
+              </div>
+              <p style="color: var(--yk-grey); font-size: 14px;">${it.desc}</p>
+              <div class="stats">
+                ${it.stats.map(s => `<span class="stat-pill">${s}</span>`).join('')}
+              </div>
+              <div class="meta">
+                <div><strong>Dosis</strong>${it.dose}</div>
+                <div><strong>Kemasan</strong>${it.pack}</div>
+              </div>
+              <a href="kontak.html?produk=${encodeURIComponent(it.name)}" class="btn btn-blue btn-sm" style="margin-top: 8px;">Minta Quotation →</a>
+            </div>
+          `;}).join('')}
+        </div>
+      </div>
+    </section>
+  `).join('');
+
+  // Scroll to hash if present
+  if (location.hash) {
+    setTimeout(() => {
+      const el = document.querySelector(location.hash);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 100);
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Detail Produk · Yosi Hutama Karya</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="shared/style.css" />
+</head>
+<body>
+<div id="yk-nav"></div>
+
+<!-- HERO -->
+<section class="detail-hero">
+  <div class="detail-hero-inner">
+    <a href="produk.html" class="detail-back">← Kembali ke Katalog</a>
+    <div class="num-large" id="d-num">00</div>
+    <div class="eyebrow" style="color: #93C5FD;" id="d-eyebrow">Lini Produk</div>
+    <h1 id="d-name">Produk</h1>
+    <p class="lead" id="d-desc">Deskripsi produk.</p>
+    <div class="audience" id="d-audience">Audience</div>
+  </div>
+</section>
+
+<!-- PAIN SECTION -->
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">Problem &amp; Akibat</div>
+      <h2 id="d-pain-headline">Masalah Klasik</h2>
+      <p>Tanpa solusi yang tepat, masalah-masalah ini bisa berdampak besar ke jadwal proyek, biaya, dan reputasi kontraktor.</p>
+    </div>
+
+    <div class="pain-grid" id="d-pain-grid"></div>
+
+    <!-- TRANSITION: Solution Box -->
+    <div class="solution-box">
+      <div class="arrow-circle">→</div>
+      <div>
+        <div class="sol-title" id="d-sol-title">Solusi YK</div>
+        <div class="sol-sub" id="d-sol-sub">Penjelasan singkat solusi.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOLVER SECTION -->
+<section class="section" style="background: var(--yk-bg-soft); padding-top: 0;">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">Solusi</div>
+      <h2 id="d-solver-headline">Bagaimana YK Menyelesaikannya</h2>
+      <p>Setiap masalah punya solusi spesifik dengan produk dan bukti angka yang jelas.</p>
+    </div>
+
+    <div class="solver-grid" id="d-solver-grid"></div>
+  </div>
+</section>
+
+<!-- PRODUCT ITEMS -->
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">Produk &amp; Pemesanan</div>
+      <h2 id="d-items-headline">Produk Tersedia</h2>
+      <p>Detail spesifikasi, dosis, dan kemasan untuk pemesanan.</p>
+    </div>
+
+    <div class="prod-item-grid" id="d-items-grid"></div>
+  </div>
+</section>
+
+<!-- CTA STRIP -->
+<section class="cta-strip">
+  <div class="container">
+    <h2>Tertarik dengan Produk Ini?</h2>
+    <p>Hubungi tim sales untuk quotation, sample, atau jadwalkan site visit aplikator senior.</p>
+    <a href="#" id="d-cta-link" class="btn btn-primary btn-lg" style="background: #fff; color: var(--yk-black);">Minta Penawaran</a>
+  </div>
+</section>
+
+<div id="yk-footer"></div>
+
+<style>
+  .prod-item-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+  .prod-item {
+    background: var(--yk-white); border: 1px solid var(--yk-border); padding: 28px;
+    display: flex; flex-direction: column; gap: 16px;
+  }
+  .prod-item .item-name { font-size: 1.5rem; font-weight: 800; color: var(--yk-black); }
+  .prod-item .item-type { font-size: 11px; color: var(--yk-blue); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-top: -8px; }
+  .prod-item .stats { display: flex; gap: 12px; flex-wrap: wrap; margin: 4px 0; }
+  .prod-item .stat-pill {
+    background: var(--yk-bg-soft); border: 1px solid var(--yk-border); padding: 6px 12px;
+    font-size: 12px; font-weight: 600; color: var(--yk-charcoal);
+  }
+  .prod-item .meta { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; padding-top: 14px; border-top: 1px solid var(--yk-border); font-size: 13px; }
+  .prod-item .meta strong { display: block; font-size: 10px; letter-spacing: 0.1em; color: var(--yk-grey); text-transform: uppercase; margin-bottom: 4px; }
+</style>
+
+<script src="shared/data.js"></script>
+<script src="shared/layout.js"></script>
+<script>
+  mountLayout('produk');
+
+  // Get slug from URL
+  const params = new URLSearchParams(location.search);
+  const slug = params.get('slug') || 'concrete-admixture';
+
+  const product = PRODUCTS.find(p => p.slug === slug);
+  const detail = PRODUCT_DETAILS[slug];
+
+  if (!product || !detail) {
+    document.body.innerHTML = `
+      <div style="padding: 80px 24px; text-align: center;">
+        <h1>Produk tidak ditemukan</h1>
+        <p style="margin-top: 16px;">Slug "${slug}" tidak ada. <a href="produk.html">Kembali ke katalog</a></p>
+      </div>
+    `;
+  } else {
+    // Update title
+    document.title = `${product.name} · Yosi Hutama Karya`;
+
+    // Fill hero
+    document.getElementById('d-num').textContent = product.num;
+    document.getElementById('d-eyebrow').textContent = `Lini ${product.num} / 09`;
+    document.getElementById('d-name').textContent = product.name;
+    document.getElementById('d-desc').textContent = product.description;
+    document.getElementById('d-audience').textContent = product.audience;
+
+    // Pain grid
+    document.getElementById('d-pain-headline').textContent = detail.painHeadline;
+    document.getElementById('d-pain-grid').innerHTML = detail.pains.map(p => `
+      <div class="pain-card">
+        <div class="pain-label">${p.label}</div>
+        <div class="pain-desc">${p.desc}</div>
+        <div class="pain-consequence">${p.consequence}</div>
+      </div>
+    `).join('');
+
+    // Solution box
+    document.getElementById('d-sol-title').innerHTML = `${product.name} <span style="font-size: 13px; opacity: 0.7; font-weight: 600; letter-spacing: 0.05em;">· ${product.skus.join(' · ')}</span>`;
+    document.getElementById('d-sol-sub').textContent = detail.summary;
+
+    // Solver grid
+    document.getElementById('d-solver-headline').textContent = detail.solverHeadline;
+    document.getElementById('d-solver-grid').innerHTML = detail.solvers.map(s => `
+      <div class="solver-card">
+        <div class="solver-problem">${s.problem}</div>
+        <div class="solver-headline">${s.headline}</div>
+        <div class="proof-box">
+          <div class="proof-num">${s.proofNumber}</div>
+          <div class="proof-text">${s.proofText}</div>
+        </div>
+        <div class="outcome">${s.outcome}</div>
+        <div class="product-tag">${s.tag}</div>
+      </div>
+    `).join('');
+
+    // Product items
+    document.getElementById('d-items-headline').textContent = product.skus.join(' + ');
+    document.getElementById('d-items-grid').innerHTML = product.items.map(it => `
+      <div class="prod-item">
+        <div>
+          <div class="item-name">${it.name}</div>
+          <div class="item-type">${it.type}</div>
+        </div>
+        <p style="color: var(--yk-grey); font-size: 14px;">${it.desc}</p>
+        <div class="stats">
+          ${it.stats.map(s => `<span class="stat-pill">${s}</span>`).join('')}
+        </div>
+        <div class="meta">
+          <div><strong>Dosis</strong>${it.dose}</div>
+          <div><strong>Kemasan</strong>${it.pack}</div>
+        </div>
+        <a href="kontak.html?produk=${encodeURIComponent(it.name)}" class="btn btn-blue btn-sm" style="margin-top: 8px;">Minta Quotation →</a>
+      </div>
+    `).join('');
+
+    // CTA link
+    document.getElementById('d-cta-link').href = `kontak.html?produk=${encodeURIComponent(product.name)}`;
+  }
+</script>
+</body>
+</html>

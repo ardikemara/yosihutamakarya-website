@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Kontak Sales · Yosi Hutama Karya</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="shared/style.css" />
+</head>
+<body>
+<div id="yk-nav"></div>
+
+<section class="section" style="padding: 60px 0 40px; background: var(--yk-black); color: #fff;">
+  <div class="container">
+    <div class="eyebrow" style="color: var(--yk-blue-light);">Kontak & Lead</div>
+    <h1 style="color: #fff; margin-top: 8px;">Minta Penawaran atau Konsultasi</h1>
+    <p class="lead" style="color: rgba(255,255,255,0.7); margin-top: 16px; max-width: 640px;">Isi form di bawah, tim sales kami akan menghubungi Bapak/Ibu dalam 1×24 jam kerja.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div style="display: grid; grid-template-columns: 1.4fr 1fr; gap: 48px;">
+      <div>
+        <div class="card">
+          <h3 style="margin-bottom: 8px;">Formulir Lead</h3>
+          <p class="muted" style="font-size: 14px; margin-bottom: 24px;">Data Bapak/Ibu langsung masuk ke dashboard sales kami untuk follow-up.</p>
+
+          <form id="lead-form">
+            <div class="form-grid">
+              <div>
+                <label>Nama Lengkap *</label>
+                <input type="text" name="name" required placeholder="Bapak Andi Wijaya" />
+              </div>
+              <div>
+                <label>Nama Perusahaan</label>
+                <input type="text" name="company" placeholder="PT. Karya Bangun" />
+              </div>
+              <div>
+                <label>No. Telepon / WhatsApp *</label>
+                <input type="tel" name="phone" required placeholder="0812-XXXX-XXXX" />
+              </div>
+              <div>
+                <label>Email</label>
+                <input type="email" name="email" placeholder="andi@perusahaan.com" />
+              </div>
+              <div class="full">
+                <label>Produk yang Diminati</label>
+                <select name="product">
+                  <option value="">- Pilih kategori produk -</option>
+                </select>
+              </div>
+              <div class="full">
+                <label>Estimasi Volume / Timeline Proyek</label>
+                <input type="text" name="volume" placeholder="Misal: 2 ton untuk proyek Juni 2026" />
+              </div>
+              <div class="full">
+                <label>Pesan Tambahan</label>
+                <textarea name="message" rows="4" placeholder="Jelaskan kebutuhan proyek Bapak/Ibu di sini..."></textarea>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary btn-lg" style="margin-top: 24px; width: 100%;">Kirim Permintaan</button>
+            <p class="muted text-xs mt-2 text-center">Data Anda dilindungi & hanya dipakai untuk follow-up sales.</p>
+          </form>
+        </div>
+      </div>
+
+      <div>
+        <h3 style="margin-bottom: 20px;">Kontak Langsung</h3>
+        <div class="panel" style="margin-bottom: 16px; border-left: 3px solid var(--yk-blue);">
+          <strong style="font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--yk-blue);">Telepon Sales</strong>
+          <div style="font-size: 1.25rem; font-weight: 700; color: var(--yk-black); margin-top: 4px;">+62 21 475 7386</div>
+          <div class="muted text-sm">Senin–Jumat, 08:30–17:00 WIB</div>
+        </div>
+        <div class="panel" style="margin-bottom: 16px;">
+          <strong style="font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--yk-grey);">Email</strong>
+          <div style="font-weight: 600; margin-top: 4px;">info@yosihutamankarya.com</div>
+        </div>
+        <div class="panel" style="margin-bottom: 16px;">
+          <strong style="font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--yk-grey);">WhatsApp</strong>
+          <div style="font-weight: 600; margin-top: 4px;">0812-XXXX-XXXX (Sales)</div>
+        </div>
+        <div class="panel">
+          <strong style="font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--yk-grey);">Kunjungi Kantor</strong>
+          <div class="text-sm mt-2" style="line-height: 1.6;">Jl. Jend. Ahmad Yani Kav. 3,<br/>Kel. Kayu Putih, Kec. Pulo Gadung,<br/>Jakarta Timur 13210, Indonesia</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div id="yk-footer"></div>
+
+<script src="shared/data.js"></script>
+<script src="shared/db.js"></script>
+<script src="shared/layout.js"></script>
+<script>
+  mountLayout('kontak');
+
+  // Populate product dropdown
+  const sel = document.querySelector('select[name="product"]');
+  PRODUCTS.forEach(p => {
+    const opt = document.createElement('option');
+    opt.value = p.name; opt.textContent = p.name;
+    sel.appendChild(opt);
+  });
+
+  // Pre-fill from query string
+  const params = new URLSearchParams(location.search);
+  if (params.get('produk')) {
+    const productName = params.get('produk');
+    // Find matching product line
+    const matchingProduct = PRODUCTS.find(p => p.items.some(i => i.name === productName)) ||
+                            PRODUCTS.find(p => p.name === productName);
+    if (matchingProduct) sel.value = matchingProduct.name;
+    document.querySelector('textarea[name="message"]').value = `Mohon penawaran untuk: ${productName}`;
+  }
+
+  // Submit handler
+  document.getElementById('lead-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const fd = new FormData(e.target);
+    const lead = Object.fromEntries(fd.entries());
+    DB.addLead(lead);
+    showToast('✓ Permintaan terkirim! Tim sales akan menghubungi Anda dalam 1×24 jam.', 'success');
+    e.target.reset();
+  });
+</script>
+</body>
+</html>
