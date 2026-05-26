@@ -28,10 +28,9 @@ const PRODUCTS = [
     audience: 'Kontraktor · Ready-mix Plant · Precaster',
     headline: 'Beton kuat tekan tinggi, setting cepat.',
     description: 'Bahan tambah beton untuk kuat tekan tinggi, setting cepat, dan durability maksimal, siap pakai untuk pelat, pondasi, kolom, jembatan, dan precast.',
-    skus: ['YK NN®', 'YK Fume®'],
+    skus: ['YK NN®'],
     items: [
-      { name: 'YK NN®', type: 'Superplasticizer', desc: 'Pengurang air & percepatan setting beton.', stats: ['−20% air', '+40% kuat tekan', '12 jam kekuatan tinggi'], dose: '0.30 – 2.30% berat semen', pack: 'Drum 240kg / Bulk 1000kg' },
-      { name: 'YK Fume®', type: 'Silica Fume', desc: 'Meningkatkan kepadatan, durability, & kuat tekan beton struktural premium.', stats: ['Daya tahan ↑↑', 'Resapan klorin ↓', 'Bebas klorin'], dose: '3 – 10% berat semen', pack: 'Bag 20kg' }
+      { name: 'YK NN®', type: 'Superplasticizer', desc: 'Pengurang air & percepatan setting beton.', stats: ['−20% air', '+40% kuat tekan', '12 jam kekuatan tinggi'], dose: '0.30 – 2.30% berat semen', pack: 'Drum 240kg / Bulk 1000kg', tds: 'TDS-YK-NN-charcoal.html' }
     ]
   },
   {
@@ -41,10 +40,9 @@ const PRODUCTS = [
     audience: 'Tukang batu · Kontraktor renovasi · Toko bangunan',
     headline: 'Tambal bocor seketika, daya rekat tinggi.',
     description: 'Aditif mortar untuk tambal bocor seketika, daya rekat tinggi, dan mortar bebas retak.',
-    skus: ['YK Accelerator®', 'YK Latex®'],
+    skus: ['YK Accelerator®'],
     items: [
-      { name: 'YK Accelerator®', type: 'Penyumbat Bocor', desc: 'Aditif penyumbat bocor seketika: basement, watertank, retakan tekanan tinggi.', stats: ['Setting seketika', 'Daya rekat kuat', 'Susut kecil'], dose: 'Rasio 1:2 – 1:5 dengan air', pack: 'Drum 200kg / Can 20kg' },
-      { name: 'YK Latex®', type: 'Bonding Agent SBR', desc: 'Emulsi SBR untuk patching, screed, rendering, perekat keramik/batu alam, & beton lama-baru.', stats: ['Tahan air ↑', 'Tahan abrasi', 'Non-toksik'], dose: 'Rasio 1:1 – 1:4 dengan air', pack: 'Jerrycan 20kg / Drum 200kg' }
+      { name: 'YK Accelerator®', type: 'Penyumbat Bocor', desc: 'Aditif penyumbat bocor seketika: basement, watertank, retakan tekanan tinggi.', stats: ['Setting seketika', 'Daya rekat kuat', 'Susut kecil'], dose: 'Rasio 1:2 – 1:5 dengan air', pack: 'Drum 200kg / Can 20kg' }
     ]
   },
   {
@@ -152,26 +150,20 @@ const PRODUCT_DETAILS = {
     solverHeadline: 'Bagaimana Concrete Admixture Menyelesaikan 4 Masalah Itu',
     solvers: [
       { problem: 'Beton lambat mengeras', headline: 'Reaksi pengerasan dipercepat tanpa perlu retarder.', proofNumber: '12 JAM', proofText: 'kuat tekan tinggi sudah tercapai', outcome: 'Bekisting cepat dibongkar, jadwal proyek tetap on-track.', tag: 'YK NN®' },
-      { problem: 'Mutu kurang konsisten', headline: 'Reduksi air maksimal + kepadatan beton ditingkatkan.', proofNumber: '+40%', proofText: 'kuat tekan di 28 hari', outcome: 'Mutu beton stabil tiap pengecoran, hasil test core terjamin.', tag: 'YK NN® + YK Fume®' },
+      { problem: 'Mutu kurang konsisten', headline: 'Reduksi air maksimal + kepadatan beton ditingkatkan.', proofNumber: '+40%', proofText: 'kuat tekan di 28 hari', outcome: 'Mutu beton stabil tiap pengecoran, hasil test core terjamin.', tag: 'YK NN®' },
       { problem: 'Boros air', headline: 'Superplasticizer jaga workability tinggi dengan air lebih sedikit.', proofNumber: '−20%', proofText: 'kebutuhan air saat mixing', outcome: 'w/c ratio turun, susut & retak minim, kuat tekan justru naik.', tag: 'YK NN®' },
-      { problem: 'Korosi tulangan', headline: 'Formula bebas klorin + Silica Fume mengunci pori beton.', proofNumber: '0% Cl⁻', proofText: '+ resapan air & gas ↓', outcome: 'Tulangan terlindungi, umur pakai struktur jauh lebih panjang.', tag: 'YK Fume®' }
+      { problem: 'Korosi tulangan', headline: 'Formula bebas klorin + w/c ratio rendah mengunci pori beton.', proofNumber: '0% Cl⁻', proofText: '+ resapan air & gas ↓', outcome: 'Tulangan terlindungi, umur pakai struktur jauh lebih panjang.', tag: 'YK NN®' }
     ]
   },
   'mortar-admixture': {
     painHeadline: 'Masalah Klasik di Pekerjaan Mortar & Waterproofing',
     pains: [
-      { label: 'Bocor air aktif', desc: 'Air terus mengalir dari basement, dak, atau watertank, mortar biasa tidak bisa nempel.', consequence: 'Aktivitas proyek terganggu, finishing rusak, biaya perbaikan berulang.' },
-      { label: 'Lapisan baru tidak nempel', desc: 'Plesteran, screed, atau patching gampang lepas dari beton lama yang sudah halus.', consequence: 'Patching berulang kali, mortar terbuang, biaya tenaga membengkak.' },
-      { label: 'Mortar gampang retak', desc: 'Susut tinggi setelah kering, muncul retak rambut di plesteran & screed.', consequence: 'Rework cat & finishing, klien komplain, garansi pekerjaan tergerus.' },
-      { label: 'Keramik & batu alam lepas', desc: 'Perekat semen biasa kurang tahan air, keramik popping atau nat retak.', consequence: 'Renovasi ulang, lantai bocor, reputasi tukang & toko bahan turun.' }
+      { label: 'Bocor air aktif', desc: 'Air terus mengalir dari basement, dak, atau watertank, mortar biasa tidak bisa nempel.', consequence: 'Aktivitas proyek terganggu, finishing rusak, biaya perbaikan berulang.' }
     ],
-    summary: 'Aditif mortar untuk tambal bocor seketika, daya rekat tinggi, & mortar bebas retak, siap pakai untuk tukang batu, kontraktor renovasi, dan toko bangunan.',
-    solverHeadline: 'Bagaimana Mortar Admixture Menyelesaikan 4 Masalah Itu',
+    summary: 'Aditif mortar untuk tambal bocor seketika, siap pakai untuk tukang batu, kontraktor renovasi, dan toko bangunan.',
+    solverHeadline: 'Bagaimana Mortar Admixture Menyelesaikan Masalah Itu',
     solvers: [
-      { problem: 'Bocor air aktif', headline: 'YK Accelerator® set seketika, tambal sambil air masih mengalir.', proofNumber: 'SEKETIKA', proofText: 'set di rasio 1:2 sampai 1:5', outcome: 'Bocor langsung berhenti, basement & watertank kering.', tag: 'YK Accelerator®' },
-      { problem: 'Lapisan baru tidak nempel', headline: 'YK Latex® (SBR) meningkatkan daya rekat ke beton lama.', proofNumber: 'SBR Bond', proofText: 'perekat beton lama ↔ baru', outcome: 'Patching, screed, & rendering nempel kuat, gak gampang lepas.', tag: 'YK Latex®' },
-      { problem: 'Mortar gampang retak', headline: 'YK Latex® menurunkan susut & meningkatkan elastisitas mortar.', proofNumber: 'Susut ↓', proofText: '+ elastisitas mortar naik', outcome: 'Plesteran & screed bebas retak rambut, finishing rapi.', tag: 'YK Latex®' },
-      { problem: 'Keramik lepas / nat retak', headline: 'YK Latex® bikin perekat keramik tahan air & abrasi.', proofNumber: 'Tahan Air ↑', proofText: '+ tahan abrasi & non-toksik', outcome: 'Keramik & batu alam menempel kuat, nat tidak gampang retak.', tag: 'YK Latex®' }
+      { problem: 'Bocor air aktif', headline: 'YK Accelerator® set seketika, tambal sambil air masih mengalir.', proofNumber: 'SEKETIKA', proofText: 'set di rasio 1:2 sampai 1:5', outcome: 'Bocor langsung berhenti, basement & watertank kering.', tag: 'YK Accelerator®' }
     ]
   },
   'ready-mix-mortar': {
@@ -582,7 +574,6 @@ Yth. Bapak/Ibu [NAMA],
 Perkenalkan, kami dari PT. Yosi Hutama Karya, produsen lokal aditif konstruksi merek YK. Kami melihat bahwa [NAMA_PERUSAHAAN] sedang menggarap proyek [NAMA_PROYEK], dan ingin menawarkan dukungan material konstruksi yang mungkin relevan:
 
 • YK NN® Superplasticizer, reduksi air 20%, kuat tekan +40%
-• YK Fume® Silica Fume, durability tinggi untuk struktur premium
 • YK Proof® Waterproofing, tahan UV, anti bocor jangka panjang
 
 Kami menyediakan layanan teknis lengkap: site visit gratis, sample untuk uji lab, dan konsultasi aplikasi di lapangan.

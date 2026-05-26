@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Technical Data Sheet · YK NN® (Charcoal)</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  /* ===== PRINT ===== */
+  @page {
+    size: A4;
+    margin: 12mm 12mm 14mm 12mm;
+    @bottom-left {
+      content: "PT. YOSI HUTAMA KARYA · yosihutamakarya.com";
+      font-family: 'Inter', sans-serif; font-size: 8pt; color: #6B7280;
+    }
+    @bottom-right {
+      content: "TDS · YK NN® · Page " counter(page) " of " counter(pages);
+      font-family: 'Inter', sans-serif; font-size: 8pt; color: #6B7280;
+    }
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+    color: #1F2937;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    background: #E5E7EB;
+    padding: 24px 16px 64px;
+    min-height: 100vh;
+  }
+
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    margin: 0 auto 24px;
+    background: #FFFFFF;
+    padding: 12mm 12mm 14mm 12mm;
+    box-shadow: 0 4px 24px rgba(10,10,10,0.12);
+    font-size: 9.5pt;
+    line-height: 1.5;
+    color: #1F2937;
+  }
+  .page:last-of-type { margin-bottom: 0; }
+
+  /* DOWNLOAD BUTTON */
+  .download-btn {
+    position: fixed;
+    top: 20px; right: 20px;
+    background: #1E40AF; color: #FFFFFF;
+    padding: 12px 20px;
+    font-size: 13px; font-weight: 700;
+    letter-spacing: 0.05em; text-transform: uppercase;
+    text-decoration: none;
+    box-shadow: 0 4px 16px rgba(30,64,175,0.4);
+    transition: all 0.2s;
+    z-index: 100;
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: 'Inter', sans-serif;
+  }
+  .download-btn:hover {
+    background: #1E3A8A;
+    box-shadow: 0 6px 20px rgba(30,64,175,0.5);
+    transform: translateY(-1px);
+  }
+  .download-btn .icon { font-size: 16px; }
+
+  @media print {
+    body { background: #FFFFFF; padding: 0; }
+    .page {
+      width: auto; height: auto; min-height: 0;
+      margin: 0; padding: 0; box-shadow: none;
+    }
+    .page-break { page-break-after: always; }
+    .download-btn { display: none; }
+  }
+
+  /* HEADER */
+  .doc-header {
+    display: flex; justify-content: space-between; align-items: center;
+    border-bottom: 3px solid #4A4A4A;
+    padding-bottom: 10px; margin-bottom: 16px;
+    gap: 16px;
+  }
+  .brand { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+  .brand-mark { width: 50px; height: 50px; flex-shrink: 0; }
+  .brand-mark img { width: 100%; height: 100%; object-fit: contain; display: block; }
+  .brand-text { white-space: nowrap; }
+  .brand-text .brand-name {
+    font-size: 11pt; font-weight: 800; color: #4A4A4A;
+    letter-spacing: -0.01em; line-height: 1.1;
+    white-space: nowrap;
+  }
+  .brand-text .brand-tag {
+    font-size: 7.5pt; font-weight: 700; color: #1E40AF;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    margin-top: 3px; white-space: nowrap;
+  }
+  .doc-meta {
+    text-align: right; font-size: 8pt; color: #6B7280;
+    line-height: 1.55; flex-shrink: 0;
+  }
+  .doc-meta .doc-type {
+    font-size: 7.5pt; font-weight: 700; color: #1E40AF;
+    letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 3px;
+  }
+  .doc-meta .doc-rev { color: #4A4A4A; font-weight: 600; }
+
+  .doc-header.compact { padding-bottom: 8px; margin-bottom: 14px; }
+  .doc-header.compact .brand-mark { width: 40px; height: 40px; }
+
+  /* HERO */
+  .hero {
+    background: #4A4A4A; color: #FFFFFF;
+    padding: 22px 24px; margin-bottom: 18px;
+    display: grid; grid-template-columns: 1fr auto;
+    align-items: end; gap: 16px;
+  }
+  .hero .eyebrow {
+    font-size: 8pt; font-weight: 700; color: #3B82F6;
+    letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 8px;
+  }
+  .hero h1 {
+    font-size: 26pt; font-weight: 800;
+    letter-spacing: -0.025em; line-height: 1.05;
+    margin-bottom: 8px;
+  }
+  .hero h1 sup { font-size: 11pt; vertical-align: super; color: #3B82F6; }
+  .hero .subtitle {
+    font-size: 10.5pt; color: #E5E7EB; font-weight: 400;
+    line-height: 1.4; max-width: 480px;
+  }
+  .hero .product-code {
+    text-align: right;
+    border-left: 1px solid rgba(255,255,255,0.18);
+    padding-left: 16px;
+  }
+  .hero .product-code .label {
+    font-size: 7pt; font-weight: 700; color: #9CA3AF;
+    letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 4px;
+  }
+  .hero .product-code .code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13pt; font-weight: 700; color: #FFFFFF;
+  }
+
+  /* MINI HERO (page 2) */
+  .mini-hero {
+    border-left: 4px solid #1E40AF;
+    padding: 4px 0 4px 12px; margin-bottom: 10px;
+    display: flex; align-items: baseline; gap: 12px;
+  }
+  .mini-hero .mh-name {
+    font-size: 14pt; font-weight: 800; color: #4A4A4A;
+    letter-spacing: -0.01em;
+  }
+  .mini-hero .mh-name sup { font-size: 7pt; vertical-align: super; color: #1E40AF; }
+  .mini-hero .mh-sub { font-size: 9pt; color: #6B7280; font-weight: 500; }
+  .mini-hero .mh-cont {
+    margin-left: auto; font-size: 7.5pt; font-weight: 700;
+    color: #6B7280; letter-spacing: 0.18em; text-transform: uppercase;
+  }
+
+  /* SECTIONS */
+  .section { margin-bottom: 14px; page-break-inside: avoid; }
+  .section:last-of-type { margin-bottom: 0; }
+  .section-head {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 8px; padding-bottom: 4px;
+    border-bottom: 1px solid #E5E7EB;
+  }
+  .section-num {
+    width: 22px; height: 22px;
+    background: #1E40AF; color: #FFFFFF;
+    font-size: 9pt; font-weight: 800;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'JetBrains Mono', monospace;
+    flex-shrink: 0;
+  }
+  .section h2 {
+    font-size: 11pt; font-weight: 800; color: #4A4A4A;
+    letter-spacing: 0.04em; text-transform: uppercase; margin: 0;
+  }
+  .section p { margin-bottom: 0; }
+  .section > *:last-child { margin-bottom: 0; }
+
+  .subhead {
+    font-size: 9pt; font-weight: 700; color: #1E40AF;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    margin-top: 0; margin-bottom: 6px;
+  }
+  .subhead + .subhead { margin-top: 8px; }
+
+  ul.feature-list { list-style: none; padding-left: 0; margin: 0; }
+  ul.feature-list li {
+    padding-left: 16px; position: relative;
+    margin-bottom: 4px; line-height: 1.45;
+  }
+  ul.feature-list li:last-child { margin-bottom: 0; }
+  ul.feature-list li:before {
+    content: "▪"; position: absolute; left: 2px;
+    color: #1E40AF; font-weight: 700;
+  }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+
+  /* CALLOUT */
+  .callout {
+    background: #FAFAF7; border-left: 4px solid #1E40AF;
+    padding: 12px 16px; margin: 0 0 8px 0;
+  }
+  .callout:last-child { margin-bottom: 0; }
+  .callout .callout-label {
+    font-size: 7.5pt; font-weight: 700; color: #6B7280;
+    letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 4px;
+  }
+  .callout .callout-value {
+    font-size: 14pt; font-weight: 800; color: #4A4A4A;
+    letter-spacing: -0.01em;
+  }
+  .callout .callout-note { font-size: 8.5pt; color: #6B7280; margin-top: 3px; }
+
+  /* TECH TABLE */
+  .tech-table {
+    width: 100%; border-collapse: collapse;
+    margin-top: 6px; font-size: 9pt;
+  }
+  .tech-table th {
+    background: #4A4A4A; color: #FFFFFF; text-align: left;
+    padding: 8px 14px; font-size: 8pt; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase;
+  }
+  .tech-table td {
+    padding: 8px 14px; border-bottom: 1px solid #E5E7EB; background: #FFFFFF;
+  }
+  .tech-table tr:nth-child(even) td { background: #FAFAF7; }
+  .tech-table td.label {
+    font-weight: 700; color: #4A4A4A; width: 40%;
+    letter-spacing: 0.04em; text-transform: uppercase; font-size: 8.5pt;
+  }
+  .tech-table td.value {
+    color: #1F2937; font-family: 'JetBrains Mono', monospace; font-size: 9.5pt;
+  }
+
+  /* PACKAGING */
+  .pack-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 6px; }
+  .pack-card { border: 1px solid #E5E7EB; padding: 14px 16px; background: #FFFFFF; }
+  .pack-card .pack-label {
+    font-size: 7.5pt; font-weight: 700; color: #6B7280;
+    letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 4px;
+  }
+  .pack-card .pack-value {
+    font-size: 15pt; font-weight: 800; color: #4A4A4A;
+    letter-spacing: -0.01em;
+  }
+  .pack-card .pack-sub { font-size: 8pt; color: #6B7280; margin-top: 2px; }
+
+  /* FOOTER NOTE */
+  .footer-note {
+    margin-top: 12px; padding: 11px 14px;
+    background: #FAFAF7; border: 1px solid #E5E7EB;
+    font-size: 7.5pt; color: #6B7280; line-height: 1.5;
+  }
+  .footer-note strong { color: #4A4A4A; }
+
+  /* CONTACT STRIP */
+  .contact-strip {
+    margin-top: 10px; padding: 14px 18px;
+    background: #1E40AF; color: #FFFFFF;
+    display: grid; grid-template-columns: 1fr auto;
+    align-items: center;
+  }
+  .contact-strip .ct-title {
+    font-size: 11pt; font-weight: 800; letter-spacing: -0.01em;
+  }
+  .contact-strip .ct-sub { font-size: 8.5pt; color: #BFDBFE; margin-top: 2px; }
+  .contact-strip .ct-web {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10pt; font-weight: 700; color: #FFFFFF;
+    letter-spacing: 0.02em;
+  }
+</style>
+</head>
+<body>
+
+<a href="TDS-YK-NN.pdf" download="TDS-YK-NN.pdf" class="download-btn">
+  <span class="icon">↓</span> Download PDF
+</a>
+
+<!-- =============== PAGE 1 =============== -->
+<div class="page page-break">
+
+  <!-- HEADER -->
+  <div class="doc-header">
+    <div class="brand">
+      <div class="brand-mark"><img src="assets/logo-yk.png" alt="YK"></div>
+      <div class="brand-text">
+        <div class="brand-name">PT. YOSI HUTAMA KARYA</div>
+        <div class="brand-tag">Build · Protect · Perform</div>
+      </div>
+    </div>
+    <div class="doc-meta">
+      <div class="doc-type">Technical Data Sheet</div>
+      <div>Rev. <span class="doc-rev">01 / 2026</span></div>
+      <div>yosihutamakarya.com</div>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div>
+      <div class="eyebrow">Concrete Admixture · Superplasticizer</div>
+      <h1>YK NN<sup>®</sup></h1>
+      <div class="subtitle">Superplasticizer dengan pengurang air dalam jumlah besar &amp; mempercepat pengerasan beton.</div>
+    </div>
+    <div class="product-code">
+      <div class="label">Product Code</div>
+      <div class="code">YK–NN</div>
+    </div>
+  </div>
+
+  <!-- 01 DESKRIPSI -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-num">01</div>
+      <h2>Deskripsi</h2>
+    </div>
+    <p>Cairan Superplasticizer yang sangat efektif dengan aksi ganda untuk produksi beton yang mengalir atau bahan untuk mengurangi air beton, untuk membantu menghasilkan kekuatan awal dan kekuatan akhir tinggi. <strong>Bebas klorin.</strong></p>
+  </div>
+
+  <!-- 02 KEGUNAAN -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-num">02</div>
+      <h2>Kegunaan</h2>
+    </div>
+    <div class="two-col">
+      <div>
+        <div class="subhead">Sebagai Superplasticizer — Beton Mengalir</div>
+        <ul class="feature-list">
+          <li>Pelat dan pondasi</li>
+          <li>Dinding, kolom dan dermaga</li>
+          <li>Bangunan ramping dengan penulangan rapat</li>
+          <li>Permukaan berfinishing tekstur</li>
+        </ul>
+      </div>
+      <div>
+        <div class="subhead">Sebagai Pengurang Air — Beton Kekuatan Tinggi</div>
+        <ul class="feature-list">
+          <li>Beton pra-cetak</li>
+          <li>Beton pra-tekan</li>
+          <li>Jembatan &amp; struktur penyangga</li>
+          <li>Area dimana cetakan harus cepat dipindahkan / segera dibebani</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 03 KARAKTERISTIK -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-num">03</div>
+      <h2>Karakteristik &amp; Keuntungan</h2>
+    </div>
+    <div class="two-col">
+      <div>
+        <div class="subhead">Sebagai Superplasticizer</div>
+        <ul class="feature-list">
+          <li>Meningkatkan kelecakan, memudahkan pengecoran untuk struktur ramping dengan penulangan rapat</li>
+          <li>Mengurangi jumlah getaran yang dibutuhkan; waktu pengerasan normal, tanpa perlambatan</li>
+          <li>Mengurangi resiko pemisahan</li>
+        </ul>
+      </div>
+      <div>
+        <div class="subhead">Sebagai Pengurang Air</div>
+        <ul class="feature-list">
+          <li>Pengurangan air hingga <strong>20%</strong> — memberikan peningkatan <strong>40%</strong> kekuatan tekan dalam 28 hari</li>
+          <li>Kekuatan tinggi setelah 12 jam</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 04 KONSUMSI -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-num">04</div>
+      <h2>Konsumsi (Dosis)</h2>
+    </div>
+    <div class="callout">
+      <div class="callout-label">Dosis Standar</div>
+      <div class="callout-value">± 0.30% – 2.30%</div>
+      <div class="callout-note">dari berat semen, tergantung pada kelecakan yang dikehendaki.</div>
+    </div>
+    <ul class="feature-list">
+      <li>Dengan <strong>pasir silica</strong>: dosis <strong>0.60% – 1.80%</strong> dari berat semen untuk aplikasi beton pra-cetak.</li>
+      <li>Dengan <strong>pasir olahan / pasir vulkanik</strong>: dosis <strong>0.80% – 2.30%</strong> dari berat material semen untuk aplikasi beton pra-cetak.</li>
+    </ul>
+  </div>
+
+</div>
+
+<!-- =============== PAGE 2 =============== -->
+<div class="page">
+
+  <!-- COMPACT HEADER -->
+  <div class="doc-header compact">
+    <div class="brand">
+      <div class="brand-mark"><img src="assets/logo-yk.png" alt="YK"></div>
+      <div class="brand-text">
+        <div class="brand-name">PT. YOSI HUTAMA KARYA</div>
+        <div class="brand-tag">Build · Protect · Perform</div>
+      </div>
+    </div>
+    <div class="doc-meta">
+      <div class="doc-type">Technical Data Sheet</div>
+      <div>Rev. <span class="doc-rev">01 / 2026</span> · Page 2 of 2</div>
+      <div>yosihutamakarya.com</div>
+    </div>
+  </div>
+
+  <!-- 05 PENCAMPURAN -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-num">05</div>
+      <h2>Pencampuran</h2>
+    </div>
+    <p>YK NN dapat ditambahkan ke air adukan sebelum dicampurkan dengan aggregat, atau ditambahkan ke beton yang baru diaduk. Bila ditambahkan pada beton yang baru diaduk, efek <em>plasticizing</em> akan lebih terlihat. Untuk beton <strong>ready-mix</strong>, tambahkan YK NN ke beton sebelum penuangan dan aduk lebih lanjut selama <strong>3 – 5 menit</strong>.</p>
+  </div>
+
+  <!-- 06 DATA TEKNIS -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-num">06</div>
+      <h2>Data Teknis</h2>
+    </div>
+    <table class="tech-table">
+      <thead><tr><th>Parameter</th><th>Nilai</th></tr></thead>
+      <tbody>
+        <tr><td class="label">Warna</td><td class="value">Coklat Tua</td></tr>
+        <tr><td class="label">Berat Jenis</td><td class="value">± 1.18 – 1.20 kg/liter</td></tr>
+        <tr><td class="label">Kandungan Klorin</td><td class="value">Bebas Klorin</td></tr>
+        <tr><td class="label">Bentuk</td><td class="value">Cairan</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 07 UMUR & PENYIMPANAN -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-num">07</div>
+      <h2>Umur &amp; Penyimpanan</h2>
+    </div>
+    <p>Minimal <strong>1 (satu) tahun</strong>, bila disimpan dalam kemasan asli yang belum dibuka, pada tempat <strong>kering, sejuk, dan teduh</strong>, terhindar dari sinar matahari langsung.</p>
+  </div>
+
+  <!-- 08 KEMASAN -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-num">08</div>
+      <h2>Kemasan</h2>
+    </div>
+    <div class="pack-grid">
+      <div class="pack-card">
+        <div class="pack-label">Drum</div>
+        <div class="pack-value">240 kg</div>
+        <div class="pack-sub">Kemasan standar</div>
+      </div>
+      <div class="pack-card">
+        <div class="pack-label">Bulk</div>
+        <div class="pack-value">1.000 kg</div>
+        <div class="pack-sub">IBC tank / pesanan proyek</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DISCLAIMER -->
+  <div class="footer-note">
+    <strong>Disclaimer:</strong> Informasi pada lembar data ini berdasarkan pengetahuan dan pengalaman kami terkini. Pengguna bertanggung jawab atas kesesuaian produk untuk aplikasi spesifiknya, dan disarankan melakukan uji coba lapangan terlebih dahulu. PT. Yosi Hutama Karya berhak mengubah spesifikasi tanpa pemberitahuan terlebih dahulu. Untuk MSDS dan rekomendasi teknis lanjutan, silakan hubungi technical service kami.
+  </div>
+
+  <!-- CONTACT STRIP -->
+  <div class="contact-strip">
+    <div>
+      <div class="ct-title">PT. YOSI HUTAMA KARYA</div>
+      <div class="ct-sub">Technical Service · Sales · Quotation</div>
+    </div>
+    <div class="ct-web">yosihutamakarya.com</div>
+  </div>
+
+</div>
+
+</body>
+</html>

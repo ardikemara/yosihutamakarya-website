@@ -4,15 +4,40 @@
    =========================================== */
 
 function renderNav(activeKey) {
+  // Build product dropdown from PRODUCTS array (loaded from shared/data.js)
+  const produkDropdown = (typeof PRODUCTS !== 'undefined' && PRODUCTS.length) ? `
+    <div class="nav-dropdown">
+      <div class="nav-dropdown-inner">
+        ${PRODUCTS.map(p => `
+          <a href="produk-detail.html?slug=${p.slug}" class="nav-dd-item">
+            <span class="nav-dd-num">${p.num}</span>
+            <span class="nav-dd-text">
+              <span class="nav-dd-name">${p.name}</span>
+              <span class="nav-dd-audience">${p.audience}</span>
+            </span>
+          </a>
+        `).join('')}
+      </div>
+      <a href="produk.html" class="nav-dd-all">Lihat semua produk →</a>
+    </div>
+  ` : '';
+
   const links = [
-    { key: 'home', href: 'index.html', label: 'Beranda' },
-    { key: 'produk', href: 'produk.html', label: 'Produk' },
-    { key: 'tentang', href: 'tentang.html', label: 'Tentang' },
-    { key: 'kontak', href: 'kontak.html', label: 'Kontak' },
+    { key: 'home', href: 'index.html', label: 'Beranda', dropdown: '' },
+    { key: 'produk', href: 'produk.html', label: 'Produk', dropdown: produkDropdown },
+    { key: 'tentang', href: 'tentang.html', label: 'Tentang', dropdown: '' },
+    { key: 'kontak', href: 'kontak.html', label: 'Kontak', dropdown: '' },
   ];
-  const linksHTML = links.map(l =>
-    `<a href="${l.href}" class="${l.key === activeKey ? 'active' : ''}">${l.label}</a>`
-  ).join('');
+  const linksHTML = links.map(l => {
+    const activeCls = l.key === activeKey ? 'active' : '';
+    if (l.dropdown) {
+      return `<div class="has-dropdown">
+        <a href="${l.href}" class="${activeCls}">${l.label} <span class="nav-caret">▾</span></a>
+        ${l.dropdown}
+      </div>`;
+    }
+    return `<a href="${l.href}" class="${activeCls}">${l.label}</a>`;
+  }).join('');
 
   return `
     <nav class="nav">

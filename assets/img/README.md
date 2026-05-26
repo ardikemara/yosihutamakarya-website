@@ -45,7 +45,6 @@ Foto kemasan per SKU. Aspect ratio 4:3. Filename sesuai nama produk (lowercase, 
 | File | SKU | Konten |
 |---|---|---|
 | `yk-nn.jpg` | YK NN® | Drum 240kg superplasticizer |
-| `yk-fume.jpg` | YK Fume® | Bag 20kg silica fume |
 | `yk-accelerator.jpg` | YK Accelerator® | Can 20kg / Drum 200kg |
 | `yk-latex.jpg` | YK Latex® | Jerrycan 20kg / Drum 200kg |
 | `yk-seal-127.jpg` | YK Seal 127® | Zak 23kg + Can 10kg (2-komponen) |

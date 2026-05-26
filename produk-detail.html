@@ -19,6 +19,7 @@
     <h1 id="d-name">Produk</h1>
     <p class="lead" id="d-desc">Deskripsi produk.</p>
     <div class="audience" id="d-audience">Audience</div>
+    <div id="d-hero-actions" style="margin-top: 24px; display: flex; gap: 12px; flex-wrap: wrap;"></div>
   </div>
 </section>
 
@@ -96,12 +97,63 @@
   }
   .prod-item .meta { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; padding-top: 14px; border-top: 1px solid var(--yk-border); font-size: 13px; }
   .prod-item .meta strong { display: block; font-size: 10px; letter-spacing: 0.1em; color: var(--yk-grey); text-transform: uppercase; margin-bottom: 4px; }
+
+  /* Override shared grid: real gap between cards (not 1px-border trick) */
+  .pain-grid,
+  .solver-grid {
+    gap: 20px;
+    background: transparent;
+    border: none;
+  }
+  .pain-card,
+  .solver-card {
+    border: 1px solid var(--yk-border);
+  }
+
+  /* Card-edge image placeholders (snap to top of pain/solver/product cards) */
+  .pain-card > .img-ph,
+  .solver-card > .img-ph {
+    margin: -28px -24px 4px;
+    width: calc(100% + 48px); /* compensate horizontal padding 24px × 2 */
+    aspect-ratio: 1 / 1;
+    border: none;
+    border-bottom: 2px dashed var(--yk-border);
+    background: var(--yk-cream);
+    padding: 14px 12px;
+    overflow: hidden;
+  }
+  .prod-item > .img-ph {
+    margin: -28px -28px 4px;
+    width: calc(100% + 56px); /* compensate horizontal padding 28px × 2 */
+    aspect-ratio: 1 / 1;
+    border: none;
+    border-bottom: 2px dashed var(--yk-border);
+    background: var(--yk-cream);
+    padding: 16px 14px;
+    overflow: hidden;
+  }
+  .pain-card > .img-ph .ph-name,
+  .solver-card > .img-ph .ph-name { color: var(--yk-blue); }
+  /* Real image loaded on top of placeholder. If 404, <img> is removed via onerror. */
+  .img-ph .ph-real {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+  }
 </style>
 
 <script src="shared/data.js"></script>
 <script src="shared/layout.js"></script>
 <script>
   mountLayout('produk');
+
+  // Cascading image fallback: try .jpg → .png → remove (show placeholder)
+  function phFallback(el) {
+    if (el.dataset.fb) { el.remove(); return; }
+    el.dataset.fb = '1';
+    el.src = el.src.replace(/\.jpg(\?.*)?$/, '.png');
+  }
 
   // Get slug from URL
   const params = new URLSearchParams(location.search);
@@ -128,10 +180,27 @@
     document.getElementById('d-desc').textContent = product.description;
     document.getElementById('d-audience').textContent = product.audience;
 
+    // Hero actions: Technical Data Sheet buttons (one per item that has tds)
+    const itemsWithTds = product.items.filter(it => it.tds);
+    if (itemsWithTds.length) {
+      const multi = product.items.length > 1;
+      document.getElementById('d-hero-actions').innerHTML = itemsWithTds.map(it => `
+        <a href="${it.tds}" target="_blank" rel="noopener" class="btn btn-sm" style="background: #fff; color: var(--yk-black);">
+          Technical Data System${multi ? ' · ' + it.name : ''} ↗
+        </a>
+      `).join('');
+    }
+
     // Pain grid
     document.getElementById('d-pain-headline').textContent = detail.painHeadline;
-    document.getElementById('d-pain-grid').innerHTML = detail.pains.map(p => `
+    document.getElementById('d-pain-grid').innerHTML = detail.pains.map((p, i) => `
       <div class="pain-card">
+        <div class="img-ph">
+          <img class="ph-real" src="assets/img/produk-detail/${slug}-masalah-${i + 1}.jpg" alt="${p.label}" onerror="phFallback(this)">
+          <div class="ph-name">${slug}-masalah-${i + 1}.jpg</div>
+          <div class="ph-size">FOTO MASALAH · 16:9</div>
+          <div class="ph-desc">${p.label}</div>
+        </div>
         <div class="pain-label">${p.label}</div>
         <div class="pain-desc">${p.desc}</div>
         <div class="pain-consequence">${p.consequence}</div>
@@ -144,8 +213,14 @@
 
     // Solver grid
     document.getElementById('d-solver-headline').textContent = detail.solverHeadline;
-    document.getElementById('d-solver-grid').innerHTML = detail.solvers.map(s => `
+    document.getElementById('d-solver-grid').innerHTML = detail.solvers.map((s, i) => `
       <div class="solver-card">
+        <div class="img-ph">
+          <img class="ph-real" src="assets/img/produk-detail/${slug}-solusi-${i + 1}.jpg" alt="${s.problem}" onerror="phFallback(this)">
+          <div class="ph-name">${slug}-solusi-${i + 1}.jpg</div>
+          <div class="ph-size">FOTO SOLUSI · 16:9</div>
+          <div class="ph-desc">${s.headline}</div>
+        </div>
         <div class="solver-problem">${s.problem}</div>
         <div class="solver-headline">${s.headline}</div>
         <div class="proof-box">
@@ -159,8 +234,15 @@
 
     // Product items
     document.getElementById('d-items-headline').textContent = product.skus.join(' + ');
-    document.getElementById('d-items-grid').innerHTML = product.items.map(it => `
+    const slugify = (s) => s.toLowerCase().replace(/®/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+    document.getElementById('d-items-grid').innerHTML = product.items.map((it, i) => `
       <div class="prod-item">
+        <div class="img-ph">
+          <img class="ph-real" src="assets/img/${slugify(it.name)}.jpg" alt="${it.name}" onerror="phFallback(this)">
+          <div class="ph-name">${slugify(it.name)}.jpg</div>
+          <div class="ph-size">FOTO PRODUK · 16:9</div>
+          <div class="ph-desc">${it.name} — ${it.type}</div>
+        </div>
         <div>
           <div class="item-name">${it.name}</div>
           <div class="item-type">${it.type}</div>
@@ -173,7 +255,10 @@
           <div><strong>Dosis</strong>${it.dose}</div>
           <div><strong>Kemasan</strong>${it.pack}</div>
         </div>
-        <a href="kontak.html?produk=${encodeURIComponent(it.name)}" class="btn btn-blue btn-sm" style="margin-top: 8px;">Minta Quotation →</a>
+        <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px;">
+          ${it.tds ? `<a href="${it.tds}" target="_blank" rel="noopener" class="btn btn-outline btn-sm">Technical Data System ↗</a>` : ''}
+          <a href="kontak.html?produk=${encodeURIComponent(it.name)}" class="btn btn-blue btn-sm">Minta Quotation →</a>
+        </div>
       </div>
     `).join('');
 
