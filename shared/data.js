@@ -42,7 +42,7 @@ const PRODUCTS = [
     description: 'Aditif mortar untuk tambal bocor seketika, daya rekat tinggi, dan mortar bebas retak.',
     skus: ['YK Accelerator®'],
     items: [
-      { name: 'YK Accelerator®', type: 'Penyumbat Bocor', desc: 'Aditif penyumbat bocor seketika: basement, watertank, retakan tekanan tinggi.', stats: ['Setting seketika', 'Daya rekat kuat', 'Susut kecil'], dose: 'Rasio 1:2 – 1:5 dengan air', pack: 'Drum 200kg / Can 20kg' }
+      { name: 'YK Accelerator®', type: 'Penyumbat Bocor', desc: 'Aditif penyumbat bocor seketika: basement, watertank, retakan tekanan tinggi.', stats: ['Setting seketika', 'Daya rekat kuat', 'Susut kecil'], dose: 'Rasio 1:2 – 1:5 dengan air', pack: 'Drum 200kg / Can 20kg', tds: 'TDS-YK-Accelerator-charcoal.html' }
     ]
   },
   {
