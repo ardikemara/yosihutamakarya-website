@@ -43,7 +43,7 @@ const PRODUCTS = [
     description: 'PVA emulsion bonding agent multi-fungsi, 5 aplikasi dalam 1 produk: beton lama-baru, primer plester, plester kasar, acian halus, perekat keramik.',
     skus: ['YK Bond®'],
     items: [
-      { name: 'YK Bond®', type: 'PVA Bonding Agent', desc: 'Bahan perekat berbasis Polyvinyl Acetate Emulsion. Kompatibel semua tipe semen.', stats: ['5 aplikasi 1 produk', 'Tambah daya rekat', 'Kurangi retak rambut'], dose: 'Campur air 1:1 sampai 1:3', pack: 'Pail 10kg, Pail 20kg, Drum 200kg' }
+      { name: 'YK Bond®', type: 'PVA Bonding Agent', desc: 'Bahan perekat berbasis Polyvinyl Acetate Emulsion. Kompatibel semua tipe semen.', stats: ['5 aplikasi 1 produk', 'Tambah daya rekat', 'Kurangi retak rambut'], dose: 'Campur air 1:1 sampai 1:3', pack: 'Pail 10kg, Pail 20kg, Drum 200kg', tds: 'TDS-YK-Bond-charcoal.html' }
     ]
   },
   {
