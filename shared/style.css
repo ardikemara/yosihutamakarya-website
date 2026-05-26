@@ -308,6 +308,30 @@ h4 { font-size: 1.125rem; }
 .product-grid > .product-card:first-child .arrow { color: var(--yk-white); }
 .product-grid > .product-card:first-child:hover { background: var(--yk-blue); }
 
+/* Card #2 — secondary flagship (blue) */
+.product-grid > .product-card:nth-child(2) {
+  background: var(--yk-blue);
+  color: var(--yk-white);
+}
+.product-grid > .product-card:nth-child(2)::before {
+  content: 'FEATURED';
+  position: absolute; top: 24px; left: 28px;
+  font-size: 10px; font-weight: 700; letter-spacing: 0.2em;
+  color: var(--yk-white);
+  padding: 4px 10px; border: 1px solid rgba(255,255,255,0.5);
+}
+.product-grid > .product-card:nth-child(2) .num {
+  margin-top: 32px; color: rgba(255,255,255,0.85);
+}
+.product-grid > .product-card:nth-child(2) h3 { color: var(--yk-white); }
+.product-grid > .product-card:nth-child(2) p { color: rgba(255,255,255,0.8); }
+.product-grid > .product-card:nth-child(2) .skus {
+  color: var(--yk-white); border-top-color: rgba(255,255,255,0.25);
+}
+.product-grid > .product-card:nth-child(2) .arrow { color: var(--yk-white); }
+.product-grid > .product-card:nth-child(2):hover { background: var(--yk-blue-dark); }
+.product-grid > .product-card:nth-child(2):hover .arrow { color: var(--yk-white); }
+
 .product-card {
   background: var(--yk-white);
   padding: 32px 28px;

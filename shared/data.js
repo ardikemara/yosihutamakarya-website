@@ -22,58 +22,8 @@ const BRAND = {
 
 const PRODUCTS = [
   {
-    slug: 'concrete-admixture',
-    num: '01',
-    name: 'Concrete Admixture',
-    audience: 'Kontraktor · Ready-mix Plant · Precaster',
-    headline: 'Beton kuat tekan tinggi, setting cepat.',
-    description: 'Bahan tambah beton untuk kuat tekan tinggi, setting cepat, dan durability maksimal, siap pakai untuk pelat, pondasi, kolom, jembatan, dan precast.',
-    skus: ['YK NN®'],
-    items: [
-      { name: 'YK NN®', type: 'Superplasticizer', desc: 'Pengurang air & percepatan setting beton.', stats: ['−20% air', '+40% kuat tekan', '12 jam kekuatan tinggi'], dose: '0.30 – 2.30% berat semen', pack: 'Drum 240kg / Bulk 1000kg', tds: 'TDS-YK-NN-charcoal.html' }
-    ]
-  },
-  {
-    slug: 'mortar-admixture',
-    num: '02',
-    name: 'Mortar Admixture',
-    audience: 'Tukang batu · Kontraktor renovasi · Toko bangunan',
-    headline: 'Tambal bocor seketika, daya rekat tinggi.',
-    description: 'Aditif mortar untuk tambal bocor seketika, daya rekat tinggi, dan mortar bebas retak.',
-    skus: ['YK Accelerator®'],
-    items: [
-      { name: 'YK Accelerator®', type: 'Penyumbat Bocor', desc: 'Aditif penyumbat bocor seketika: basement, watertank, retakan tekanan tinggi.', stats: ['Setting seketika', 'Daya rekat kuat', 'Susut kecil'], dose: 'Rasio 1:2 – 1:5 dengan air', pack: 'Drum 200kg / Can 20kg', tds: 'TDS-YK-Accelerator-charcoal.html' }
-    ]
-  },
-  {
-    slug: 'ready-mix-mortar',
-    num: '03',
-    name: 'Ready Mix Mortar',
-    audience: 'Kontraktor finishing · Developer · Renovasi',
-    headline: 'Mortar siap pakai, tinggal tambah air.',
-    description: 'Mortar siap pakai untuk plesteran & waterproofing, mutu konsisten tiap batch, hemat waktu kerja di lapangan.',
-    skus: ['YK Seal 127®', 'YK Plaster Mix®'],
-    items: [
-      { name: 'YK Seal 127®', type: 'Skim Coat / Waterproof', desc: 'Lapisan anti bocor lentur 2-komponen untuk kamar mandi, balkon, kolam, tangki air.', stats: ['2 komponen lentur', 'Bisa di permukaan basah', 'Tahan CO₂ & klorida'], dose: '0.75 – 1.0 kg/m² × 2 lapisan', pack: 'Zak bubuk 23kg + Can 10kg' },
-      { name: 'YK Plaster Mix®', type: 'Ready Mix Mortar', desc: 'Mortar siap pakai untuk plesteran dinding & pemasangan batu bata.', stats: ['Tinggal tambah air', 'Mencegah retak susut', 'Fungsi ganda'], dose: '3.8 – 4.0 L air per bag 25kg', pack: 'Bag 25kg' }
-    ]
-  },
-  {
-    slug: 'waterproofing',
-    num: '04',
-    name: 'Waterproofing',
-    audience: 'Pemilik rumah · Kontraktor · Aplikator',
-    headline: 'Anti bocor atap, dinding, kamar mandi.',
-    description: 'Lapisan kedap air tahan UV, lentur, dan menutup pori beton, solusi anti bocor jangka panjang.',
-    skus: ['YK Proof®', 'YK WP Mortar®'],
-    items: [
-      { name: 'YK Proof®', type: 'Coating Akrilik', desc: 'Lapisan kedap air emulsi akrilik untuk atap beton, sambungan tembok-atap, dinding parapet.', stats: ['Tahan UV & cuaca', 'Sangat lentur', 'Non-toksik anti jamur'], dose: '0.3 – 0.35 kg/m² per lapis', pack: 'Coating 1/4/20kg + Membran 10m×1m' },
-      { name: 'YK WP Mortar®', type: 'Mortar Kedap Air', desc: 'Mortar kedap air berbasis semen untuk atap, balkon, teras, & kamar mandi.', stats: ['Tutup pori beton', 'Daya rekat tinggi', 'Mudah dicampur'], dose: '1.25 L air / sak 5kg · 6.25 L / sak 25kg', pack: 'Sak 5kg & 25kg' }
-    ]
-  },
-  {
     slug: 'mould-curing',
-    num: '05',
+    num: '01',
     name: 'Mould Release & Curing',
     audience: 'Kontraktor pengecoran · Precaster · Ready-mix',
     headline: 'Lepas cetakan & jaga kelembaban beton.',
@@ -86,8 +36,70 @@ const PRODUCTS = [
     ]
   },
   {
-    slug: 'floor-treatments',
+    slug: 'bonding-agent',
+    num: '02',
+    name: 'Bonding Agent',
+    audience: 'Kontraktor renovasi · Perbaikan struktur',
+    headline: 'Perekat beton lama ↔ baru, plester, & keramik.',
+    description: 'PVA emulsion bonding agent multi-fungsi, 5 aplikasi dalam 1 produk: beton lama-baru, primer plester, plester kasar, acian halus, perekat keramik.',
+    skus: ['YK Bond®'],
+    items: [
+      { name: 'YK Bond®', type: 'PVA Bonding Agent', desc: 'Bahan perekat berbasis Polyvinyl Acetate Emulsion. Kompatibel semua tipe semen.', stats: ['5 aplikasi 1 produk', 'Tambah daya rekat', 'Kurangi retak rambut'], dose: 'Campur air 1:1 sampai 1:3', pack: 'Pail 10kg, Pail 20kg, Drum 200kg' }
+    ]
+  },
+  {
+    slug: 'concrete-admixture',
+    num: '03',
+    name: 'Concrete Admixture',
+    audience: 'Kontraktor · Ready-mix Plant · Precaster',
+    headline: 'Beton kuat tekan tinggi, setting cepat.',
+    description: 'Bahan tambah beton untuk kuat tekan tinggi, setting cepat, dan durability maksimal, siap pakai untuk pelat, pondasi, kolom, jembatan, dan precast.',
+    skus: ['YK NN®'],
+    items: [
+      { name: 'YK NN®', type: 'Superplasticizer', desc: 'Pengurang air & percepatan setting beton.', stats: ['−20% air', '+40% kuat tekan', '12 jam kekuatan tinggi'], dose: '0.30 – 2.30% berat semen', pack: 'Drum 240kg / Bulk 1000kg', tds: 'TDS-YK-NN-charcoal.html' }
+    ]
+  },
+  {
+    slug: 'mortar-admixture',
+    num: '04',
+    name: 'Mortar Admixture',
+    audience: 'Tukang batu · Kontraktor renovasi · Toko bangunan',
+    headline: 'Tambal bocor seketika, daya rekat tinggi.',
+    description: 'Aditif mortar untuk tambal bocor seketika, daya rekat tinggi, dan mortar bebas retak.',
+    skus: ['YK Accelerator®'],
+    items: [
+      { name: 'YK Accelerator®', type: 'Penyumbat Bocor', desc: 'Aditif penyumbat bocor seketika: basement, watertank, retakan tekanan tinggi.', stats: ['Setting seketika', 'Daya rekat kuat', 'Susut kecil'], dose: 'Rasio 1:2 – 1:5 dengan air', pack: 'Drum 200kg / Can 20kg', tds: 'TDS-YK-Accelerator-charcoal.html' }
+    ]
+  },
+  {
+    slug: 'ready-mix-mortar',
+    num: '05',
+    name: 'Ready Mix Mortar',
+    audience: 'Kontraktor finishing · Developer · Renovasi',
+    headline: 'Mortar siap pakai, tinggal tambah air.',
+    description: 'Mortar siap pakai untuk plesteran & waterproofing, mutu konsisten tiap batch, hemat waktu kerja di lapangan.',
+    skus: ['YK Seal 127®', 'YK Plaster Mix®'],
+    items: [
+      { name: 'YK Seal 127®', type: 'Skim Coat / Waterproof', desc: 'Lapisan anti bocor lentur 2-komponen untuk kamar mandi, balkon, kolam, tangki air.', stats: ['2 komponen lentur', 'Bisa di permukaan basah', 'Tahan CO₂ & klorida'], dose: '0.75 – 1.0 kg/m² × 2 lapisan', pack: 'Zak bubuk 23kg + Can 10kg' },
+      { name: 'YK Plaster Mix®', type: 'Ready Mix Mortar', desc: 'Mortar siap pakai untuk plesteran dinding & pemasangan batu bata.', stats: ['Tinggal tambah air', 'Mencegah retak susut', 'Fungsi ganda'], dose: '3.8 – 4.0 L air per bag 25kg', pack: 'Bag 25kg' }
+    ]
+  },
+  {
+    slug: 'waterproofing',
     num: '06',
+    name: 'Waterproofing',
+    audience: 'Pemilik rumah · Kontraktor · Aplikator',
+    headline: 'Anti bocor atap, dinding, kamar mandi.',
+    description: 'Lapisan kedap air tahan UV, lentur, dan menutup pori beton, solusi anti bocor jangka panjang.',
+    skus: ['YK Proof®', 'YK WP Mortar®'],
+    items: [
+      { name: 'YK Proof®', type: 'Coating Akrilik', desc: 'Lapisan kedap air emulsi akrilik untuk atap beton, sambungan tembok-atap, dinding parapet.', stats: ['Tahan UV & cuaca', 'Sangat lentur', 'Non-toksik anti jamur'], dose: '0.3 – 0.35 kg/m² per lapis', pack: 'Coating 1/4/20kg + Membran 10m×1m' },
+      { name: 'YK WP Mortar®', type: 'Mortar Kedap Air', desc: 'Mortar kedap air berbasis semen untuk atap, balkon, teras, & kamar mandi.', stats: ['Tutup pori beton', 'Daya rekat tinggi', 'Mudah dicampur'], dose: '1.25 L air / sak 5kg · 6.25 L / sak 25kg', pack: 'Sak 5kg & 25kg' }
+    ]
+  },
+  {
+    slug: 'floor-treatments',
+    num: '07',
     name: 'Floor Treatments',
     audience: 'Gudang · Pabrik · Parkiran · Bengkel',
     headline: 'Lantai beton tahan abrasi, oli, & debu. 6 warna.',
@@ -99,7 +111,7 @@ const PRODUCTS = [
   },
   {
     slug: 'grouting',
-    num: '07',
+    num: '08',
     name: 'Grouting',
     audience: 'Kontraktor sipil · Pabrik · Engineering',
     headline: 'Isi celah presisi tinggi untuk mesin, angkur, & struktur.',
@@ -112,7 +124,7 @@ const PRODUCTS = [
   },
   {
     slug: 'tile-adhesive',
-    num: '08',
+    num: '09',
     name: 'Tile Adhesive',
     audience: 'Kontraktor finishing · Toko bangunan · Renovasi',
     headline: 'Perekat keramik, marmer, granit, bisa pasang on-tile.',
@@ -120,18 +132,6 @@ const PRODUCTS = [
     skus: ['YK Tile Adhesive®'],
     items: [
       { name: 'YK Tile Adhesive®', type: 'Perekat Keramik Siap Pakai', desc: 'Untuk merekatkan keramik, marmer, & granit pada permukaan lantai & dinding. Bisa on-tile.', stats: ['Setting 30 menit', 'On-tile (tanpa bongkar)', 'Keramik · marmer · granit'], dose: '± 6-7 m² per 25kg (tebal 2mm)', pack: 'Zak 25kg · 6.25 L air per bag' }
-    ]
-  },
-  {
-    slug: 'bonding-agent',
-    num: '09',
-    name: 'Bonding Agent',
-    audience: 'Kontraktor renovasi · Perbaikan struktur',
-    headline: 'Perekat beton lama ↔ baru, plester, & keramik.',
-    description: 'PVA emulsion bonding agent multi-fungsi, 5 aplikasi dalam 1 produk: beton lama-baru, primer plester, plester kasar, acian halus, perekat keramik.',
-    skus: ['YK Bond®'],
-    items: [
-      { name: 'YK Bond®', type: 'PVA Bonding Agent', desc: 'Bahan perekat berbasis Polyvinyl Acetate Emulsion. Kompatibel semua tipe semen.', stats: ['5 aplikasi 1 produk', 'Tambah daya rekat', 'Kurangi retak rambut'], dose: 'Campur air 1:1 sampai 1:3', pack: 'Pail 10kg, Pail 20kg, Drum 200kg' }
     ]
   }
 ];
