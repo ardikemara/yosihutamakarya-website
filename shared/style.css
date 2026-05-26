@@ -901,6 +901,13 @@ h4 { font-size: 1.125rem; }
   font-size: 12px; max-width: 240px; line-height: 1.35;
   color: var(--yk-charcoal); margin-top: 2px;
 }
+/* Real image overlay — sits on top of placeholder, removed via onerror if 404 */
+.img-ph .ph-real {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+}
 .img-ph.compact { padding: 10px 8px; gap: 2px; min-height: 60px; }
 .img-ph.compact::before { width: 18px; height: 18px; margin-bottom: 2px; }
 .img-ph.compact .ph-name { font-size: 9px; }

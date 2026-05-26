@@ -59,6 +59,13 @@
 <script>
   mountLayout('produk');
 
+  // Cascading image fallback: try .jpg → .png → remove (show placeholder)
+  function phFallback(el) {
+    if (el.dataset.fb) { el.remove(); return; }
+    el.dataset.fb = '1';
+    el.src = el.src.replace(/\.jpg(\?.*)?$/, '.png');
+  }
+
   const list = document.getElementById('product-list');
   list.innerHTML = PRODUCTS.map((p, i) => `
     <section class="prod-section ${i % 2 ? 'alt' : ''}" id="${p.slug}">
@@ -79,7 +86,8 @@
             return `
             <div class="prod-item">
               <div class="img-ph" style="aspect-ratio: 4/3;">
-                <div class="ph-name">${slug}.jpg</div>
+                <img class="ph-real" src="assets/img/katalog/${slug}.jpg" alt="${it.name}" onerror="phFallback(this)">
+                <div class="ph-name">katalog/${slug}.jpg</div>
                 <div class="ph-size">800 × 600 px (4:3)</div>
                 <div class="ph-desc">Foto: kemasan ${(it.pack||'').split(' / ')[0]}</div>
               </div>
