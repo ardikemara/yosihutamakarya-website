@@ -28,11 +28,10 @@ const PRODUCTS = [
     audience: 'Kontraktor pengecoran · Precaster · Ready-mix',
     headline: 'Lepas cetakan & jaga kelembaban beton.',
     description: 'Mempermudah lepas cetakan dan jaga kelembaban beton baru agar tidak retak.',
-    skus: ['YK Mould Oil®', 'YK Curing®', 'YK Curing Membrane®'],
+    skus: ['YK Mould Oil®', 'YK Curing®'],
     items: [
       { name: 'YK Mould Oil®', type: 'Form Release', desc: 'Minyak bekisting siap pakai untuk lepas cetakan kayu/logam/plastik.', stats: ['1L = 25 m² kayu', 'Permukaan halus', 'Cocok semua cetakan'], dose: '1L = 25 m² kayu / 40 m² logam', pack: 'Drum 200 liter' },
-      { name: 'YK Curing®', type: 'Polyolefins', desc: 'Curing compound untuk jalan raya, landasan, apron, dermaga, & roof deck.', stats: ['Cegah retak plastis', 'Tidak mudah terbakar', 'Hemat tenaga'], dose: '0.15 – 0.20 kg/m²', pack: 'Drum 225kg / Can 20kg' },
-      { name: 'YK Curing Membrane®', type: 'Sodium Silicate', desc: 'Curing transparan, permukaan bisa dilapis cat setelah 7 hari.', stats: ['Transparan', 'Bisa dicat', 'Vertikal & horisontal'], dose: '0.15 – 0.20 kg/m²', pack: 'Drum 220kg / Can 20kg' }
+      { name: 'YK Curing®', type: 'Polyolefins', desc: 'Curing compound untuk jalan raya, landasan, apron, dermaga, & roof deck.', stats: ['Cegah retak plastis', 'Tidak mudah terbakar', 'Hemat tenaga'], dose: '0.15 – 0.20 kg/m²', pack: 'Drum 225kg / Can 20kg' }
     ]
   },
   {
@@ -220,7 +219,7 @@ const PRODUCT_DETAILS = {
       { problem: 'Beton susah lepas', headline: 'YK Mould Oil® siap pakai, oles ke cetakan sebelum cor.', proofNumber: '1 L = 25 m²', proofText: 'cetakan kayu/plywood', outcome: 'Cetakan mudah dibongkar tanpa rusak, awet untuk pengecoran berulang.', tag: 'YK Mould Oil®' },
       { problem: 'Permukaan kasar bernoda', headline: 'YK Mould Oil® hasil permukaan beton halus, tidak bernoda.', proofNumber: 'HALUS', proofText: '+ cocok untuk steam curing', outcome: 'Tidak perlu finishing ekstra, langsung siap dicat atau exposed.', tag: 'YK Mould Oil®' },
       { problem: 'Retak plastis beton baru', headline: 'YK Curing® cegah kehilangan air, alternatif siram manual.', proofNumber: 'ANTI RETAK', proofText: '+ hemat tenaga vs siram air', outcome: 'Cocok jalan raya, apron, dermaga, & roof deck, kuat tekan terjaga.', tag: 'YK Curing®' },
-      { problem: 'Curing tidak bisa dicat', headline: 'YK Curing Membrane® transparan, bisa dilapis cat setelah 7 hari.', proofNumber: 'BISA DICAT', proofText: '+ transparan, vertikal & horisontal', outcome: 'Pas untuk bangunan & industri manufacture yang butuh finishing cat.', tag: 'YK Curing Membrane®' }
+      { problem: 'Curing tidak bisa dicat', headline: 'YK Curing® bisa dibersihkan saat permukaan siap untuk cat atau finishing.', proofNumber: 'CLEAN-READY', proofText: '+ surface prep ringan sebelum cat', outcome: 'Pas untuk bangunan & industri yang butuh finishing cat — curing maksimal, cat tetap nempel.', tag: 'YK Curing®' }
     ]
   },
   'floor-treatments': {
