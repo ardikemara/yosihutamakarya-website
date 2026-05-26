@@ -30,8 +30,8 @@ const PRODUCTS = [
     description: 'Mempermudah lepas cetakan dan jaga kelembaban beton baru agar tidak retak.',
     skus: ['YK Mould Oil®', 'YK Curing®'],
     items: [
-      { name: 'YK Mould Oil®', type: 'Form Release', desc: 'Minyak bekisting siap pakai untuk lepas cetakan kayu/logam/plastik.', stats: ['1L = 25 m² kayu', 'Permukaan halus', 'Cocok semua cetakan'], dose: '1L = 25 m² kayu / 40 m² logam', pack: 'Drum 200 liter' },
-      { name: 'YK Curing®', type: 'Polyolefins', desc: 'Curing compound untuk jalan raya, landasan, apron, dermaga, & roof deck.', stats: ['Cegah retak plastis', 'Tidak mudah terbakar', 'Hemat tenaga'], dose: '0.15 – 0.20 kg/m²', pack: 'Drum 225kg / Can 20kg' }
+      { name: 'YK Mould Oil®', type: 'Form Release', desc: 'Minyak bekisting siap pakai untuk lepas cetakan kayu/logam/plastik.', stats: ['1L = 25 m² kayu', 'Permukaan halus', 'Cocok semua cetakan'], dose: '1L = 25 m² kayu / 40 m² logam', pack: 'Drum 200 liter', tds: 'TDS-YK-Mould-Oil-charcoal.html' },
+      { name: 'YK Curing®', type: 'Polyolefins', desc: 'Curing compound untuk jalan raya, landasan, apron, dermaga, & roof deck.', stats: ['Cegah retak plastis', 'Tidak mudah terbakar', 'Hemat tenaga'], dose: '0.15 – 0.20 kg/m²', pack: 'Drum 225kg / Can 20kg', tds: 'TDS-YK-Curing-charcoal.html' }
     ]
   },
   {
