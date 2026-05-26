@@ -158,12 +158,18 @@ const PRODUCT_DETAILS = {
   'mortar-admixture': {
     painHeadline: 'Masalah Klasik di Pekerjaan Mortar & Waterproofing',
     pains: [
-      { label: 'Bocor air aktif', desc: 'Air terus mengalir dari basement, dak, atau watertank, mortar biasa tidak bisa nempel.', consequence: 'Aktivitas proyek terganggu, finishing rusak, biaya perbaikan berulang.' }
+      { label: 'Bocor air aktif', desc: 'Air terus mengalir dari basement, dak, atau watertank, mortar biasa tidak bisa nempel.', consequence: 'Aktivitas proyek terganggu, finishing rusak, biaya perbaikan berulang.' },
+      { label: 'Retak basement & watertank pecah lagi', desc: 'Tambalan mortar biasa pecah karena tekanan air balik dari belakang dinding.', consequence: 'Repair berulang, biaya & waktu terbuang.' },
+      { label: 'Tambalan lepas di permukaan basah', desc: 'Mortar biasa tidak nempel di permukaan basah/lembab, langsung lepas.', consequence: 'Patching ulang berkali-kali, tukang kerja 2x, biaya naik.' },
+      { label: 'Repair urgent tertunda berjam-jam', desc: 'Mortar biasa butuh waktu lama untuk set, repair darurat tidak bisa cepat.', consequence: 'Downtime operasional mahal di pabrik, gedung, atau infrastruktur.' }
     ],
     summary: 'Aditif mortar untuk tambal bocor seketika, siap pakai untuk tukang batu, kontraktor renovasi, dan toko bangunan.',
-    solverHeadline: 'Bagaimana Mortar Admixture Menyelesaikan Masalah Itu',
+    solverHeadline: 'Bagaimana Mortar Admixture Menyelesaikan 4 Masalah Itu',
     solvers: [
-      { problem: 'Bocor air aktif', headline: 'YK Accelerator® set seketika, tambal sambil air masih mengalir.', proofNumber: 'SEKETIKA', proofText: 'set di rasio 1:2 sampai 1:5', outcome: 'Bocor langsung berhenti, basement & watertank kering.', tag: 'YK Accelerator®' }
+      { problem: 'Bocor air aktif', headline: 'YK Accelerator® set seketika, tambal sambil air masih mengalir.', proofNumber: 'SEKETIKA', proofText: 'set di rasio 1:2 sampai 1:5', outcome: 'Bocor langsung berhenti, basement & watertank kering.', tag: 'YK Accelerator®' },
+      { problem: 'Retak basement & watertank pecah lagi', headline: 'Set keras seketika di dalam celah, tahan tekanan air balik.', proofNumber: 'TAHAN TEKAN', proofText: 'set di dalam celah retak', outcome: 'Basement & watertank kering permanen, tidak pecah ulang.', tag: 'YK Accelerator®' },
+      { problem: 'Tambalan lepas di permukaan basah', headline: 'Daya rekat kuat langsung di permukaan basah, tidak perlu kering.', proofNumber: 'DAYA REKAT ↑', proofText: 'nempel di permukaan basah', outcome: 'Patching satu kali jalan, hasil tahan lama.', tag: 'YK Accelerator®' },
+      { problem: 'Repair urgent tertunda berjam-jam', headline: 'Atur kecepatan setting via rasio 1:2 sampai 1:5 dengan air.', proofNumber: 'RASIO 1:2–1:5', proofText: 'atur kecepatan setting', outcome: 'Repair selesai dalam menit, operasional langsung jalan.', tag: 'YK Accelerator®' }
     ]
   },
   'ready-mix-mortar': {
