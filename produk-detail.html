@@ -186,7 +186,7 @@
       const multi = product.items.length > 1;
       document.getElementById('d-hero-actions').innerHTML = itemsWithTds.map(it => `
         <a href="${it.tds}" target="_blank" rel="noopener" class="btn btn-sm" style="background: #fff; color: var(--yk-black);">
-          Technical Data System${multi ? ' · ' + it.name : ''} ↗
+          Technical Data Sheet${multi ? ' · ' + it.name : ''} ↗
         </a>
       `).join('');
     }
@@ -256,7 +256,7 @@
           <div><strong>Kemasan</strong>${it.pack}</div>
         </div>
         <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px;">
-          ${it.tds ? `<a href="${it.tds}" target="_blank" rel="noopener" class="btn btn-outline btn-sm">Technical Data System ↗</a>` : ''}
+          ${it.tds ? `<a href="${it.tds}" target="_blank" rel="noopener" class="btn btn-outline btn-sm">Technical Data Sheet ↗</a>` : ''}
           <a href="kontak.html?produk=${encodeURIComponent(it.name)}" class="btn btn-blue btn-sm">Minta Quotation →</a>
         </div>
       </div>
