@@ -91,7 +91,7 @@ const PRODUCTS = [
     description: 'Lapisan kedap air tahan UV, lentur, dan menutup pori beton, solusi anti bocor jangka panjang.',
     skus: ['YK Water Proofing®'],
     items: [
-      { name: 'YK Water Proofing®', type: 'Coating Akrilik', desc: 'Lapisan kedap air emulsi akrilik untuk atap beton, sambungan tembok-atap, dinding parapet.', stats: ['Tahan UV & cuaca', 'Sangat lentur', 'Non-toksik anti jamur'], dose: '0.3 – 0.35 kg/m² per lapis', pack: 'Coating 1/4/20kg + Membran 10m×1m' }
+      { name: 'YK Water Proofing®', type: 'Coating Akrilik', desc: 'Lapisan kedap air emulsi akrilik untuk atap beton, sambungan tembok-atap, dinding parapet.', stats: ['Tahan UV & cuaca', 'Sangat lentur', 'Non-toksik anti jamur'], dose: '0.3 – 0.35 kg/m² per lapis', pack: 'Coating 1/4/20kg + Membran 10m×1m', tds: 'TDS-YK-Water-Proofing-charcoal.html' }
     ]
   },
   {

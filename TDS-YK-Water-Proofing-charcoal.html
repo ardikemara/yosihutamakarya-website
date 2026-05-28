@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Technical Data Sheet · YK Water Proofing (Charcoal)</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  /* ===== PRINT ===== */
+  @page {
+    size: A4;
+    margin: 12mm 12mm 14mm 12mm;
+    @bottom-left {
+      content: "PT. YOSI HUTAMA KARYA · yosihutamakarya.com";
+      font-family: 'Inter', sans-serif; font-size: 8pt; color: #6B7280;
+    }
+    @bottom-right {
+      content: "TDS · YK Water Proofing · Page " counter(page) " of " counter(pages);
+      font-family: 'Inter', sans-serif; font-size: 8pt; color: #6B7280;
+    }
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+    color: #1F2937;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    background: #E5E7EB;
+    padding: 24px 16px 64px;
+    min-height: 100vh;
+  }
+
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    margin: 0 auto 24px;
+    background: #FFFFFF;
+    padding: 12mm 12mm 14mm 12mm;
+    box-shadow: 0 4px 24px rgba(10,10,10,0.12);
+    font-size: 9.5pt;
+    line-height: 1.5;
+    color: #1F2937;
+  }
+  .page:last-of-type { margin-bottom: 0; }
+
+  /* DOWNLOAD BUTTON */
+  .download-btn {
+    position: fixed;
+    top: 20px; right: 20px;
+    background: #1E40AF; color: #FFFFFF;
+    padding: 12px 20px;
+    font-size: 13px; font-weight: 700;
+    letter-spacing: 0.05em; text-transform: uppercase;
+    text-decoration: none;
+    box-shadow: 0 4px 16px rgba(30,64,175,0.4);
+    transition: all 0.2s;
+    z-index: 100;
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: 'Inter', sans-serif;
+  }
+  .download-btn:hover {
+    background: #1E3A8A;
+    box-shadow: 0 6px 20px rgba(30,64,175,0.5);
+    transform: translateY(-1px);
+  }
+  .download-btn .icon { font-size: 16px; }
+
+  @media print {
+    body { background: #FFFFFF; padding: 0; }
+    .page {
+      width: auto; height: auto; min-height: 0;
+      margin: 0; padding: 0; box-shadow: none;
+    }
+    .page-break { page-break-after: always; }
+    .download-btn { display: none; }
+  }
+
+  /* HEADER */
+  .doc-header {
+    display: flex; justify-content: space-between; align-items: center;
+    border-bottom: 3px solid #4A4A4A;
+    padding-bottom: 10px; margin-bottom: 14px;
+    gap: 16px;
+  }
+  .brand { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+  .brand-mark { width: 50px; height: 50px; flex-shrink: 0; }
+  .brand-mark img { width: 100%; height: 100%; object-fit: contain; display: block; }
+  .brand-text { white-space: nowrap; }
+  .brand-text .brand-name {
+    font-size: 11pt; font-weight: 800; color: #4A4A4A;
+    letter-spacing: -0.01em; line-height: 1.1;
+    white-space: nowrap;
+  }
+  .brand-text .brand-tag {
+    font-size: 7.5pt; font-weight: 700; color: #1E40AF;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    margin-top: 3px; white-space: nowrap;
+  }
+  .doc-meta {
+    text-align: right; font-size: 8pt; color: #6B7280;
+    line-height: 1.55; flex-shrink: 0;
+  }
+  .doc-meta .doc-type {
+    font-size: 7.5pt; font-weight: 700; color: #1E40AF;
+    letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 3px;
+  }
+  .doc-meta .doc-rev { color: #4A4A4A; font-weight: 600; }
+
+  .doc-header.compact { padding-bottom: 6px; margin-bottom: 10px; }
+  .doc-header.compact .brand-mark { width: 38px; height: 38px; }
+
+  /* HERO */
+  .hero {
+    background: #4A4A4A; color: #FFFFFF;
+    padding: 18px 22px; margin-bottom: 12px;
+  }
+  .hero-top {
+    display: flex; align-items: flex-end;
+    justify-content: space-between; gap: 16px;
+  }
+  .hero-text { flex: 1; min-width: 0; }
+  .hero .eyebrow {
+    font-size: 8pt; font-weight: 700; color: #3B82F6;
+    letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 6px;
+  }
+  .hero h1 {
+    font-size: 24pt; font-weight: 800;
+    letter-spacing: -0.025em; line-height: 1.05;
+    margin-bottom: 6px;
+  }
+  .hero h1 sup { font-size: 10pt; vertical-align: super; color: #3B82F6; }
+  .hero .subtitle {
+    font-size: 10pt; color: #E5E7EB; font-weight: 400;
+    line-height: 1.4;
+  }
+  .hero .product-code {
+    text-align: right; flex-shrink: 0;
+    border-left: 1px solid rgba(255,255,255,0.18);
+    padding-left: 16px; white-space: nowrap;
+  }
+  .hero .product-code .label {
+    font-size: 7pt; font-weight: 700; color: #9CA3AF;
+    letter-spacing: 0.16em; text-transform: uppercase; margin-bottom: 4px;
+  }
+  .hero .product-code .code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13pt; font-weight: 700; color: #FFFFFF;
+  }
+
+  /* SECTIONS */
+  .section { margin-bottom: 10px; page-break-inside: avoid; }
+  .section:last-of-type { margin-bottom: 0; }
+  .section-head {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 7px; padding-bottom: 4px;
+    border-bottom: 1px solid #E5E7EB;
+  }
+  .section-num {
+    width: 22px; height: 22px;
+    background: #1E40AF; color: #FFFFFF;
+    font-size: 9pt; font-weight: 800;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'JetBrains Mono', monospace;
+    flex-shrink: 0;
+  }
+  .section h2 {
+    font-size: 11pt; font-weight: 800; color: #4A4A4A;
+    letter-spacing: 0.04em; text-transform: uppercase; margin: 0;
+  }
+  .section p { margin-bottom: 0; }
+  .section > *:last-child { margin-bottom: 0; }
+
+  .subhead {
+    font-size: 9pt; font-weight: 700; color: #1E40AF;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    margin-top: 0; margin-bottom: 5px;
+  }
+  .subhead + .subhead { margin-top: 8px; }
+
+  ul.feature-list { list-style: none; padding-left: 0; margin: 0; }
+  ul.feature-list li {
+    padding-left: 16px; position: relative;
+    margin-bottom: 4px; line-height: 1.4;
+  }
+  ul.feature-list li:last-child { margin-bottom: 0; }
+  ul.feature-list li:before {
+    content: "▪"; position: absolute; left: 2px;
+    color: #1E40AF; font-weight: 700;
+  }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+  .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; align-items: start; }
+
+  /* CALLOUT */
+  .callout {
+    background: #FAFAF7; border-left: 4px solid #1E40AF;
+    padding: 11px 16px; margin: 0 0 6px 0;
+  }
+  .callout:last-child { margin-bottom: 0; }
+  .callout .callout-label {
+    font-size: 7.5pt; font-weight: 700; color: #6B7280;
+    letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 4px;
+  }
+  .callout .callout-value {
+    font-size: 14pt; font-weight: 800; color: #4A4A4A;
+    letter-spacing: -0.01em;
+  }
+  .callout .callout-note { font-size: 8.5pt; color: #6B7280; margin-top: 3px; }
+
+  /* PROCEDURE BLOCK */
+  .procedure { width: 100%; }
+  .proc-item {
+    display: flex; gap: 14px;
+    padding: 5px 0; border-bottom: 1px solid #F3F4F6;
+  }
+  .proc-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .proc-item:first-child { padding-top: 0; }
+  .proc-label {
+    width: 110px; flex-shrink: 0;
+    font-size: 8pt; font-weight: 800; color: #1E40AF;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    padding-top: 1px; line-height: 1.35;
+  }
+  .proc-body {
+    flex: 1; font-size: 8.75pt; line-height: 1.45; color: #1F2937;
+  }
+
+  /* TECH TABLE */
+  .tech-table {
+    width: 100%; border-collapse: collapse;
+    margin-top: 0; font-size: 9pt;
+  }
+  .tech-table th {
+    background: #4A4A4A; color: #FFFFFF; text-align: left;
+    padding: 6px 14px; font-size: 8pt; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase;
+  }
+  .tech-table td {
+    padding: 6px 14px; border-bottom: 1px solid #E5E7EB; background: #FFFFFF;
+  }
+  .tech-table tr:nth-child(even) td { background: #FAFAF7; }
+  .tech-table td.label {
+    font-weight: 700; color: #4A4A4A; width: 45%;
+    letter-spacing: 0.04em; text-transform: uppercase; font-size: 8.5pt;
+  }
+  .tech-table td.value {
+    color: #1F2937; font-family: 'JetBrains Mono', monospace; font-size: 9pt;
+  }
+
+  /* PACKAGING */
+  .pack-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 0; }
+  .pack-card { border: 1px solid #E5E7EB; padding: 10px 14px; background: #FFFFFF; }
+  .pack-card .pack-label {
+    font-size: 7.5pt; font-weight: 700; color: #6B7280;
+    letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 3px;
+  }
+  .pack-card .pack-value {
+    font-size: 12pt; font-weight: 800; color: #4A4A4A;
+    letter-spacing: -0.01em;
+  }
+  .pack-card .pack-sub { font-size: 8pt; color: #6B7280; margin-top: 2px; }
+
+  /* FOOTER NOTE */
+  .footer-note {
+    margin-top: 10px; padding: 8px 12px;
+    background: #FAFAF7; border: 1px solid #E5E7EB;
+    font-size: 7.5pt; color: #6B7280; line-height: 1.45;
+    page-break-inside: avoid;
+  }
+  .footer-note strong { color: #4A4A4A; }
+
+  /* CONTACT STRIP */
+  .contact-strip {
+    margin-top: 8px; padding: 10px 16px;
+    background: #1E40AF; color: #FFFFFF;
+    display: flex; justify-content: space-between;
+    align-items: center; gap: 16px;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+  .contact-strip .ct-title {
+    font-size: 10.5pt; font-weight: 800; letter-spacing: -0.01em;
+  }
+  .contact-strip .ct-sub { font-size: 8pt; color: #BFDBFE; margin-top: 1px; }
+  .contact-strip .ct-web {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5pt; font-weight: 700; color: #FFFFFF;
+    letter-spacing: 0.02em;
+  }
+</style>
+</head>
+<body>
+
+<a href="TDS-YK-Water-Proofing.pdf" download="TDS-YK-Water-Proofing.pdf" class="download-btn">
+  <span class="icon">↓</span> Download PDF
+</a>
+
+<!-- =============== PAGE 1 =============== -->
+<div class="page page-break">
+
+  <!-- HEADER -->
+  <div class="doc-header">
+    <div class="brand">
+      <div class="brand-mark"><img src="assets/yk-logo.svg" alt="YK"></div>
+      <div class="brand-text">
+        <div class="brand-name">PT. YOSI HUTAMA KARYA</div>
+        <div class="brand-tag">Build · Protect · Perform</div>
+      </div>
+    </div>
+    <div class="doc-meta">
+      <div class="doc-type">Technical Data Sheet</div>
+      <div>Rev. <span class="doc-rev">01 / 2026</span></div>
+      <div>yosihutamakarya.com</div>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-top">
+      <div class="hero-text">
+        <div class="eyebrow">Waterproofing Coating · Acrylic Emulsion · UV-Resistant</div>
+        <h1>YK Water Proofing<sup>®</sup></h1>
+        <div class="subtitle">Lapisan kedap air berbasis emulsi akrilik yang sangat fleksibel dan tahan UV. Bila dipadukan dengan membran polyester membentuk lapisan kedap air yang melekat sempurna dan tahan lama.</div>
+      </div>
+      <div class="product-code">
+        <div class="label">Product Code</div>
+        <div class="code">YK–WP</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 01 DESKRIPSI -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-num">01</div>
+      <h2>Deskripsi</h2>
+    </div>
+    <p>YK Water Proofing merupakan lapisan kedap air yang terdiri dari emulsi akrilik yang sangat fleksibel dan tahan sinar ultraviolet (UV). Bilamana digunakan bersama membran polyester (YK Raintite Membrane), akan membentuk lapisan kedap air yang melekat sempurna, tahan lama, dan fleksibel.</p>
+  </div>
+
+  <!-- 02 KEGUNAAN -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-num">02</div>
+      <h2>Kegunaan</h2>
+    </div>
+    <p style="margin-bottom: 5px;">Sebagai waterproofing pada area berikut:</p>
+    <div class="two-col">
+      <div>
+        <ul class="feature-list">
+          <li>Atap beton</li>
+          <li>Dinding parapet &amp; dinding luar</li>
+        </ul>
+      </div>
+      <div>
+        <ul class="feature-list">
+          <li>Pengisi celah dan sambungan tembok dengan genteng pada berbagai jenis atap (genting, asbestos, seng)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 03 KARAKTERISTIK & KEUNTUNGAN -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-num">03</div>
+      <h2>Karakteristik &amp; Keuntungan</h2>
+    </div>
+    <div class="three-col">
+      <div>
+        <ul class="feature-list">
+          <li>Kedap air</li>
+          <li>Tahan terhadap sinar UV dan cuaca</li>
+          <li>Mudah dipakai dan diaplikasikan</li>
+        </ul>
+      </div>
+      <div>
+        <ul class="feature-list">
+          <li>Tidak memerlukan primer terlebih dahulu</li>
+          <li>Daya rekat sangat bagus</li>
+          <li>Sangat lentur</li>
+        </ul>
+      </div>
+      <div>
+        <ul class="feature-list">
+          <li>Kental</li>
+          <li>Tidak beracun</li>
+          <li>Tidak menyebabkan tumbuhnya jamur</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 04 KONSUMSI -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-num">04</div>
+      <h2>Konsumsi (Dosis)</h2>
+    </div>
+    <div class="callout">
+      <div class="callout-label">Konsumsi per Lapis</div>
+      <div class="callout-value">± 0.30 – 0.35 kg / m² per lapis</div>
+      <div class="callout-note">Jumlah lapisan tergantung kondisi permukaan dan penggunaan membran.</div>
+    </div>
+  </div>
+
+  <!-- 05 PETUNJUK APLIKASI -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-num">05</div>
+      <h2>Petunjuk Aplikasi</h2>
+    </div>
+    <div class="procedure">
+      <div class="proc-item">
+        <div class="proc-label">Persiapan<br>Permukaan</div>
+        <div class="proc-body">Permukaan harus bersih, keras, dan kering. Bersihkan semua material yang mudah lepas secara mekanis — disarankan menggunakan sikat kawat. Permukaan dari besi atau baja harus bebas dari karat.</div>
+      </div>
+      <div class="proc-item">
+        <div class="proc-label">Langkah 1<br>Lapisan Dasar</div>
+        <div class="proc-body">Aplikasikan dengan cepat lapisan dasar YK Water Proofing menggunakan kuas atau roller.</div>
+      </div>
+      <div class="proc-item">
+        <div class="proc-label">Langkah 2<br>Pasang Membran</div>
+        <div class="proc-body">Letakkan membran ke lapisan dasar selama lapisan masih basah. Pastikan membran tertanam sempurna dan ratakan keluar gelembung udara serta lipatan. Lembaran membran yang saling berhubungan harus tumpang tindih (overlap) minimal 50 mm.</div>
+      </div>
+      <div class="proc-item">
+        <div class="proc-label">Langkah 3<br>Lapisan Kedua</div>
+        <div class="proc-body">Segera aplikasikan lapis kedua YK Water Proofing ketika lapisan dasar masih basah, agar membran terlapisi dari kedua sisi dengan sempurna.</div>
+      </div>
+      <div class="proc-item">
+        <div class="proc-label">Langkah 4<br>Lapisan Akhir</div>
+        <div class="proc-body">Ketika permukaan lapisan sudah kering sentuh, aplikasikan lapis terakhir untuk menyempurnakan lapisan kedap air. Lindungi dari hujan hingga kering sempurna.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- =============== PAGE 2 =============== -->
+<div class="page">
+
+  <!-- COMPACT HEADER -->
+  <div class="doc-header compact">
+    <div class="brand">
+      <div class="brand-mark"><img src="assets/yk-logo.svg" alt="YK"></div>
+      <div class="brand-text">
+        <div class="brand-name">PT. YOSI HUTAMA KARYA</div>
+        <div class="brand-tag">Build · Protect · Perform</div>
+      </div>
+    </div>
+    <div class="doc-meta">
+      <div class="doc-type">Technical Data Sheet</div>
+      <div>Rev. <span class="doc-rev">01 / 2026</span> · Page 2 of 2</div>
+      <div>yosihutamakarya.com</div>
+    </div>
+  </div>
+
+  <!-- 06 DATA TEKNIS -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-num">06</div>
+      <h2>Data Teknis</h2>
+    </div>
+    <table class="tech-table">
+      <thead><tr><th>Parameter</th><th>Nilai</th></tr></thead>
+      <tbody>
+        <tr><td class="label">Bentuk</td><td class="value">Emulsi Akrilik (cair, kental)</td></tr>
+        <tr><td class="label">Kemudahan Terbakar</td><td class="value">Kelas 2</td></tr>
+        <tr><td class="label">Tahan Perubahan Cuaca</td><td class="value">Tanpa pengaruh besar setelah 3.000 jam</td></tr>
+        <tr><td class="label">Tingkat Racun</td><td class="value">Tidak beracun</td></tr>
+        <tr><td class="label">Aplikasi Utama</td><td class="value">Coating + Membran Polyester</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 07 PEMBERSIHAN & UMUR (combined two-col) -->
+  <div class="two-col">
+    <div class="section">
+      <div class="section-head">
+        <div class="section-num">07</div>
+        <h2>Pembersihan</h2>
+      </div>
+      <p>Bersihkan YK Water Proofing yang belum kering dengan menggunakan air. Material yang telah mengering hanya dapat dibersihkan secara mekanis.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-head">
+        <div class="section-num">08</div>
+        <h2>Umur &amp; Penyimpanan</h2>
+      </div>
+      <p>1 (satu) tahun jika disimpan dengan benar dalam kemasan asli tertutup dan dilindungi dari sinar matahari langsung.</p>
+    </div>
+  </div>
+
+  <!-- 09 KETERBATASAN -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-num">09</div>
+      <h2>Keterbatasan</h2>
+    </div>
+    <div class="two-col">
+      <div>
+        <ul class="feature-list">
+          <li>Suhu permukaan harus berada antara 5°C dan 35°C selama aplikasi berlangsung</li>
+          <li>Jangan lakukan aplikasi apabila akan atau sedang terjadi hujan</li>
+        </ul>
+      </div>
+      <div>
+        <ul class="feature-list">
+          <li>Tidak direkomendasikan untuk mengaplikasi mortar screed di atas YK Water Proofing</li>
+          <li>Tidak untuk bak air, kolam renang, atau struktur yang terendam air terus-menerus</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 10 KEMASAN -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-num">10</div>
+      <h2>Kemasan</h2>
+    </div>
+    <div class="pack-grid">
+      <div class="pack-card">
+        <div class="pack-label">Waterproofing Compound</div>
+        <div class="pack-value">1 kg · 4 kg · 20 kg</div>
+        <div class="pack-sub">Kemasan compound (kaleng / pail)</div>
+      </div>
+      <div class="pack-card">
+        <div class="pack-label">Membran</div>
+        <div class="pack-value">10 m × 1 m / roll</div>
+        <div class="pack-sub">Membran polyester pendamping</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DISCLAIMER -->
+  <div class="footer-note">
+    <strong>Disclaimer:</strong> Informasi pada lembar data ini berdasarkan pengetahuan dan pengalaman kami terkini. Pengguna bertanggung jawab atas kesesuaian produk untuk aplikasi spesifiknya, dan disarankan melakukan uji coba lapangan terlebih dahulu. PT. Yosi Hutama Karya berhak mengubah spesifikasi tanpa pemberitahuan terlebih dahulu. Untuk MSDS dan rekomendasi teknis lanjutan, silakan hubungi technical service kami.
+  </div>
+
+  <!-- CONTACT STRIP -->
+  <div class="contact-strip">
+    <div>
+      <div class="ct-title">PT. YOSI HUTAMA KARYA</div>
+      <div class="ct-sub">Technical Service · Sales · Quotation</div>
+    </div>
+    <div class="ct-web">yosihutamakarya.com</div>
+  </div>
+
+</div>
+
+</body>
+</html>
