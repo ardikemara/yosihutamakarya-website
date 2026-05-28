@@ -89,10 +89,9 @@ const PRODUCTS = [
     audience: 'Pemilik rumah · Kontraktor · Aplikator',
     headline: 'Anti bocor atap, dinding, kamar mandi.',
     description: 'Lapisan kedap air tahan UV, lentur, dan menutup pori beton, solusi anti bocor jangka panjang.',
-    skus: ['YK Proof®', 'YK WP Mortar®'],
+    skus: ['YK Water Proofing®'],
     items: [
-      { name: 'YK Proof®', type: 'Coating Akrilik', desc: 'Lapisan kedap air emulsi akrilik untuk atap beton, sambungan tembok-atap, dinding parapet.', stats: ['Tahan UV & cuaca', 'Sangat lentur', 'Non-toksik anti jamur'], dose: '0.3 – 0.35 kg/m² per lapis', pack: 'Coating 1/4/20kg + Membran 10m×1m' },
-      { name: 'YK WP Mortar®', type: 'Mortar Kedap Air', desc: 'Mortar kedap air berbasis semen untuk atap, balkon, teras, & kamar mandi.', stats: ['Tutup pori beton', 'Daya rekat tinggi', 'Mudah dicampur'], dose: '1.25 L air / sak 5kg · 6.25 L / sak 25kg', pack: 'Sak 5kg & 25kg' }
+      { name: 'YK Water Proofing®', type: 'Coating Akrilik', desc: 'Lapisan kedap air emulsi akrilik untuk atap beton, sambungan tembok-atap, dinding parapet.', stats: ['Tahan UV & cuaca', 'Sangat lentur', 'Non-toksik anti jamur'], dose: '0.3 – 0.35 kg/m² per lapis', pack: 'Coating 1/4/20kg + Membran 10m×1m' }
     ]
   },
   {
@@ -195,12 +194,12 @@ const PRODUCT_DETAILS = {
       { label: 'Pori beton rembes', desc: 'Beton porous menyerap air, balkon & kamar mandi terus rembes.', consequence: 'Air rembes ke unit bawah, klaim & rework biaya mahal.' }
     ],
     summary: 'Lapisan kedap air tahan UV, lentur, & menutup pori beton, solusi anti bocor jangka panjang untuk atap, dinding, balkon, & kamar mandi.',
-    solverHeadline: 'Bagaimana Waterproofing Menyelesaikan 4 Masalah Itu',
+    solverHeadline: 'Bagaimana YK Water Proofing® Menyelesaikan 4 Masalah Itu',
     solvers: [
-      { problem: 'Atap bocor saat hujan', headline: 'YK Proof® coating akrilik sangat lentur, anti retak akibat cuaca.', proofNumber: 'TANPA PRIMER', proofText: 'lentur & daya rekat sangat baik', outcome: 'Atap kedap air permanen, tidak bocor walau hujan deras & pergerakan struktur.', tag: 'YK Proof®' },
-      { problem: 'UV/cuaca mengelupas', headline: 'YK Proof® formula akrilik tahan UV & segala cuaca tropis.', proofNumber: 'TAHAN UV', proofText: '+ non-toksik & anti jamur', outcome: 'Tidak retak, tidak mengelupas, tidak butuh aplikasi ulang setiap tahun.', tag: 'YK Proof®' },
-      { problem: 'Sambungan rembes', headline: 'YK Proof® + Raintite Membrane (polyester) untuk hasil maksimal.', proofNumber: 'COMBO MAX', proofText: 'coating + membran polyester', outcome: 'Celah genting/asbestos ke tembok tersegel rapat, anti rembes jangka panjang.', tag: 'YK Proof® + Raintite' },
-      { problem: 'Pori beton merembes', headline: 'YK WP Mortar® tutup pori beton, daya rekat tinggi ke permukaan keras.', proofNumber: 'TUTUP PORI', proofText: '+ kedap air, 2 lapis jeda 4 jam', outcome: 'Balkon, teras, & kamar mandi anti rembes, finishing tahan lama.', tag: 'YK WP Mortar®' }
+      { problem: 'Atap bocor saat hujan', headline: 'YK Water Proofing® coating akrilik sangat lentur, anti retak akibat cuaca.', proofNumber: 'TANPA PRIMER', proofText: 'lentur & daya rekat sangat baik', outcome: 'Atap kedap air permanen, tidak bocor walau hujan deras & pergerakan struktur.', tag: 'YK Water Proofing®' },
+      { problem: 'UV/cuaca mengelupas', headline: 'YK Water Proofing® formula akrilik tahan UV & segala cuaca tropis.', proofNumber: 'TAHAN UV', proofText: '+ non-toksik & anti jamur', outcome: 'Tidak retak, tidak mengelupas, tidak butuh aplikasi ulang setiap tahun.', tag: 'YK Water Proofing®' },
+      { problem: 'Sambungan rembes', headline: 'YK Water Proofing® + Raintite Membrane (polyester) untuk hasil maksimal.', proofNumber: 'COMBO MAX', proofText: 'coating + membran polyester', outcome: 'Celah genting/asbestos ke tembok tersegel rapat, anti rembes jangka panjang.', tag: 'YK Water Proofing® + Raintite' },
+      { problem: 'Pori beton merembes', headline: 'YK Water Proofing® coating akrilik lentur menutup pori beton dari atas.', proofNumber: 'LAPISAN KEDAP', proofText: 'film akrilik elastis di permukaan', outcome: 'Balkon, teras, & kamar mandi anti rembes, finishing tahan lama.', tag: 'YK Water Proofing®' }
     ]
   },
   'mould-curing': {
@@ -492,7 +491,7 @@ Cocok untuk kontraktor, ready-mix, & precaster yang gak mau kompromi soal mutu.
 
 Info & sample: 0812-XXXX-XXXX
 #YKChemicalConstruction #BuildProtectPerform #Beton #Konstruksi` },
-  { id: 'ig-2', type: 'caption_ig', category: 'Waterproofing', title: 'Atap Bocor? Solusi 1x Pasang', text: `☔ Musim hujan, atap mulai rembes? Saatnya YK Proof®!
+  { id: 'ig-2', type: 'caption_ig', category: 'Waterproofing', title: 'Atap Bocor? Solusi 1x Pasang', text: `☔ Musim hujan, atap mulai rembes? Saatnya YK Water Proofing®!
 
 ✓ Tahan UV & cuaca tropis Indonesia
 ✓ Sangat lentur, anti-retak
@@ -577,7 +576,7 @@ Yth. Bapak/Ibu [NAMA],
 Perkenalkan, kami dari PT. Yosi Hutama Karya, produsen lokal aditif konstruksi merek YK. Kami melihat bahwa [NAMA_PERUSAHAAN] sedang menggarap proyek [NAMA_PROYEK], dan ingin menawarkan dukungan material konstruksi yang mungkin relevan:
 
 • YK NN® Superplasticizer, reduksi air 20%, kuat tekan +40%
-• YK Proof® Waterproofing, tahan UV, anti bocor jangka panjang
+• YK Water Proofing® Waterproofing, tahan UV, anti bocor jangka panjang
 
 Kami menyediakan layanan teknis lengkap: site visit gratis, sample untuk uji lab, dan konsultasi aplikasi di lapangan.
 
@@ -598,12 +597,12 @@ Selamat datang di newsletter bulanan Yosi Hutama Karya.
 
 1. **Cek atap rutin**, periksa retakan, sambungan tembok-atap, dan area parapet sebelum hujan deras turun.
 
-2. **Pilih waterproofing yang tahan UV**, banyak produk murah cepat lapuk kena matahari. YK Proof® formula akrilik tahan UV tropis Indonesia.
+2. **Pilih waterproofing yang tahan UV**, banyak produk murah cepat lapuk kena matahari. YK Water Proofing® formula akrilik tahan UV tropis Indonesia.
 
 3. **Aplikasikan 2 lapis dengan jeda yang cukup**, jeda minimum 4 jam antar lapis. Buru-buru = hasil bocor.
 
 **Promo Bulan Ini**
-✓ Diskon 5% untuk pembelian YK Proof® di atas 100kg
+✓ Diskon 5% untuk pembelian YK Water Proofing® di atas 100kg
 ✓ Free membran polyester 1 roll per pembelian 4 pail
 ✓ Konsultasi gratis aplikator senior
 
