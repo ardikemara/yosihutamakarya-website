@@ -55,7 +55,7 @@ const PRODUCTS = [
     description: 'Material isi celah dengan presisi tinggi, tidak menyusut, kekuatan awal cepat, tahan getaran & kimia.',
     skus: ['YK Grout®'],
     items: [
-      { name: 'YK Grout®', type: 'Semen Grouting', desc: 'Grouting siap pakai untuk angkur, pondasi mesin, dudukan bearing pad, perbaikan struktur kelautan.', stats: ['No shrink (CRD C-621)', 'Setting 4-8 jam', 'Tahan getaran & korosi'], dose: '± 1.920 kg/m³ mortar', pack: 'Zak 25kg' }
+      { name: 'YK Grout®', type: 'Semen Grouting', desc: 'Grouting siap pakai untuk angkur, pondasi mesin, dudukan bearing pad, perbaikan struktur kelautan.', stats: ['No shrink (CRD C-621)', 'Setting 4-8 jam', 'Tahan getaran & korosi'], dose: '± 1.920 kg/m³ mortar', pack: 'Zak 25kg', tds: 'TDS-YK-Grout-charcoal.html' }
     ]
   },
   {
