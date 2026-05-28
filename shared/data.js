@@ -79,7 +79,7 @@ const PRODUCTS = [
     description: 'Mortar siap pakai untuk plesteran dinding & pemasangan batu bata, mutu konsisten tiap batch, hemat waktu kerja di lapangan.',
     skus: ['YK Plaster Mix®'],
     items: [
-      { name: 'YK Plaster Mix®', type: 'Ready Mix Mortar', desc: 'Mortar siap pakai untuk plesteran dinding & pemasangan batu bata.', stats: ['Tinggal tambah air', 'Mencegah retak susut', 'Fungsi ganda'], dose: '3.8 – 4.0 L air per bag 25kg', pack: 'Bag 25kg' }
+      { name: 'YK Plaster Mix®', type: 'Ready Mix Mortar', desc: 'Mortar siap pakai untuk plesteran dinding & pemasangan batu bata.', stats: ['Tinggal tambah air', 'Mencegah retak susut', 'Fungsi ganda'], dose: '3.8 – 4.0 L air per bag 25kg', pack: 'Bag 25kg', tds: 'TDS-YK-Plaster-Mix-charcoal.html' }
     ]
   },
   {
