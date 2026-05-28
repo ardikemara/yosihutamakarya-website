@@ -77,10 +77,9 @@ const PRODUCTS = [
     name: 'Ready Mix Mortar',
     audience: 'Kontraktor finishing · Developer · Renovasi',
     headline: 'Mortar siap pakai, tinggal tambah air.',
-    description: 'Mortar siap pakai untuk plesteran & waterproofing, mutu konsisten tiap batch, hemat waktu kerja di lapangan.',
-    skus: ['YK Seal 127®', 'YK Plaster Mix®'],
+    description: 'Mortar siap pakai untuk plesteran dinding & pemasangan batu bata, mutu konsisten tiap batch, hemat waktu kerja di lapangan.',
+    skus: ['YK Plaster Mix®'],
     items: [
-      { name: 'YK Seal 127®', type: 'Skim Coat / Waterproof', desc: 'Lapisan anti bocor lentur 2-komponen untuk kamar mandi, balkon, kolam, tangki air.', stats: ['2 komponen lentur', 'Bisa di permukaan basah', 'Tahan CO₂ & klorida'], dose: '0.75 – 1.0 kg/m² × 2 lapisan', pack: 'Zak bubuk 23kg + Can 10kg' },
       { name: 'YK Plaster Mix®', type: 'Ready Mix Mortar', desc: 'Mortar siap pakai untuk plesteran dinding & pemasangan batu bata.', stats: ['Tinggal tambah air', 'Mencegah retak susut', 'Fungsi ganda'], dose: '3.8 – 4.0 L air per bag 25kg', pack: 'Bag 25kg' }
     ]
   },
@@ -172,20 +171,16 @@ const PRODUCT_DETAILS = {
     ]
   },
   'ready-mix-mortar': {
-    painHeadline: 'Masalah Klasik di Plesteran & Finishing Waterproofing',
+    painHeadline: 'Masalah Klasik di Plesteran Dinding',
     pains: [
       { label: 'Adukan manual boros', desc: 'Tukang sering boros pasir & semen, proporsi naik-turun tiap batch.', consequence: 'Material terbuang, biaya membengkak, mutu finishing inkonsisten.' },
-      { label: 'Plesteran retak susut', desc: 'Adukan manual tidak terkontrol, plester retak rambut setelah kering.', consequence: 'Rework cat & finishing, klien komplain berulang kali.' },
-      { label: 'Area basah bocor', desc: 'Kamar mandi, balkon, dak, kolam, sering bocor walau sudah di-waterproofing.', consequence: 'Air rembes ke unit bawah, klaim garansi, reputasi developer turun.' },
-      { label: 'Waterproofing repot', desc: 'Persiapan permukaan kering total butuh hari, multi-step, lambat.', consequence: 'Proyek mundur dari jadwal, biaya overhead naik.' }
+      { label: 'Plesteran retak susut', desc: 'Adukan manual tidak terkontrol, plester retak rambut setelah kering.', consequence: 'Rework cat & finishing, klien komplain berulang kali.' }
     ],
-    summary: 'Mortar siap pakai untuk plesteran & waterproofing premium, mutu konsisten tiap batch, hemat waktu kerja di lapangan.',
-    solverHeadline: 'Bagaimana Ready Mix Mortar Menyelesaikan 4 Masalah Itu',
+    summary: 'Mortar siap pakai untuk plesteran dinding & pemasangan batu bata, mutu konsisten tiap batch, hemat waktu kerja di lapangan.',
+    solverHeadline: 'Bagaimana YK Plaster Mix® Menyelesaikan Masalah Itu',
     solvers: [
       { problem: 'Adukan manual boros', headline: 'YK Plaster Mix® proporsi terstandar pabrik, tinggal tambah air.', proofNumber: '3.8 L', proofText: 'air per bag 25kg, mutu sama', outcome: 'Tukang gak boros material, hemat waktu campur, mutu konsisten tiap batch.', tag: 'YK Plaster Mix®' },
-      { problem: 'Plesteran retak susut', headline: 'YK Plaster Mix® mencegah retak susut, hasil dinding lebih halus.', proofNumber: 'Retak ↓↓', proofText: '+ dinding halus tanpa rework', outcome: 'Plesteran rapi & kuat, gak perlu acian ekstra atau perbaikan ulang.', tag: 'YK Plaster Mix®' },
-      { problem: 'Area basah bocor', headline: 'YK Seal 127® semen lentur 2-komponen, anti bocor jangka panjang.', proofNumber: '2 KOMPONEN', proofText: 'polymer-modified, lentur', outcome: 'Kamar mandi, balkon, kolam, tangki air, anti rembes & tahan tekanan air.', tag: 'YK Seal 127®' },
-      { problem: 'Waterproofing repot', headline: 'YK Seal 127® bisa langsung diaplikasi ke permukaan basah.', proofNumber: 'SURFACE OK', proofText: 'basah, tahan CO₂ & klorida', outcome: 'Gak perlu nunggu kering total, persiapan minimal, kerja cepat di lapangan.', tag: 'YK Seal 127®' }
+      { problem: 'Plesteran retak susut', headline: 'YK Plaster Mix® mencegah retak susut, hasil dinding lebih halus.', proofNumber: 'Retak ↓↓', proofText: '+ dinding halus tanpa rework', outcome: 'Plesteran rapi & kuat, gak perlu acian ekstra atau perbaikan ulang.', tag: 'YK Plaster Mix®' }
     ]
   },
   'waterproofing': {
