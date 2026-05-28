@@ -149,10 +149,11 @@
   mountLayout('produk');
 
   // Cascading image fallback: try .jpg → .png → remove (show placeholder)
+  // Preserve any ?query so the .png fetch also bypasses any stuck CDN cache.
   function phFallback(el) {
     if (el.dataset.fb) { el.remove(); return; }
     el.dataset.fb = '1';
-    el.src = el.src.replace(/\.jpg(\?.*)?$/, '.png');
+    el.src = el.src.replace(/\.jpg(\?.*)?$/, '.png$1');
   }
 
   // Get slug from URL
@@ -196,7 +197,7 @@
     document.getElementById('d-pain-grid').innerHTML = detail.pains.map((p, i) => `
       <div class="pain-card">
         <div class="img-ph">
-          <img class="ph-real" src="assets/img/produk-detail/${slug}-masalah-${i + 1}.jpg" alt="${p.label}" onerror="phFallback(this)">
+          <img class="ph-real" src="assets/img/produk-detail/${slug}-masalah-${i + 1}.jpg?v=2" alt="${p.label}" onerror="phFallback(this)">
           <div class="ph-name">${slug}-masalah-${i + 1}.jpg</div>
           <div class="ph-size">FOTO MASALAH · 16:9</div>
           <div class="ph-desc">${p.label}</div>
@@ -216,7 +217,7 @@
     document.getElementById('d-solver-grid').innerHTML = detail.solvers.map((s, i) => `
       <div class="solver-card">
         <div class="img-ph">
-          <img class="ph-real" src="assets/img/produk-detail/${slug}-solusi-${i + 1}.jpg" alt="${s.problem}" onerror="phFallback(this)">
+          <img class="ph-real" src="assets/img/produk-detail/${slug}-solusi-${i + 1}.jpg?v=2" alt="${s.problem}" onerror="phFallback(this)">
           <div class="ph-name">${slug}-solusi-${i + 1}.jpg</div>
           <div class="ph-size">FOTO SOLUSI · 16:9</div>
           <div class="ph-desc">${s.headline}</div>
