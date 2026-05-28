@@ -22,33 +22,8 @@ const BRAND = {
 
 const PRODUCTS = [
   {
-    slug: 'mould-curing',
-    num: '01',
-    name: 'Mould Release & Curing',
-    audience: 'Kontraktor pengecoran · Precaster · Ready-mix',
-    headline: 'Lepas cetakan & jaga kelembaban beton.',
-    description: 'Mempermudah lepas cetakan dan jaga kelembaban beton baru agar tidak retak.',
-    skus: ['YK Mould Oil®', 'YK Curing®'],
-    items: [
-      { name: 'YK Mould Oil®', type: 'Form Release', desc: 'Minyak bekisting siap pakai untuk lepas cetakan kayu/logam/plastik.', stats: ['1L = 25 m² kayu', 'Permukaan halus', 'Cocok semua cetakan'], dose: '1L = 25 m² kayu / 40 m² logam', pack: 'Drum 200 liter', tds: 'TDS-YK-Mould-Oil-charcoal.html' },
-      { name: 'YK Curing®', type: 'Polyolefins', desc: 'Curing compound untuk jalan raya, landasan, apron, dermaga, & roof deck.', stats: ['Cegah retak plastis', 'Tidak mudah terbakar', 'Hemat tenaga'], dose: '0.15 – 0.20 kg/m²', pack: 'Drum 225kg / Can 20kg', tds: 'TDS-YK-Curing-charcoal.html' }
-    ]
-  },
-  {
-    slug: 'bonding-agent',
-    num: '02',
-    name: 'Bonding Agent',
-    audience: 'Kontraktor renovasi · Perbaikan struktur',
-    headline: 'Perekat beton lama ↔ baru, plester, & keramik.',
-    description: 'PVA emulsion bonding agent multi-fungsi, 5 aplikasi dalam 1 produk: beton lama-baru, primer plester, plester kasar, acian halus, perekat keramik.',
-    skus: ['YK Bond®'],
-    items: [
-      { name: 'YK Bond®', type: 'PVA Bonding Agent', desc: 'Bahan perekat berbasis Polyvinyl Acetate Emulsion. Kompatibel semua tipe semen.', stats: ['5 aplikasi 1 produk', 'Tambah daya rekat', 'Kurangi retak rambut'], dose: 'Campur air 1:1 sampai 1:3', pack: 'Pail 10kg, Pail 20kg, Drum 200kg', tds: 'TDS-YK-Bond-charcoal.html' }
-    ]
-  },
-  {
     slug: 'concrete-admixture',
-    num: '03',
+    num: '01',
     name: 'Concrete Admixture',
     audience: 'Kontraktor · Ready-mix Plant · Precaster',
     headline: 'Beton kuat tekan tinggi, setting cepat.',
@@ -60,7 +35,7 @@ const PRODUCTS = [
   },
   {
     slug: 'mortar-admixture',
-    num: '04',
+    num: '02',
     name: 'Mortar Admixture',
     audience: 'Tukang batu · Kontraktor renovasi · Toko bangunan',
     headline: 'Tambal bocor seketika, daya rekat tinggi.',
@@ -72,7 +47,7 @@ const PRODUCTS = [
   },
   {
     slug: 'ready-mix-mortar',
-    num: '05',
+    num: '03',
     name: 'Ready Mix Mortar',
     audience: 'Kontraktor finishing · Developer · Renovasi',
     headline: 'Mortar siap pakai, tinggal tambah air.',
@@ -85,7 +60,7 @@ const PRODUCTS = [
   },
   {
     slug: 'waterproofing',
-    num: '06',
+    num: '04',
     name: 'Waterproofing',
     audience: 'Pemilik rumah · Kontraktor · Aplikator',
     headline: 'Anti bocor atap, dinding, kamar mandi.',
@@ -97,8 +72,21 @@ const PRODUCTS = [
     ]
   },
   {
+    slug: 'mould-curing',
+    num: '05',
+    name: 'Mould Release & Curing',
+    audience: 'Kontraktor pengecoran · Precaster · Ready-mix',
+    headline: 'Lepas cetakan & jaga kelembaban beton.',
+    description: 'Mempermudah lepas cetakan dan jaga kelembaban beton baru agar tidak retak.',
+    skus: ['YK Mould Oil®', 'YK Curing®'],
+    items: [
+      { name: 'YK Mould Oil®', type: 'Form Release', desc: 'Minyak bekisting siap pakai untuk lepas cetakan kayu/logam/plastik.', stats: ['1L = 25 m² kayu', 'Permukaan halus', 'Cocok semua cetakan'], dose: '1L = 25 m² kayu / 40 m² logam', pack: 'Drum 200 liter', tds: 'TDS-YK-Mould-Oil-charcoal.html' },
+      { name: 'YK Curing®', type: 'Polyolefins', desc: 'Curing compound untuk jalan raya, landasan, apron, dermaga, & roof deck.', stats: ['Cegah retak plastis', 'Tidak mudah terbakar', 'Hemat tenaga'], dose: '0.15 – 0.20 kg/m²', pack: 'Drum 225kg / Can 20kg', tds: 'TDS-YK-Curing-charcoal.html' }
+    ]
+  },
+  {
     slug: 'floor-treatments',
-    num: '07',
+    num: '06',
     name: 'Floor Treatments',
     audience: 'Gudang · Pabrik · Parkiran · Bengkel',
     headline: 'Lantai beton tahan abrasi, oli, & debu. 6 warna.',
@@ -110,7 +98,7 @@ const PRODUCTS = [
   },
   {
     slug: 'grouting',
-    num: '08',
+    num: '07',
     name: 'Grouting',
     audience: 'Kontraktor sipil · Pabrik · Engineering',
     headline: 'Isi celah presisi tinggi untuk mesin, angkur, & struktur.',
@@ -123,7 +111,7 @@ const PRODUCTS = [
   },
   {
     slug: 'tile-adhesive',
-    num: '09',
+    num: '08',
     name: 'Tile Adhesive',
     audience: 'Kontraktor finishing · Toko bangunan · Renovasi',
     headline: 'Perekat keramik, marmer, granit, bisa pasang on-tile.',
@@ -131,6 +119,18 @@ const PRODUCTS = [
     skus: ['YK Tile Adhesive®'],
     items: [
       { name: 'YK Tile Adhesive®', type: 'Perekat Keramik Siap Pakai', desc: 'Untuk merekatkan keramik, marmer, & granit pada permukaan lantai & dinding. Bisa on-tile.', stats: ['Setting 30 menit', 'On-tile (tanpa bongkar)', 'Keramik · marmer · granit'], dose: '± 6-7 m² per 25kg (tebal 2mm)', pack: 'Zak 25kg · 6.25 L air per bag' }
+    ]
+  },
+  {
+    slug: 'bonding-agent',
+    num: '09',
+    name: 'Bonding Agent',
+    audience: 'Kontraktor renovasi · Perbaikan struktur',
+    headline: 'Perekat beton lama ↔ baru, plester, & keramik.',
+    description: 'PVA emulsion bonding agent multi-fungsi, 5 aplikasi dalam 1 produk: beton lama-baru, primer plester, plester kasar, acian halus, perekat keramik.',
+    skus: ['YK Bond®'],
+    items: [
+      { name: 'YK Bond®', type: 'PVA Bonding Agent', desc: 'Bahan perekat berbasis Polyvinyl Acetate Emulsion. Kompatibel semua tipe semen.', stats: ['5 aplikasi 1 produk', 'Tambah daya rekat', 'Kurangi retak rambut'], dose: 'Campur air 1:1 sampai 1:3', pack: 'Pail 10kg, Pail 20kg, Drum 200kg', tds: 'TDS-YK-Bond-charcoal.html' }
     ]
   }
 ];
