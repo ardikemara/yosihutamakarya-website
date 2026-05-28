@@ -53,10 +53,9 @@ const PRODUCTS = [
     audience: 'Kontraktor sipil · Pabrik · Engineering',
     headline: 'Isi celah presisi tinggi untuk mesin, angkur, & struktur.',
     description: 'Material isi celah dengan presisi tinggi, tidak menyusut, kekuatan awal cepat, tahan getaran & kimia.',
-    skus: ['YK Grout®', 'YK 72 Epoxy®'],
+    skus: ['YK Grout®'],
     items: [
-      { name: 'YK Grout®', type: 'Semen Grouting', desc: 'Grouting siap pakai untuk angkur, pondasi mesin, dudukan bearing pad, perbaikan struktur kelautan.', stats: ['No shrink (CRD C-621)', 'Setting 4-8 jam', 'Tahan getaran & korosi'], dose: '± 1.920 kg/m³ mortar', pack: 'Zak 25kg' },
-      { name: 'YK 72 Epoxy Grout®', type: '3-Komponen Epoxy', desc: 'Grout epoxy premium untuk fixing besi stek, landasan mesin berat, rel crane & kereta api.', stats: ['Kekuatan sangat tinggi', 'Bebas solvent', 'Tahan kimia & lembab'], dose: '-', pack: 'Set 12kg (A + B + C)' }
+      { name: 'YK Grout®', type: 'Semen Grouting', desc: 'Grouting siap pakai untuk angkur, pondasi mesin, dudukan bearing pad, perbaikan struktur kelautan.', stats: ['No shrink (CRD C-621)', 'Setting 4-8 jam', 'Tahan getaran & korosi'], dose: '± 1.920 kg/m³ mortar', pack: 'Zak 25kg' }
     ]
   },
   {
@@ -247,12 +246,12 @@ const PRODUCT_DETAILS = {
       { label: 'Lingkungan korosif rusak', desc: 'Area pelabuhan, kimia, atau lembab merusak grout konvensional cepat.', consequence: 'Perbaikan struktur berulang, biaya maintenance jangka panjang tinggi.' }
     ],
     summary: 'Material grouting presisi tinggi, tidak menyusut, kekuatan awal cepat, tahan getaran & kimia, sekali pasang awet jangka panjang.',
-    solverHeadline: 'Bagaimana Grouting Menyelesaikan 4 Masalah Itu',
+    solverHeadline: 'Bagaimana YK Grout® Menyelesaikan 4 Masalah Itu',
     solvers: [
       { problem: 'Grout biasa menyusut', headline: 'YK Grout® formula tidak menyusut, memenuhi standar internasional.', proofNumber: 'NO SHRINK', proofText: 'CRD C-621 + ASTM C-1107', outcome: 'Celah baut & mesin terisi penuh, fondasi presisi sekali pasang.', tag: 'YK Grout®' },
       { problem: 'Setting time lambat', headline: 'YK Grout® setting awal cepat, mudah mengalir, konsistensi bisa diatur.', proofNumber: '4-8 JAM', proofText: 'setting awal @ 27°C', outcome: 'Mesin atau struktur bisa cepat digunakan, downtime minim.', tag: 'YK Grout®' },
-      { problem: 'Mesin berat bergetar', headline: 'YK 72 Epoxy Grout® epoxy 3-komponen tahan getaran tinggi.', proofNumber: 'TAHAN GETARAN', proofText: '+ epoxy 3-komponen premium', outcome: 'Mesin berat, rel crane, & rel kereta stabil tanpa re-grouting.', tag: 'YK 72 Epoxy Grout®' },
-      { problem: 'Lingkungan korosif', headline: 'YK 72 Epoxy Grout® tahan korosi, kimia, & bisa di permukaan lembab.', proofNumber: 'TAHAN KIMIA', proofText: '+ aplikasi di permukaan lembab', outcome: 'Cocok area pelabuhan, kelautan, & industri kimia, awet jangka panjang.', tag: 'YK 72 Epoxy Grout®' }
+      { problem: 'Mesin berat bergetar', headline: 'YK Grout® tahan getaran tinggi — formula stabil untuk fondasi mesin & rel.', proofNumber: 'TAHAN GETARAN', proofText: '+ no shrink, fondasi presisi', outcome: 'Mesin berat, rel crane, & rel kereta stabil tanpa re-grouting berulang.', tag: 'YK Grout®' },
+      { problem: 'Lingkungan korosif rusak', headline: 'YK Grout® tahan korosi & kimia, awet di area pelabuhan & industri.', proofNumber: 'TAHAN KIMIA', proofText: '+ struktur kelautan & pabrik', outcome: 'Cocok area pelabuhan, kelautan, & industri kimia, awet jangka panjang.', tag: 'YK Grout®' }
     ]
   },
   'tile-adhesive': {
