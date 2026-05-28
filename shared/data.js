@@ -171,16 +171,20 @@ const PRODUCT_DETAILS = {
     ]
   },
   'ready-mix-mortar': {
-    painHeadline: 'Masalah Klasik di Plesteran Dinding',
+    painHeadline: 'Masalah Klasik di Plesteran Dinding & Pemasangan Bata',
     pains: [
       { label: 'Adukan manual boros', desc: 'Tukang sering boros pasir & semen, proporsi naik-turun tiap batch.', consequence: 'Material terbuang, biaya membengkak, mutu finishing inkonsisten.' },
-      { label: 'Plesteran retak susut', desc: 'Adukan manual tidak terkontrol, plester retak rambut setelah kering.', consequence: 'Rework cat & finishing, klien komplain berulang kali.' }
+      { label: 'Plesteran retak susut', desc: 'Adukan manual tidak terkontrol, plester retak rambut setelah kering.', consequence: 'Rework cat & finishing, klien komplain berulang kali.' },
+      { label: 'Mutu plester beda-beda tiap tukang', desc: 'Tiap tukang campur sendiri, proporsi naik-turun, hasil plester tidak seragam antar tembok.', consequence: 'Finishing cat belang-belang, harus rework di area yang mutunya beda.' },
+      { label: 'Butuh adukan beda untuk plester & pasang bata', desc: 'Tukang biasa pakai 2 jenis adukan: 1 untuk plester, 1 untuk pasang batu bata — repot, boros stok.', consequence: 'Stok material dobel, manajemen lapangan ribet, waktu kerja lebih lama.' }
     ],
     summary: 'Mortar siap pakai untuk plesteran dinding & pemasangan batu bata, mutu konsisten tiap batch, hemat waktu kerja di lapangan.',
-    solverHeadline: 'Bagaimana YK Plaster Mix® Menyelesaikan Masalah Itu',
+    solverHeadline: 'Bagaimana YK Plaster Mix® Menyelesaikan 4 Masalah Itu',
     solvers: [
       { problem: 'Adukan manual boros', headline: 'YK Plaster Mix® proporsi terstandar pabrik, tinggal tambah air.', proofNumber: '3.8 L', proofText: 'air per bag 25kg, mutu sama', outcome: 'Tukang gak boros material, hemat waktu campur, mutu konsisten tiap batch.', tag: 'YK Plaster Mix®' },
-      { problem: 'Plesteran retak susut', headline: 'YK Plaster Mix® mencegah retak susut, hasil dinding lebih halus.', proofNumber: 'Retak ↓↓', proofText: '+ dinding halus tanpa rework', outcome: 'Plesteran rapi & kuat, gak perlu acian ekstra atau perbaikan ulang.', tag: 'YK Plaster Mix®' }
+      { problem: 'Plesteran retak susut', headline: 'YK Plaster Mix® mencegah retak susut, hasil dinding lebih halus.', proofNumber: 'Retak ↓↓', proofText: '+ dinding halus tanpa rework', outcome: 'Plesteran rapi & kuat, gak perlu acian ekstra atau perbaikan ulang.', tag: 'YK Plaster Mix®' },
+      { problem: 'Mutu plester beda-beda tiap tukang', headline: 'YK Plaster Mix® mutu pabrik konsisten — tiap bag identik.', proofNumber: 'MUTU SAMA', proofText: 'tiap bag 25kg, batch ke batch', outcome: 'Plester rata di seluruh proyek, finishing cat hasilnya seragam.', tag: 'YK Plaster Mix®' },
+      { problem: 'Butuh adukan beda untuk plester & pasang bata', headline: 'YK Plaster Mix® fungsi ganda — pasang batu bata + plester dalam 1 produk.', proofNumber: '1 PRODUK', proofText: 'plester + pasang batu bata', outcome: 'Stok material lebih simple, tukang gak perlu campur 2 jenis, kerja lebih cepat.', tag: 'YK Plaster Mix®' }
     ]
   },
   'waterproofing': {
