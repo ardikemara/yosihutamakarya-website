@@ -60,10 +60,11 @@
   mountLayout('produk');
 
   // Cascading image fallback: try .jpg → .png → remove (show placeholder)
+  // Preserve any ?query so the .png fetch also bypasses any stuck CDN cache.
   function phFallback(el) {
     if (el.dataset.fb) { el.remove(); return; }
     el.dataset.fb = '1';
-    el.src = el.src.replace(/\.jpg(\?.*)?$/, '.png');
+    el.src = el.src.replace(/\.jpg(\?.*)?$/, '.png$1');
   }
 
   const list = document.getElementById('product-list');
@@ -86,7 +87,7 @@
             return `
             <div class="prod-item">
               <div class="img-ph" style="aspect-ratio: 4/3;">
-                <img class="ph-real" src="assets/img/katalog/${slug}.jpg" alt="${it.name}" onerror="phFallback(this)">
+                <img class="ph-real" src="assets/img/katalog/${slug}.jpg?v=2" alt="${it.name}" onerror="phFallback(this)">
                 <div class="ph-name">katalog/${slug}.jpg</div>
                 <div class="ph-size">800 × 600 px (4:3)</div>
                 <div class="ph-desc">Foto: kemasan ${(it.pack||'').split(' / ')[0]}</div>
