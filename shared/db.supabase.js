@@ -90,6 +90,20 @@ function invoiceToRow(i) {
   };
 }
 
+function portalUserFromRow(r) {
+  if (!r) return null;
+  return {
+    id: r.id,
+    email: r.email,
+    name: r.name,
+    role: r.role,                       // 'super_admin' | 'staff' | 'finance'
+    active: r.active,
+    invitedAt: r.invited_at,
+    lastLoginAt: r.last_login_at,
+    createdAt: r.created_at
+  };
+}
+
 function suratFromRow(r) {
   if (!r) return null;
   return {
@@ -296,6 +310,54 @@ const DB = {
     catch { return null; }
   },
   logout() { localStorage.removeItem('yk_user'); },
+
+  // ---------- PORTAL USERS (role-based access management) ----------
+  // Sign-in by email = lookup user in portal_users.
+  // For mock auth: no password check; just verify email exists & is active.
+  async signInByEmail(email) {
+    const { data, error } = await sb.from('portal_users')
+      .select('*').ilike('email', email.trim()).eq('active', true).maybeSingle();
+    if (error) { console.error('signInByEmail', error); return null; }
+    if (data) {
+      // best-effort last_login update — don't fail sign-in if it errors
+      sb.from('portal_users').update({ last_login_at: new Date().toISOString() }).eq('id', data.id).then(() => {});
+    }
+    return portalUserFromRow(data);
+  },
+
+  async listUsers() {
+    const { data, error } = await sb.from('portal_users').select('*').order('role').order('name');
+    if (error) { console.error('listUsers', error); return []; }
+    return data.map(portalUserFromRow);
+  },
+
+  async addUser({ email, name, role }) {
+    const { data, error } = await sb.from('portal_users').insert({
+      email: email.trim().toLowerCase(),
+      name: name.trim(),
+      role: role,
+      active: true,
+      invited_at: new Date().toISOString()
+    }).select().single();
+    if (error) { console.error('addUser', error); return { error: error.message }; }
+    return portalUserFromRow(data);
+  },
+
+  async updateUser(id, patch) {
+    const row = {};
+    if (patch.name !== undefined) row.name = patch.name;
+    if (patch.role !== undefined) row.role = patch.role;
+    if (patch.active !== undefined) row.active = patch.active;
+    const { data, error } = await sb.from('portal_users').update(row).eq('id', id).select().single();
+    if (error) { console.error('updateUser', error); return { error: error.message }; }
+    return portalUserFromRow(data);
+  },
+
+  async deleteUser(id) {
+    const { error } = await sb.from('portal_users').delete().eq('id', id);
+    if (error) { console.error('deleteUser', error); return false; }
+    return true;
+  },
 
   // seed() is a no-op — demo data already lives in Supabase
   seed() { /* moved to Supabase migration */ }

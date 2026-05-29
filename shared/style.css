@@ -602,8 +602,11 @@ h4 { font-size: 1.125rem; }
 .inv-tbl th { background: var(--yk-black); color: var(--yk-white); padding: 10px 12px; text-align: left; font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; }
 .inv-tbl th.right, .inv-tbl td.right { text-align: right; }
 .inv-tbl td { padding: 12px; border-bottom: 1px solid var(--yk-border); }
-.inv-totals { width: 50%; margin-left: auto; font-size: 12.5px; }
-.inv-totals .row { display: flex; justify-content: space-between; padding: 6px 0; }
+/* Cegah "Rp" pisah baris dari nominal — pakai nbsp + nowrap */
+.inv-tbl th.right, .inv-tbl td.right { white-space: nowrap; }
+.inv-totals { width: 60%; margin-left: auto; font-size: 12.5px; }
+.inv-totals .row { display: flex; justify-content: space-between; align-items: baseline; padding: 6px 0; gap: 12px; }
+.inv-totals .row span { white-space: nowrap; }   /* Rp & label tetap satu baris */
 .inv-totals .row.total { border-top: 2px solid var(--yk-black); margin-top: 6px; padding-top: 12px; font-size: 16px; font-weight: 800; color: var(--yk-black); }
 .inv-notes { margin-top: 32px; padding-top: 20px; border-top: 1px dashed var(--yk-border); font-size: 11px; color: var(--yk-grey); line-height: 1.7; }
 

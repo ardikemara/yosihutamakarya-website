@@ -19,23 +19,20 @@
   <div class="card" style="padding: 32px;">
     <form id="login-form">
       <label>Email Karyawan</label>
-      <input type="email" name="email" required placeholder="nama@yosihutamankarya.com" value="ardi@yosihutamankarya.com" />
+      <input type="email" name="email" required placeholder="nama@yosihutamankarya.com" value="ardi.kemara1@gmail.com" />
 
       <label style="margin-top: 16px;">Password</label>
-      <input type="password" name="password" required placeholder="••••••••" value="demo123" />
-
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 16px; font-size: 13px;">
-        <label style="display: flex; align-items: center; gap: 6px; margin: 0; font-weight: 500;">
-          <input type="checkbox" style="width: auto;" checked /> Ingat saya
-        </label>
-        <a href="#" style="font-size: 13px;">Lupa password?</a>
-      </div>
+      <input type="password" name="password" placeholder="(prototype, password tidak dicek)" value="demo123" />
 
       <button type="submit" class="btn btn-primary btn-lg" style="width: 100%; margin-top: 24px;">Masuk ke Portal</button>
+      <p id="login-error" style="color: var(--yk-danger); font-size: 13px; margin-top: 12px; display: none;"></p>
     </form>
 
     <div class="panel" style="margin-top: 24px; padding: 14px 16px; font-size: 12px; background: #FEF3C7; border: 1px solid #FCD34D; border-left: 3px solid #D97706;">
-      <strong style="color: #D97706;">DEMO MODE:</strong> Email & password sudah dipre-fill. Klik tombol di atas untuk masuk.
+      <strong style="color: #D97706;">DEMO MODE:</strong> Password tidak dicek. Email harus terdaftar di Settings → Users.
+      <div style="margin-top: 8px; font-size: 11px; color: var(--yk-grey);">
+        Akun demo: <code>ardi.kemara1@gmail.com</code> (admin), <code>staff@yosihutamankarya.com</code> (staff), <code>finance@yosihutamankarya.com</code> (finance)
+      </div>
     </div>
   </div>
 
@@ -47,17 +44,36 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="../shared/supabase-config.js"></script>
 <script src="../shared/db.supabase.js"></script>
+<script src="../shared/access.js"></script>
 <script>
-  document.getElementById('login-form').addEventListener('submit', (e) => {
+  document.getElementById('login-form').addEventListener('submit', async (e) => {
     e.preventDefault();
     const fd = new FormData(e.target);
+    const email = fd.get('email');
+    const btn = e.target.querySelector('button[type="submit"]');
+    const err = document.getElementById('login-error');
+    err.style.display = 'none';
+    btn.disabled = true; btn.textContent = 'Mencari akun…';
+
+    const user = await DB.signInByEmail(email);
+
+    if (!user) {
+      btn.disabled = false; btn.textContent = 'Masuk ke Portal';
+      err.textContent = 'Email tidak terdaftar atau akun di-nonaktifkan. Minta admin tambahkan via Settings.';
+      err.style.display = 'block';
+      return;
+    }
+
     DB.setUser({
-      email: fd.get('email'),
-      name: 'Ardi Kemara',
-      role: 'Sales Manager',
+      id: user.id,
+      email: user.email,
+      name: user.name,
+      role: user.role,
       loginAt: new Date().toISOString()
     });
-    location.href = 'dashboard.html';
+
+    // Redirect to role-appropriate home
+    location.href = roleHome(user.role);
   });
 </script>
 </body>

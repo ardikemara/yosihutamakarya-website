@@ -28,6 +28,7 @@
       </div>
       <div class="hero-image">
         <div class="img-ph" style="aspect-ratio: 4/5; background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.3); color: rgba(255,255,255,0.7);">
+          <img class="ph-real" src="assets/img/hero.jpg?v=2" alt="YK hero shot" onerror="phFallback(this)">
           <div class="ph-name" style="color: #93C5FD;">hero.jpg</div>
           <div class="ph-size" style="color: rgba(255,255,255,0.6);">800 × 1000 px (4:5)</div>
           <div class="ph-desc" style="color: rgba(255,255,255,0.7);">Foto: hero shot - sak semen YK / pekerja konstruksi / produk dalam aksi</div>
@@ -337,6 +338,14 @@
 <script src="shared/layout.js"></script>
 <script>
   mountLayout('home');
+
+  // Cascading image fallback: try .jpg → .png → remove (show placeholder)
+  // Preserve any ?query so the .png fetch also bypasses any stuck CDN cache.
+  function phFallback(el) {
+    if (el.dataset.fb) { el.remove(); return; }
+    el.dataset.fb = '1';
+    el.src = el.src.replace(/\.jpg(\?.*)?$/, '.png$1');
+  }
 
   // Render product grid
   const grid = document.getElementById('product-grid');

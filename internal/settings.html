@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Settings · Portal Internal YK</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../shared/style.css" />
+<style>
+  .role-pill { display: inline-block; padding: 3px 10px; font-size: 11px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; border-radius: 999px; }
+  .role-super_admin { background: #1F2937; color: #fff; }
+  .role-staff       { background: #DBEAFE; color: var(--yk-blue); }
+  .role-finance     { background: #FEF3C7; color: #92400E; }
+  .role-card { background: var(--yk-white); border: 1px solid var(--yk-border); padding: 18px 20px; }
+  .role-card h4 { font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--yk-grey); margin-bottom: 8px; }
+  .role-card .role-perms { font-size: 13px; color: var(--yk-charcoal); line-height: 1.55; }
+  .inactive-row td { opacity: 0.5; }
+</style>
+</head>
+<body>
+
+<div class="internal-shell">
+  <div id="yk-sidebar"></div>
+
+  <main class="workspace">
+    <div class="workspace-head">
+      <div>
+        <h1>Settings · Users & Roles</h1>
+        <p>Atur siapa yang bisa akses portal & menu apa saja. Hanya super admin yang bisa membuka halaman ini.</p>
+      </div>
+      <button class="btn btn-primary" onclick="openAddModal()">+ Invite User</button>
+    </div>
+
+    <!-- Role overview cards -->
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 28px;">
+      <div class="role-card" style="border-top: 3px solid var(--yk-black);">
+        <h4><span class="role-pill role-super_admin">super admin</span></h4>
+        <div class="role-perms">Akses ke <strong>semua menu</strong> — dashboard, leads, surat, invoice, library, settings. Hanya admin yang bisa invite / hapus user lain.</div>
+      </div>
+      <div class="role-card" style="border-top: 3px solid var(--yk-blue);">
+        <h4><span class="role-pill role-staff">staff</span></h4>
+        <div class="role-perms">Surat Generator + Content Library. Untuk sales/operasional staff yang ngirim penawaran & follow-up klien via WA/email.</div>
+      </div>
+      <div class="role-card" style="border-top: 3px solid #D97706;">
+        <h4><span class="role-pill role-finance">finance</span></h4>
+        <div class="role-perms">Invoice Generator only. Bisa bikin invoice, mark sent, mark paid (upload bukti transfer), follow-up tagihan overdue.</div>
+      </div>
+    </div>
+
+    <!-- Users table -->
+    <div class="card" style="padding: 0;">
+      <div style="padding: 18px 24px; border-bottom: 1px solid var(--yk-border); display: flex; justify-content: space-between; align-items: center;">
+        <div>
+          <h3 style="font-size: 15px;">User Aktif</h3>
+          <p class="muted text-sm" id="user-count" style="margin-top: 2px;">—</p>
+        </div>
+      </div>
+      <table class="tbl" id="users-table" style="border: none;">
+        <thead>
+          <tr>
+            <th>Nama</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Last Login</th>
+            <th>Status</th>
+            <th>Aksi</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </main>
+</div>
+
+<!-- ====== ADD / EDIT USER MODAL ====== -->
+<div class="modal-bg" id="user-modal">
+  <div class="modal" style="max-width: 460px;">
+    <div class="modal-head">
+      <h3 id="um-title">Invite User Baru</h3>
+      <button class="modal-close" onclick="closeUserModal()">×</button>
+    </div>
+    <div class="modal-body">
+      <label>Email <span style="color: var(--yk-danger);">*</span></label>
+      <input type="email" id="um-email" placeholder="nama@yosihutamankarya.com" />
+
+      <label style="margin-top: 14px;">Nama Lengkap <span style="color: var(--yk-danger);">*</span></label>
+      <input type="text" id="um-name" placeholder="Budi Santoso" />
+
+      <label style="margin-top: 14px;">Role <span style="color: var(--yk-danger);">*</span></label>
+      <select id="um-role">
+        <option value="staff">Staff · Surat + Library</option>
+        <option value="finance">Finance · Invoice only</option>
+        <option value="super_admin">Super Admin · Akses semua</option>
+      </select>
+
+      <div id="um-active-wrap" style="margin-top: 14px; display: none;">
+        <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+          <input type="checkbox" id="um-active" style="width: auto;" />
+          <span style="font-weight: 600;">Akun aktif</span>
+        </label>
+        <p class="muted text-sm" style="margin-top: 4px;">Jika di-uncheck, user tidak bisa login sampai diaktifkan lagi.</p>
+      </div>
+
+      <div id="um-info" class="panel" style="margin-top: 16px; font-size: 12px; background: #EFF6FF; border-left: 3px solid var(--yk-blue);">
+        <strong style="color: var(--yk-blue);">💡 Cara kasih tau user-nya:</strong>
+        <div style="margin-top: 6px;">Akun di-prototype mode (tanpa password). Setelah disimpan, kirim WA/email ke user-nya: <em>"Login portal: <span id="um-info-url"></span> dengan email kamu."</em></div>
+      </div>
+
+      <p id="um-error" style="color: var(--yk-danger); font-size: 13px; margin-top: 10px; display: none;"></p>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost btn-sm" onclick="closeUserModal()">Batal</button>
+      <button class="btn btn-primary btn-sm" id="um-submit" onclick="submitUser()">Simpan</button>
+    </div>
+  </div>
+</div>
+
+<!-- ====== DELETE CONFIRM MODAL ====== -->
+<div class="modal-bg" id="del-modal">
+  <div class="modal" style="max-width: 400px;">
+    <div class="modal-head">
+      <h3>Hapus User?</h3>
+      <button class="modal-close" onclick="closeDelModal()">×</button>
+    </div>
+    <div class="modal-body">
+      <p>User <strong id="del-name">—</strong> akan dihapus permanen dari database. Tidak bisa di-undo.</p>
+      <p class="muted text-sm" style="margin-top: 8px;">Untuk reversible, gunakan "Nonaktifkan" (toggle Active) lewat tombol Edit.</p>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost btn-sm" onclick="closeDelModal()">Batal</button>
+      <button class="btn btn-danger btn-sm" onclick="confirmDelete()">Hapus Permanen</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../shared/supabase-config.js"></script>
+<script src="../shared/db.supabase.js"></script>
+<script src="../shared/access.js"></script>
+<script src="sidebar.js"></script>
+<script>
+  mountSidebar('settings');
+
+  let editingId = null;
+  let deletingId = null;
+  let usersCache = [];
+
+  // Pre-fill the prototype login URL for the invite info banner
+  document.getElementById('um-info-url').textContent = location.href.replace('settings.html', 'login.html');
+
+  async function refresh() {
+    usersCache = await DB.listUsers();
+    const tbody = document.querySelector('#users-table tbody');
+    document.getElementById('user-count').textContent =
+      `${usersCache.length} user · ${usersCache.filter(u=>u.role==='super_admin').length} admin · ${usersCache.filter(u=>u.role==='staff').length} staff · ${usersCache.filter(u=>u.role==='finance').length} finance`;
+
+    if (!usersCache.length) {
+      tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; padding: 40px; color: var(--yk-grey);">Belum ada user. Klik + Invite User.</td></tr>';
+      return;
+    }
+    tbody.innerHTML = usersCache.map(u => {
+      const lastLogin = u.lastLoginAt
+        ? new Date(u.lastLoginAt).toLocaleString('id-ID', { dateStyle: 'medium', timeStyle: 'short' })
+        : '<span class="muted">Belum pernah</span>';
+      return `
+        <tr class="${u.active ? '' : 'inactive-row'}">
+          <td><strong>${u.name}</strong></td>
+          <td style="font-family: var(--font-mono); font-size: 12px;">${u.email}</td>
+          <td><span class="role-pill role-${u.role}">${u.role.replace('_', ' ')}</span></td>
+          <td style="font-size: 12px;">${lastLogin}</td>
+          <td>${u.active
+            ? '<span class="pill pill-paid">aktif</span>'
+            : '<span class="pill pill-draft">nonaktif</span>'}</td>
+          <td>
+            <button class="btn btn-ghost btn-sm" onclick="openEditModal('${u.id}')">Edit</button>
+            <button class="btn btn-ghost btn-sm" onclick="openDelModal('${u.id}')" style="color: var(--yk-danger);">Hapus</button>
+          </td>
+        </tr>
+      `;
+    }).join('');
+  }
+
+  // ====== ADD / EDIT MODAL ======
+  function openAddModal() {
+    editingId = null;
+    document.getElementById('um-title').textContent = 'Invite User Baru';
+    document.getElementById('um-email').value = '';
+    document.getElementById('um-email').disabled = false;
+    document.getElementById('um-name').value = '';
+    document.getElementById('um-role').value = 'staff';
+    document.getElementById('um-active-wrap').style.display = 'none';
+    document.getElementById('um-error').style.display = 'none';
+    document.getElementById('um-submit').textContent = 'Invite';
+    document.getElementById('user-modal').classList.add('open');
+  }
+
+  function openEditModal(id) {
+    const u = usersCache.find(x => x.id === id);
+    if (!u) return;
+    editingId = id;
+    document.getElementById('um-title').textContent = 'Edit User';
+    document.getElementById('um-email').value = u.email;
+    document.getElementById('um-email').disabled = true;
+    document.getElementById('um-name').value = u.name;
+    document.getElementById('um-role').value = u.role;
+    document.getElementById('um-active').checked = u.active;
+    document.getElementById('um-active-wrap').style.display = 'block';
+    document.getElementById('um-error').style.display = 'none';
+    document.getElementById('um-submit').textContent = 'Simpan';
+    document.getElementById('user-modal').classList.add('open');
+  }
+
+  function closeUserModal() {
+    document.getElementById('user-modal').classList.remove('open');
+    editingId = null;
+  }
+
+  async function submitUser() {
+    const email = document.getElementById('um-email').value.trim();
+    const name = document.getElementById('um-name').value.trim();
+    const role = document.getElementById('um-role').value;
+    const err = document.getElementById('um-error');
+    err.style.display = 'none';
+
+    if (!email || !name) {
+      err.textContent = 'Email & nama wajib diisi'; err.style.display = 'block'; return;
+    }
+    if (!email.includes('@')) {
+      err.textContent = 'Format email tidak valid'; err.style.display = 'block'; return;
+    }
+
+    const btn = document.getElementById('um-submit');
+    btn.disabled = true; const origLabel = btn.textContent; btn.textContent = 'Menyimpan…';
+
+    let result;
+    if (editingId) {
+      const active = document.getElementById('um-active').checked;
+      result = await DB.updateUser(editingId, { name, role, active });
+    } else {
+      result = await DB.addUser({ email, name, role });
+    }
+
+    btn.disabled = false; btn.textContent = origLabel;
+
+    if (result && result.error) {
+      err.textContent = result.error.includes('duplicate') || result.error.includes('unique')
+        ? 'Email sudah terdaftar.'
+        : 'Gagal: ' + result.error;
+      err.style.display = 'block';
+      return;
+    }
+
+    showToast(editingId ? '✓ User diperbarui' : '✓ User berhasil di-invite');
+    closeUserModal();
+    refresh();
+  }
+
+  // ====== DELETE ======
+  function openDelModal(id) {
+    const u = usersCache.find(x => x.id === id);
+    if (!u) return;
+    // Block deleting your own account
+    const me = DB.getUser();
+    if (me && me.id === id) {
+      alert('Tidak bisa menghapus akun sendiri. Logout dulu & minta admin lain.');
+      return;
+    }
+    deletingId = id;
+    document.getElementById('del-name').textContent = `${u.name} (${u.email})`;
+    document.getElementById('del-modal').classList.add('open');
+  }
+  function closeDelModal() {
+    document.getElementById('del-modal').classList.remove('open');
+    deletingId = null;
+  }
+  async function confirmDelete() {
+    if (!deletingId) return;
+    const ok = await DB.deleteUser(deletingId);
+    if (ok) {
+      showToast('✓ User dihapus');
+      closeDelModal();
+      refresh();
+    } else {
+      showToast('Gagal menghapus user', 'error');
+    }
+  }
+
+  // Toast + modal-bg click handlers
+  function showToast(msg, type) {
+    type = type || 'success';
+    let t = document.getElementById('yk-toast');
+    if (!t) { t = document.createElement('div'); t.id = 'yk-toast'; t.className = 'toast'; document.body.appendChild(t); }
+    t.textContent = msg;
+    t.className = 'toast show ' + type;
+    setTimeout(() => { t.className = 'toast ' + type; }, 2500);
+  }
+  ['user-modal','del-modal'].forEach(id => {
+    document.getElementById(id).addEventListener('click', (e) => { if (e.target.id === id) document.getElementById(id).classList.remove('open'); });
+  });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { closeUserModal(); closeDelModal(); } });
+
+  refresh();
+</script>
+</body>
+</html>
