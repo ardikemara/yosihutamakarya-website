@@ -115,7 +115,7 @@ const PRODUCTS = [
     description: 'Perekat siap pakai dengan daya rekat tinggi, setting cepat, dan bisa on-tile (langsung di atas keramik lama).',
     skus: ['YK Tile Adhesive®'],
     items: [
-      { name: 'YK Tile Adhesive®', type: 'Perekat Keramik Siap Pakai', desc: 'Untuk merekatkan keramik, marmer, & granit pada permukaan lantai & dinding. Bisa on-tile.', stats: ['Setting 30 menit', 'On-tile (tanpa bongkar)', 'Keramik · marmer · granit'], dose: '± 6-7 m² per 25kg (tebal 2mm)', pack: 'Zak 25kg · 6.25 L air per bag' }
+      { name: 'YK Tile Adhesive®', type: 'Perekat Keramik Siap Pakai', desc: 'Untuk merekatkan keramik, marmer, & granit pada permukaan lantai & dinding. Bisa on-tile.', stats: ['Setting 30 menit', 'On-tile (tanpa bongkar)', 'Keramik · marmer · granit'], dose: '± 6-7 m² per 25kg (tebal 2mm)', pack: 'Zak 25kg · 6.25 L air per bag', tds: 'TDS-YK-Tile-Adhesive-charcoal.html' }
     ]
   },
   {
