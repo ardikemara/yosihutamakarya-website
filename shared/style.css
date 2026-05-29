@@ -259,7 +259,7 @@ h4 { font-size: 1.125rem; }
   .hero-image { max-width: 360px; margin: 0 auto; }
 }
 .hero-inner { position: relative; z-index: 2; max-width: 1240px; margin: 0 auto; padding: 0 24px; }
-.hero h1 { color: var(--yk-white); max-width: 800px; margin-bottom: 24px; }
+.hero h1 { color: var(--yk-white); max-width: 800px; margin-bottom: 24px; text-wrap: balance; }
 .hero p { font-size: 1.25rem; max-width: 600px; color: rgba(255,255,255,0.85); margin-bottom: 36px; }
 .hero-tagline {
   display: inline-block;
