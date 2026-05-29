@@ -979,7 +979,7 @@ h4 { font-size: 1.125rem; }
 .project-card-text > .proj-title,
 .project-card-text > .project-meta,
 .project-card-text > .products-used {
-  margin-left: 28px; margin-right: 28px;
+  margin-left: 36px; margin-right: 36px;
 }
 .project-card-text > .proj-head { margin-top: 26px; }
 .project-card-text > .proj-title { margin-top: 16px; }
