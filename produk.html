@@ -104,7 +104,10 @@
                 <div><strong>Dosis</strong>${it.dose}</div>
                 <div><strong>Kemasan</strong>${it.pack}</div>
               </div>
-              <a href="kontak.html?produk=${encodeURIComponent(it.name)}" class="btn btn-blue btn-sm" style="margin-top: 8px;">Minta Quotation →</a>
+              <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px;">
+                ${it.tds ? `<a href="${it.tds}" target="_blank" rel="noopener" class="btn btn-outline btn-sm">Technical Data Sheet ↗</a>` : ''}
+                <a href="kontak.html?produk=${encodeURIComponent(it.name)}" class="btn btn-blue btn-sm">Minta Quotation →</a>
+              </div>
             </div>
           `;}).join('')}
         </div>

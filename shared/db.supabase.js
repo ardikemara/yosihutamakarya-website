@@ -67,7 +67,13 @@ function invoiceFromRow(r) {
     dueDate: r.due_date,
     status: r.status,
     statusUpdatedAt: r.status_updated_at,
-    notes: r.notes
+    notes: r.notes,
+    // payment lifecycle
+    sentAt: r.sent_at,
+    paidAt: r.paid_at,
+    paymentMethod: r.payment_method,
+    paymentProofUrl: r.payment_proof_url,
+    paymentProofFilename: r.payment_proof_filename
   };
 }
 function invoiceToRow(i) {
@@ -79,7 +85,7 @@ function invoiceToRow(i) {
     items: i.items || [],
     ppn_rate: i.ppnRate ?? 11,
     due_date: i.dueDate || null,
-    status: i.status || 'unpaid',
+    status: i.status || 'draft',
     notes: i.notes || null
   };
 }
@@ -90,20 +96,28 @@ function suratFromRow(r) {
     id: r.id,
     createdAt: r.created_at,
     template: r.template,
+    templateName: r.template_name,
+    action: r.action,                  // 'pdf' | 'print' | 'save_draft'
     noSurat: r.no_surat,
     recipient: r.recipient,
+    recipientCompany: r.recipient_company,
     perihal: r.perihal,
     body: r.body,
+    formData: r.form_data || {},
     createdBy: r.created_by
   };
 }
 function suratToRow(s) {
   return {
     template: s.template,
+    template_name: s.templateName || null,
+    action: s.action || 'pdf',
     no_surat: s.noSurat || null,
     recipient: s.recipient || null,
+    recipient_company: s.recipientCompany || null,
     perihal: s.perihal || null,
     body: s.body || null,
+    form_data: s.formData || {},
     created_by: s.createdBy || null
   };
 }
@@ -187,6 +201,16 @@ const DB = {
     if (error) { console.error('addInvoice', error); return null; }
     return invoiceFromRow(data);
   },
+  async updateInvoice(id, invoice) {
+    const { data, error } = await sb.from('invoices').update(invoiceToRow(invoice)).eq('id', id).select().single();
+    if (error) { console.error('updateInvoice', error); return null; }
+    return invoiceFromRow(data);
+  },
+  async getInvoice(id) {
+    const { data, error } = await sb.from('invoices').select('*').eq('id', id).single();
+    if (error) { console.error('getInvoice', error); return null; }
+    return invoiceFromRow(data);
+  },
   async updateInvoiceStatus(idOrNumber, status) {
     // accept either UUID id or inv_number (matches old db.js behaviour)
     const column = idOrNumber.includes('/') ? 'inv_number' : 'id';
@@ -196,6 +220,53 @@ const DB = {
     if (error) { console.error('updateInvoiceStatus', error); return null; }
     return invoiceFromRow(data);
   },
+
+  // ---------- Invoice lifecycle helpers ----------
+  // Called when PDF downloaded / printed — sets status sent + timestamp
+  async markInvoiceSent(id) {
+    const { data, error } = await sb.from('invoices')
+      .update({
+        status: 'sent',
+        sent_at: new Date().toISOString(),
+        status_updated_at: new Date().toISOString()
+      })
+      .eq('id', id).select().single();
+    if (error) { console.error('markInvoiceSent', error); return null; }
+    return invoiceFromRow(data);
+  },
+
+  // Called when finance confirms payment. file is a File object (image/pdf).
+  async markInvoicePaid(id, file, method = 'bank_transfer') {
+    let proofUrl = null;
+    let proofFilename = null;
+
+    if (file) {
+      // upload to storage bucket: payment-proofs/<invoiceId>/<timestamp-filename>
+      const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
+      const path = `${id}/${Date.now()}-${safeName}`;
+      const { error: upErr } = await sb.storage.from('payment-proofs')
+        .upload(path, file, { contentType: file.type, upsert: false });
+      if (upErr) { console.error('upload proof', upErr); return null; }
+      // public URL (bucket is public-read in prototype mode)
+      const { data: pub } = sb.storage.from('payment-proofs').getPublicUrl(path);
+      proofUrl = pub.publicUrl;
+      proofFilename = file.name;
+    }
+
+    const { data, error } = await sb.from('invoices')
+      .update({
+        status: 'paid',
+        paid_at: new Date().toISOString(),
+        payment_method: method,
+        payment_proof_url: proofUrl,
+        payment_proof_filename: proofFilename,
+        status_updated_at: new Date().toISOString()
+      })
+      .eq('id', id).select().single();
+    if (error) { console.error('markInvoicePaid', error); return null; }
+    return invoiceFromRow(data);
+  },
+
   async deleteInvoice(id) {
     const { error } = await sb.from('invoices').delete().eq('id', id);
     if (error) console.error('deleteInvoice', error);

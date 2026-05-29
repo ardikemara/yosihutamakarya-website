@@ -545,6 +545,12 @@ h4 { font-size: 1.125rem; }
   width: 60px; height: 60px; background: var(--yk-white); border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
   font-weight: 800; color: var(--yk-blue); font-size: 22px; letter-spacing: -0.05em;
+  overflow: hidden;
+}
+.kop-surat-top .logo-circle img {
+  width: 72%; height: 72%;          /* sedikit padding di dalam lingkaran */
+  object-fit: contain;
+  display: block;
 }
 .kop-surat-top .brand-block { color: var(--yk-white); }
 .kop-surat-top .brand-block .name { font-size: 18px; font-weight: 800; letter-spacing: 0.02em; }

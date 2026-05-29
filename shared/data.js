@@ -289,7 +289,12 @@ const PRODUCT_DETAILS = {
   }
 };
 
-/* SURAT TEMPLATES, bahan untuk Surat Generator */
+/* SURAT TEMPLATES, bahan untuk Surat Generator
+   3 jenis surat yang paling sering dipakai sehari-hari:
+   1. Penawaran Harga
+   2. Surat Jalan (delivery note saat barang dikirim)
+   3. Surat Terima Barang (BAST / acknowledgment saat barang sampai)
+*/
 const SURAT_TEMPLATES = [
   {
     id: 'penawaran',
@@ -322,158 +327,68 @@ Untuk pemesanan, informasi teknis lebih lanjut, atau jadwal demo produk di lokas
 Demikian penawaran ini kami sampaikan. Atas perhatian dan kerjasamanya, kami ucapkan terima kasih.`
   },
   {
-    id: 'tindak-lanjut',
-    name: 'Surat Tindak Lanjut',
-    desc: 'Follow-up setelah meeting / penawaran sebelumnya',
-    icon: 'chat',
-    perihal: 'Tindak Lanjut Penawaran',
-    fields: [
-      { key: 'recipient_company', label: 'Nama Perusahaan Penerima', type: 'text', required: true, placeholder: 'PT. Karya Bangun Persada' },
-      { key: 'recipient_attn', label: 'Up. (Person)', type: 'text', placeholder: 'Bapak Andi Wijaya' },
-      { key: 'recipient_address', label: 'Alamat Penerima', type: 'textarea' },
-      { key: 'previous_ref', label: 'Referensi Surat / Meeting Sebelumnya', type: 'text', placeholder: 'Surat Penawaran No. 045/YHK/V/2026 tanggal 10 Mei 2026' },
-      { key: 'body_extra', label: 'Catatan Tambahan (opsional)', type: 'textarea', placeholder: 'Kami juga menyiapkan sample produk YK NN® untuk uji lab di proyek Anda...' },
-      { key: 'signer_name', label: 'Nama Penanda Tangan', type: 'text', required: true },
-      { key: 'signer_title', label: 'Jabatan Penanda Tangan', type: 'text', required: true }
-    ],
-    body: (d) => `Dengan hormat,
-
-Menindaklanjuti ${d.previous_ref || 'komunikasi kami sebelumnya'} mengenai pengadaan material konstruksi, bersama ini kami sampaikan beberapa hal:
-
-1. Kami siap membantu kebutuhan teknis & sample produk untuk pengujian di proyek Bapak/Ibu.
-2. Tim sales & teknis kami dapat melakukan kunjungan lokasi untuk konsultasi gratis sesuai jadwal yang Bapak/Ibu tentukan.
-3. Untuk pengadaan volume besar, tersedia penyesuaian harga khusus dan termin pembayaran yang fleksibel.
-
-${d.body_extra ? '\n' + d.body_extra + '\n' : ''}
-Kami mohon konfirmasi tindak lanjut paling lambat 7 (tujuh) hari kerja sejak surat ini diterima. Untuk diskusi lebih lanjut, mohon hubungi kami di ${BRAND.phone} atau email ${BRAND.email}.
-
-Atas perhatian dan kerjasamanya, kami ucapkan terima kasih.`
-  },
-  {
-    id: 'po-konfirmasi',
-    name: 'Konfirmasi Purchase Order',
-    desc: 'Konfirmasi penerimaan & jadwal pengiriman PO',
-    icon: 'check',
-    perihal: 'Konfirmasi Penerimaan Purchase Order',
-    fields: [
-      { key: 'recipient_company', label: 'Nama Perusahaan Penerima', type: 'text', required: true },
-      { key: 'recipient_attn', label: 'Up. (Person)', type: 'text' },
-      { key: 'recipient_address', label: 'Alamat Penerima', type: 'textarea' },
-      { key: 'po_number', label: 'Nomor PO Klien', type: 'text', required: true, placeholder: 'PO-2026-0042' },
-      { key: 'po_date', label: 'Tanggal PO', type: 'text', placeholder: '15 Mei 2026' },
-      { key: 'order_items', label: 'Detail Pesanan', type: 'textarea', required: true, placeholder: 'YK NN®, 500 kg\nYK Bond® Pail 20kg, 10 pail' },
-      { key: 'delivery_date', label: 'Jadwal Pengiriman', type: 'text', placeholder: '5-7 hari kerja sejak pembayaran DP diterima' },
-      { key: 'delivery_address', label: 'Alamat Pengiriman', type: 'textarea' },
-      { key: 'signer_name', label: 'Nama Penanda Tangan', type: 'text', required: true },
-      { key: 'signer_title', label: 'Jabatan Penanda Tangan', type: 'text', required: true }
-    ],
-    body: (d) => `Dengan hormat,
-
-Kami telah menerima Purchase Order No. ${d.po_number || '-'}${d.po_date ? ' tertanggal ' + d.po_date : ''} dari ${d.recipient_company || 'perusahaan Bapak/Ibu'}, dengan rincian pesanan sebagai berikut:
-
-${d.order_items || '-'}
-
-Dengan ini kami konfirmasikan:
-
-1. Pesanan telah kami terima dan akan diproses sesuai jadwal.
-2. Jadwal pengiriman: ${d.delivery_date || '5-7 hari kerja sejak DP diterima'}.
-3. Alamat pengiriman: ${d.delivery_address || 'sesuai alamat di PO'}.
-4. Invoice resmi akan kami terbitkan setelah pengiriman dilakukan.
-
-Mohon untuk segera mengirimkan bukti transfer DP (Down Payment) sebesar 50% dari total nilai PO ke rekening:
-
-${BRAND.bank.name}, ${BRAND.bank.account}
-a.n. ${BRAND.bank.holder}
-
-Untuk koordinasi pengiriman, mohon hubungi tim logistik kami di ${BRAND.phone}.
-
-Atas kepercayaan dan kerjasamanya, kami ucapkan terima kasih.`
-  },
-  {
-    id: 'kunjungan',
-    name: 'Permohonan Kunjungan Teknis',
-    desc: 'Request site visit / technical consultation',
-    icon: 'pin',
-    perihal: 'Permohonan Kunjungan Teknis & Konsultasi',
-    fields: [
-      { key: 'recipient_company', label: 'Nama Perusahaan Penerima', type: 'text', required: true },
-      { key: 'recipient_attn', label: 'Up. (Person)', type: 'text' },
-      { key: 'recipient_address', label: 'Alamat Penerima', type: 'textarea' },
-      { key: 'project_name', label: 'Nama Proyek (jika ada)', type: 'text' },
-      { key: 'visit_purpose', label: 'Tujuan Kunjungan', type: 'textarea', required: true, placeholder: 'Konsultasi pemilihan produk waterproofing untuk basement Tower B...' },
-      { key: 'preferred_date', label: 'Tanggal yang Diusulkan', type: 'text', placeholder: 'Senin, 25 Mei 2026 (atau menyesuaikan jadwal Bapak/Ibu)' },
-      { key: 'signer_name', label: 'Nama Penanda Tangan', type: 'text', required: true },
-      { key: 'signer_title', label: 'Jabatan Penanda Tangan', type: 'text', required: true }
-    ],
-    body: (d) => `Dengan hormat,
-
-Sehubungan dengan ${d.project_name ? `proyek **${d.project_name}**` : 'rencana pengadaan material konstruksi'} yang sedang Bapak/Ibu jalankan, kami dari PT. Yosi Hutama Karya bermaksud mengajukan permohonan kunjungan teknis ke lokasi.
-
-Tujuan kunjungan:
-${d.visit_purpose || '-'}
-
-Tim teknis kami terdiri dari aplikator berpengalaman dan engineer produk yang akan memberikan konsultasi gratis terkait pemilihan produk, dosis aplikasi, dan estimasi material untuk proyek Bapak/Ibu.
-
-Waktu yang kami usulkan: ${d.preferred_date || 'menyesuaikan jadwal Bapak/Ibu'}.
-
-Mohon konfirmasi ketersediaan jadwal melalui telepon ${BRAND.phone} atau email ${BRAND.email}. Apabila waktu yang diusulkan tidak memungkinkan, kami terbuka untuk menyesuaikan dengan jadwal Bapak/Ibu.
-
-Atas perhatian dan kesempatan yang diberikan, kami ucapkan terima kasih.`
-  },
-  {
-    id: 'pengantar',
-    name: 'Surat Pengantar Sample',
-    desc: 'Pengantar sample produk untuk uji lapangan',
+    id: 'surat-jalan',
+    name: 'Surat Jalan',
+    desc: 'Pengantar barang saat dikirim ke lokasi proyek',
     icon: 'box',
-    perihal: 'Pengantar Sample Produk untuk Pengujian',
+    perihal: 'Surat Jalan / Delivery Order',
     fields: [
-      { key: 'recipient_company', label: 'Nama Perusahaan Penerima', type: 'text', required: true },
-      { key: 'recipient_attn', label: 'Up. (Person)', type: 'text' },
-      { key: 'recipient_address', label: 'Alamat Penerima', type: 'textarea' },
-      { key: 'sample_list', label: 'Daftar Sample Dikirim', type: 'textarea', required: true, placeholder: 'YK NN®, 1 jerrycan 5L\nYK Bond®, 1 pail 10kg\nTechnical Data Sheet (TDS) lengkap' },
-      { key: 'purpose', label: 'Tujuan Pengujian', type: 'textarea', placeholder: 'Uji compressive strength pada beton K-400...' },
-      { key: 'signer_name', label: 'Nama Penanda Tangan', type: 'text', required: true },
-      { key: 'signer_title', label: 'Jabatan Penanda Tangan', type: 'text', required: true }
+      { key: 'recipient_company', label: 'Penerima (Perusahaan)', type: 'text', required: true, placeholder: 'PT. Karya Bangun Persada' },
+      { key: 'recipient_attn', label: 'Up. (Person)', type: 'text', placeholder: 'Bapak Andi Wijaya / Site Manager' },
+      { key: 'recipient_address', label: 'Alamat Pengiriman', type: 'textarea', required: true, placeholder: 'Proyek Apartemen Sky Garden, Jl. Sudirman No. 45, Jakarta Selatan' },
+      { key: 'ref_po', label: 'Nomor PO / Invoice Acuan', type: 'text', placeholder: 'PO-2026-0042' },
+      { key: 'item_list', label: 'Daftar Barang Dikirim', type: 'textarea', required: true, placeholder: 'YK NN® Drum 240kg — 2 drum\nYK Bond® Pail 20kg — 5 pail\nYK Proof® Coating 20kg — 8 can' },
+      { key: 'vehicle_plate', label: 'No. Polisi Kendaraan', type: 'text', placeholder: 'B 1234 XYZ' },
+      { key: 'driver_name', label: 'Nama Pengemudi', type: 'text', placeholder: 'Pak Joko' },
+      { key: 'signer_name', label: 'Nama Penanda Tangan (Pengirim)', type: 'text', required: true, placeholder: 'Ardi Kemara' },
+      { key: 'signer_title', label: 'Jabatan Penanda Tangan', type: 'text', required: true, placeholder: 'Logistik Manager' }
     ],
-    body: (d) => `Dengan hormat,
+    body: (d) => `Dengan ini kami sampaikan pengiriman barang dengan rincian sebagai berikut:
 
-Bersama surat ini, kami mengirimkan sample produk YK untuk keperluan pengujian sebagai berikut:
+Penerima       : ${d.recipient_company || '-'}
+${d.recipient_attn ? 'Up.            : ' + d.recipient_attn + '\n' : ''}Alamat Kirim   : ${d.recipient_address || '-'}
+${d.ref_po ? 'Acuan PO/Inv   : ' + d.ref_po + '\n' : ''}Kendaraan      : ${d.vehicle_plate || '-'}
+Pengemudi      : ${d.driver_name || '-'}
 
-${d.sample_list || '-'}
+Daftar Barang:
+${d.item_list || '-'}
 
-${d.purpose ? 'Tujuan pengujian:\n' + d.purpose + '\n' : ''}
-Apabila membutuhkan asistensi teknis dalam proses pengujian, tim teknis kami siap memberikan pendampingan langsung di lokasi atau via telepon ${BRAND.phone}.
+Mohon kiranya barang dapat diterima dalam keadaan baik, dihitung sesuai daftar di atas, dan ditandatangani pada kolom Penerima sebagai bukti serah terima.
 
-Kami menantikan hasil pengujian dari Bapak/Ibu dan akan dengan senang hati mendiskusikan hasil tersebut untuk menentukan langkah selanjutnya.
+Apabila terdapat barang yang rusak, kurang, atau tidak sesuai, mohon segera menghubungi kami di ${BRAND.phone} dalam waktu 1×24 jam sejak barang diterima.
 
-Demikian surat pengantar ini kami sampaikan. Atas perhatian dan kerjasamanya, kami ucapkan terima kasih.`
+Demikian surat jalan ini kami sampaikan.`
   },
   {
-    id: 'ucapan-terima-kasih',
-    name: 'Surat Ucapan Terima Kasih',
-    desc: 'After-sales / setelah project selesai',
-    icon: 'heart',
-    perihal: 'Ucapan Terima Kasih atas Kepercayaan',
+    id: 'terima-barang',
+    name: 'Surat Terima Barang (BAST)',
+    desc: 'Berita acara serah terima saat barang sudah diterima',
+    icon: 'check',
+    perihal: 'Berita Acara Serah Terima Barang',
     fields: [
-      { key: 'recipient_company', label: 'Nama Perusahaan Penerima', type: 'text', required: true },
-      { key: 'recipient_attn', label: 'Up. (Person)', type: 'text' },
-      { key: 'recipient_address', label: 'Alamat Penerima', type: 'textarea' },
-      { key: 'project_name', label: 'Nama Proyek', type: 'text', required: true },
-      { key: 'custom_message', label: 'Pesan Tambahan (opsional)', type: 'textarea' },
-      { key: 'signer_name', label: 'Nama Penanda Tangan', type: 'text', required: true },
-      { key: 'signer_title', label: 'Jabatan Penanda Tangan', type: 'text', required: true }
+      { key: 'recipient_company', label: 'Pengirim (Vendor / Supplier)', type: 'text', required: true, placeholder: 'PT. Yosi Hutama Karya' },
+      { key: 'recipient_attn', label: 'Up. (Person Pengirim)', type: 'text', placeholder: 'Bagian Logistik' },
+      { key: 'recipient_address', label: 'Alamat Pengirim', type: 'textarea', placeholder: 'Jl. Jend. Ahmad Yani Kav. 3, Jakarta Timur' },
+      { key: 'ref_po', label: 'Nomor PO / Surat Jalan Acuan', type: 'text', placeholder: 'SJ-2026-0042 / PO-2026-0042' },
+      { key: 'received_date', label: 'Tanggal Terima Barang', type: 'text', placeholder: '29 Mei 2026' },
+      { key: 'received_location', label: 'Lokasi Penerimaan', type: 'text', placeholder: 'Gudang Proyek Sky Garden, Jakarta Selatan' },
+      { key: 'item_list', label: 'Daftar Barang Diterima', type: 'textarea', required: true, placeholder: 'YK NN® Drum 240kg — 2 drum (kondisi baik)\nYK Bond® Pail 20kg — 5 pail (kondisi baik)' },
+      { key: 'condition_note', label: 'Catatan Kondisi Barang', type: 'textarea', placeholder: 'Semua barang diterima lengkap dan dalam kondisi baik. Tidak ada barang rusak / kurang.' },
+      { key: 'signer_name', label: 'Nama Penanda Tangan (Penerima)', type: 'text', required: true, placeholder: 'Bapak Andi Wijaya' },
+      { key: 'signer_title', label: 'Jabatan Penanda Tangan', type: 'text', required: true, placeholder: 'Site Manager' }
     ],
-    body: (d) => `Dengan hormat,
+    body: (d) => `Pada hari ini, ${d.received_date || '____________'}, bertempat di ${d.received_location || '____________'}, telah dilakukan serah terima barang dengan rincian sebagai berikut:
 
-Atas nama keluarga besar PT. Yosi Hutama Karya, perkenankan kami menyampaikan rasa terima kasih yang sebesar-besarnya atas kepercayaan Bapak/Ibu menggunakan produk YK pada **${d.project_name || 'proyek Bapak/Ibu'}**.
+Pengirim       : ${d.recipient_company || '-'}
+${d.recipient_attn ? 'Up.            : ' + d.recipient_attn + '\n' : ''}${d.ref_po ? 'Acuan          : ' + d.ref_po + '\n' : ''}
+Daftar Barang Diterima:
+${d.item_list || '-'}
 
-Kerjasama yang terjalin merupakan kehormatan bagi kami, dan menjadi motivasi untuk terus memberikan kualitas produk serta pelayanan terbaik.
+Kondisi Barang:
+${d.condition_note || 'Diterima dalam kondisi baik, jumlah & spesifikasi sesuai surat jalan / PO acuan.'}
 
-${d.custom_message ? d.custom_message + '\n' : ''}
-Kami senantiasa siap mendukung kebutuhan material konstruksi Bapak/Ibu di proyek-proyek selanjutnya, dengan komitmen kualitas yang sama. Layanan konsultasi teknis & garansi after-sales tetap kami berikan tanpa biaya tambahan.
-
-Sekali lagi, terima kasih atas kepercayaan dan kerjasamanya. Sampai jumpa di proyek berikutnya.`
-  }
+Demikian Berita Acara Serah Terima Barang ini dibuat dengan sebenar-benarnya untuk dipergunakan sebagaimana mestinya. Kedua belah pihak menyatakan tidak ada keberatan atas proses serah terima ini.`
+  },
 ];
 
 /* CONTENT MARKETING LIBRARY */

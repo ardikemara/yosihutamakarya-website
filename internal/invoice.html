@@ -13,6 +13,28 @@
   .item-row .remove-btn { background: var(--yk-danger); color: #fff; width: 30px; height: 36px; display: flex; align-items: center; justify-content: center; font-weight: 700; }
   .item-row label { font-size: 11px; }
   .filter-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; align-items: center; }
+
+  /* Status pills additions */
+  .pill-draft { background: #E5E7EB; color: var(--yk-grey); }
+  .pill-sent  { background: #DBEAFE; color: var(--yk-blue); }
+
+  /* Paid badge clickable affordance */
+  .pill-paid.clickable { cursor: pointer; }
+  .pill-paid.clickable:hover { background: #BBF7D0; }
+  .pill-paid.clickable::after { content: ' 🔍'; font-size: 9px; opacity: 0.7; }
+
+  /* Drop zone for bukti transfer */
+  .drop-zone {
+    border: 2px dashed var(--yk-border);
+    padding: 28px 18px;
+    text-align: center;
+    background: var(--yk-bg-soft);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .drop-zone:hover, .drop-zone.dragover { border-color: var(--yk-blue); background: #EFF6FF; }
+  .drop-zone .dz-icon { font-size: 36px; opacity: 0.4; margin-bottom: 8px; }
+  .proof-preview { max-width: 100%; max-height: 70vh; border: 1px solid var(--yk-border); }
 </style>
 </head>
 <body>
@@ -26,7 +48,7 @@
       <div class="workspace-head">
         <div>
           <h1>Invoice Generator</h1>
-          <p>Buat invoice baru atau follow-up pembayaran. Semua tersimpan otomatis di database.</p>
+          <p>draft → sent (PDF terkirim) → paid (dengan bukti transfer) / overdue.</p>
         </div>
         <button class="btn btn-primary" onclick="newInvoice()">+ Buat Invoice Baru</button>
       </div>
@@ -36,9 +58,10 @@
       <div class="filter-row">
         <strong style="font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--yk-grey); margin-right: 8px;">Filter:</strong>
         <button class="lib-chip active" data-status="all" onclick="filterInvoices('all')">Semua</button>
-        <button class="lib-chip" data-status="unpaid" onclick="filterInvoices('unpaid')">Unpaid</button>
-        <button class="lib-chip" data-status="overdue" onclick="filterInvoices('overdue')">Overdue</button>
+        <button class="lib-chip" data-status="draft" onclick="filterInvoices('draft')">Draft</button>
+        <button class="lib-chip" data-status="sent" onclick="filterInvoices('sent')">Sent</button>
         <button class="lib-chip" data-status="paid" onclick="filterInvoices('paid')">Paid</button>
+        <button class="lib-chip" data-status="overdue" onclick="filterInvoices('overdue')">Overdue</button>
       </div>
 
       <div class="card" style="padding: 0;">
@@ -64,13 +87,13 @@
       <div class="workspace-head">
         <div>
           <h1 id="editor-title">Invoice Baru</h1>
-          <p>Isi data → live preview → download PDF & save ke database.</p>
+          <p>Isi data → live preview → Save / Download PDF.</p>
         </div>
         <div class="flex gap-2 no-print">
           <button class="btn btn-ghost btn-sm" onclick="backToList()">← Kembali</button>
           <button class="btn btn-outline btn-sm" onclick="window.print()">🖨️ Print</button>
-          <button class="btn btn-blue btn-sm" onclick="saveInvoice()">💾 Save</button>
-          <button class="btn btn-primary btn-sm" onclick="downloadInvoicePDF()">↓ Download PDF</button>
+          <button class="btn btn-blue btn-sm" onclick="saveInvoice()">💾 Save Draft</button>
+          <button class="btn btn-primary btn-sm" onclick="downloadInvoicePDF()">↓ Download PDF (mark sent)</button>
         </div>
       </div>
 
@@ -115,10 +138,10 @@
                 <input id="iv_ppn" type="number" value="11" />
               </div>
               <div>
-                <label>Status Awal</label>
+                <label>Status</label>
                 <select id="iv_status">
-                  <option value="unpaid">Unpaid</option>
-                  <option value="paid">Paid</option>
+                  <option value="draft">Draft</option>
+                  <option value="sent">Sent</option>
                   <option value="overdue">Overdue</option>
                 </select>
               </div>
@@ -139,8 +162,64 @@
   </main>
 </div>
 
+<!-- ============ MARK PAID MODAL (upload bukti transfer) ============ -->
+<div class="modal-bg no-print" id="paid-modal">
+  <div class="modal" style="max-width: 520px;">
+    <div class="modal-head">
+      <h3>Konfirmasi Pembayaran</h3>
+      <button class="modal-close" onclick="closePaidModal()">×</button>
+    </div>
+    <div class="modal-body">
+      <div id="pm-invoice-info" class="panel" style="margin-bottom: 18px; font-size: 13px;"></div>
+
+      <label>Metode Pembayaran</label>
+      <select id="pm-method">
+        <option value="bank_transfer">Transfer Bank</option>
+        <option value="cash">Tunai</option>
+        <option value="giro">Giro / Cek</option>
+        <option value="other">Lainnya</option>
+      </select>
+
+      <label style="margin-top: 14px;">Bukti Transfer <span class="muted text-sm">(JPG/PNG/PDF, max 10MB)</span></label>
+      <div class="drop-zone" id="pm-dropzone" onclick="document.getElementById('pm-file').click()">
+        <div class="dz-icon">📎</div>
+        <div id="pm-dz-text" style="font-size: 13px;">Klik untuk pilih file<br/><span class="muted text-sm">atau drag & drop di sini</span></div>
+      </div>
+      <input type="file" id="pm-file" accept="image/*,application/pdf" style="display: none;" />
+      <div id="pm-preview-wrap" style="margin-top: 12px; display: none;">
+        <img id="pm-preview" class="proof-preview" style="max-height: 200px;" />
+        <div id="pm-filename" class="muted text-sm" style="margin-top: 6px;"></div>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost btn-sm" onclick="closePaidModal()">Batal</button>
+      <button class="btn btn-primary btn-sm" id="pm-submit" onclick="submitMarkPaid()">✓ Tandai Lunas</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ VIEW PROOF MODAL ============ -->
+<div class="modal-bg no-print" id="proof-modal">
+  <div class="modal" style="max-width: 720px;">
+    <div class="modal-head">
+      <div>
+        <h3 style="margin-bottom: 4px;">Bukti Pembayaran</h3>
+        <div id="vp-meta" class="muted text-sm">—</div>
+      </div>
+      <button class="modal-close" onclick="closeProofModal()">×</button>
+    </div>
+    <div class="modal-body" id="vp-body" style="text-align: center;">—</div>
+    <div class="modal-foot">
+      <a id="vp-download" href="#" download class="btn btn-outline btn-sm" target="_blank">↓ Download</a>
+      <button class="btn btn-ghost btn-sm" onclick="closeProofModal()">Tutup</button>
+    </div>
+  </div>
+</div>
+
 <script src="../shared/data.js"></script>
-<script src="../shared/db.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../shared/supabase-config.js"></script>
+<script src="../shared/db.supabase.js"></script>
 <script src="sidebar.js"></script>
 <script>
   mountSidebar('invoice');
@@ -148,19 +227,22 @@
   let editingId = null;
   let currentItems = [];
   let activeFilter = 'all';
+  let invoicesCache = [];
 
   // ============ LIST VIEW ============
-  function renderList() {
-    const all = DB.listInvoices();
+  async function renderList() {
+    invoicesCache = await DB.listInvoices();
+    const all = invoicesCache;
     const filtered = activeFilter === 'all' ? all : all.filter(i => i.status === activeFilter);
 
     // KPI
-    const totalUnpaid = all.filter(i => i.status !== 'paid').reduce((s, i) => s + invoiceTotal(i), 0);
+    const open = all.filter(i => i.status === 'sent' || i.status === 'overdue' || i.status === 'unpaid');
+    const totalUnpaid = open.reduce((s, i) => s + invoiceTotal(i), 0);
     const totalPaid = all.filter(i => i.status === 'paid').reduce((s, i) => s + invoiceTotal(i), 0);
     document.getElementById('inv-kpi').innerHTML = `
       <div class="kpi"><div class="label">Total Invoice</div><div class="value">${all.length}</div></div>
-      <div class="kpi"><div class="label">Paid</div><div class="value">${all.filter(i=>i.status==='paid').length}</div><div class="sub">${fmtIDR(totalPaid)}</div></div>
-      <div class="kpi" style="border-left-color: var(--yk-warn);"><div class="label">Unpaid</div><div class="value">${all.filter(i=>i.status==='unpaid').length}</div></div>
+      <div class="kpi" style="border-left-color: var(--yk-success);"><div class="label">Paid</div><div class="value">${all.filter(i=>i.status==='paid').length}</div><div class="sub">${fmtIDR(totalPaid)}</div></div>
+      <div class="kpi"><div class="label">Sent / Unpaid</div><div class="value">${all.filter(i=>i.status==='sent'||i.status==='unpaid').length}</div></div>
       <div class="kpi" style="border-left-color: var(--yk-danger);"><div class="label">Overdue</div><div class="value">${all.filter(i=>i.status==='overdue').length}</div></div>
       <div class="kpi"><div class="label">Outstanding</div><div class="value">${fmtIDR(totalUnpaid)}</div></div>
     `;
@@ -175,18 +257,22 @@
       const total = invoiceTotal(i);
       const d = new Date(i.createdAt);
       const dateStr = d.toLocaleDateString('id-ID', { day:'2-digit', month:'short', year:'numeric' });
+      const hasProof = !!i.paymentProofUrl;
+      const statusBadge = i.status === 'paid' && hasProof
+        ? `<span class="pill pill-paid clickable" onclick="viewProof('${i.id}')" title="Klik untuk lihat bukti transfer">paid</span>`
+        : `<span class="pill pill-${i.status}">${i.status}</span>`;
       return `
         <tr>
           <td><strong style="color: var(--yk-blue); font-family: var(--font-mono); font-size: 13px;">${i.invNumber}</strong></td>
           <td>${i.clientName}</td>
           <td style="font-size: 13px;">${dateStr}</td>
-          <td style="font-size: 13px;">${i.dueDate}</td>
+          <td style="font-size: 13px;">${i.dueDate || '-'}</td>
           <td><strong>${fmtIDR(total)}</strong></td>
-          <td><span class="pill pill-${i.status}">${i.status}</span></td>
+          <td>${statusBadge}</td>
           <td>
             <button class="btn btn-ghost btn-sm" onclick="editInvoice('${i.id}')">Lihat</button>
-            ${i.status !== 'paid' ? `<button class="btn btn-ghost btn-sm" onclick="markPaid('${i.id}')" style="color: var(--yk-success);">✓ Lunas</button>` : ''}
-            ${i.status === 'overdue' || i.status === 'unpaid' ? `<button class="btn btn-ghost btn-sm" onclick="sendReminder('${i.id}')">Reminder</button>` : ''}
+            ${i.status !== 'paid' && i.status !== 'draft' ? `<button class="btn btn-ghost btn-sm" onclick="openPaidModal('${i.id}')" style="color: var(--yk-success);">✓ Lunas</button>` : ''}
+            ${i.status === 'overdue' || i.status === 'sent' || i.status === 'unpaid' ? `<button class="btn btn-ghost btn-sm" onclick="sendReminder('${i.id}')">Reminder</button>` : ''}
           </td>
         </tr>
       `;
@@ -204,27 +290,109 @@
     renderList();
   }
 
-  function markPaid(id) {
-    if (!confirm('Tandai invoice ini sebagai LUNAS?')) return;
-    DB.updateInvoiceStatus(id, 'paid');
-    showToast('✓ Invoice ditandai lunas');
-    renderList();
+  // ============ MARK PAID MODAL ============
+  let pmInvoice = null;
+  let pmFile = null;
+
+  function openPaidModal(invId) {
+    pmInvoice = invoicesCache.find(x => x.id === invId);
+    if (!pmInvoice) return;
+    pmFile = null;
+    document.getElementById('pm-method').value = 'bank_transfer';
+    document.getElementById('pm-invoice-info').innerHTML = `
+      <strong>${pmInvoice.invNumber}</strong> · ${pmInvoice.clientName}
+      <div style="font-size: 13px; margin-top: 4px;">Total: <strong>${fmtIDR(invoiceTotal(pmInvoice))}</strong></div>
+    `;
+    document.getElementById('pm-preview-wrap').style.display = 'none';
+    document.getElementById('pm-dz-text').innerHTML = 'Klik untuk pilih file<br/><span class="muted text-sm">atau drag & drop di sini</span>';
+    document.getElementById('paid-modal').classList.add('open');
+  }
+  function closePaidModal() {
+    document.getElementById('paid-modal').classList.remove('open');
+    pmInvoice = null; pmFile = null;
   }
 
-  function sendReminder(id) {
-    const inv = DB.listInvoices().find(x => x.id === id);
+  document.getElementById('pm-file').addEventListener('change', (e) => handlePmFile(e.target.files[0]));
+  const dz = document.getElementById('pm-dropzone');
+  ['dragenter','dragover'].forEach(ev => dz.addEventListener(ev, (e) => { e.preventDefault(); dz.classList.add('dragover'); }));
+  ['dragleave','drop'].forEach(ev => dz.addEventListener(ev, (e) => { e.preventDefault(); dz.classList.remove('dragover'); }));
+  dz.addEventListener('drop', (e) => { handlePmFile(e.dataTransfer.files[0]); });
+
+  function handlePmFile(file) {
+    if (!file) return;
+    if (file.size > 10 * 1024 * 1024) { showToast('File maksimal 10MB', 'error'); return; }
+    pmFile = file;
+    document.getElementById('pm-filename').textContent = `${file.name} · ${(file.size/1024).toFixed(0)} KB`;
+    const wrap = document.getElementById('pm-preview-wrap');
+    const img = document.getElementById('pm-preview');
+    if (file.type.startsWith('image/')) {
+      img.src = URL.createObjectURL(file);
+      img.style.display = 'block';
+    } else {
+      img.style.display = 'none';
+    }
+    wrap.style.display = 'block';
+    document.getElementById('pm-dz-text').innerHTML = '✓ File dipilih — klik lagi untuk ganti';
+  }
+
+  async function submitMarkPaid() {
+    if (!pmInvoice) return;
+    if (!pmFile) { showToast('Upload bukti transfer dulu', 'error'); return; }
+    const btn = document.getElementById('pm-submit');
+    btn.disabled = true; btn.textContent = 'Mengupload…';
+    const method = document.getElementById('pm-method').value;
+    const updated = await DB.markInvoicePaid(pmInvoice.id, pmFile, method);
+    btn.disabled = false; btn.textContent = '✓ Tandai Lunas';
+    if (updated) {
+      showToast('✓ Invoice ditandai lunas — bukti transfer tersimpan');
+      closePaidModal();
+      renderList();
+    } else {
+      showToast('Gagal menyimpan. Cek koneksi & coba lagi.', 'error');
+    }
+  }
+
+  // ============ VIEW PROOF MODAL ============
+  function viewProof(invId) {
+    const inv = invoicesCache.find(x => x.id === invId);
+    if (!inv || !inv.paymentProofUrl) {
+      showToast('Bukti transfer tidak ditemukan', 'error');
+      return;
+    }
+    const isPdf = (inv.paymentProofFilename || '').toLowerCase().endsWith('.pdf');
+    document.getElementById('vp-meta').innerHTML = `
+      ${inv.invNumber} · ${inv.clientName} ·
+      Dibayar ${inv.paidAt ? new Date(inv.paidAt).toLocaleString('id-ID', { dateStyle: 'long', timeStyle: 'short' }) : '-'} ·
+      Metode: ${(inv.paymentMethod || '-').replace('_', ' ')}
+    `;
+    document.getElementById('vp-body').innerHTML = isPdf
+      ? `<embed src="${inv.paymentProofUrl}" type="application/pdf" style="width: 100%; height: 70vh;" />`
+      : `<img src="${inv.paymentProofUrl}" class="proof-preview" alt="Bukti transfer" />`;
+    const dl = document.getElementById('vp-download');
+    dl.href = inv.paymentProofUrl;
+    dl.download = inv.paymentProofFilename || 'bukti-transfer';
+    document.getElementById('proof-modal').classList.add('open');
+  }
+  function closeProofModal() {
+    document.getElementById('proof-modal').classList.remove('open');
+  }
+  document.getElementById('proof-modal').addEventListener('click', (e) => { if (e.target.id === 'proof-modal') closeProofModal(); });
+  document.getElementById('paid-modal').addEventListener('click', (e) => { if (e.target.id === 'paid-modal') closePaidModal(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { closeProofModal(); closePaidModal(); } });
+
+  async function sendReminder(id) {
+    const inv = invoicesCache.find(x => x.id === id);
     if (!inv) return;
     const msg = `Halo ${inv.clientName}, mohon konfirmasi pembayaran untuk Invoice ${inv.invNumber} sebesar ${fmtIDR(invoiceTotal(inv))} yang jatuh tempo ${inv.dueDate}. Terima kasih, Sales Yosi Hutama Karya.`;
-    navigator.clipboard.writeText(msg).then(() => {
-      showToast('✓ Reminder text disalin ke clipboard, paste ke WhatsApp/Email');
-    });
+    try { await navigator.clipboard.writeText(msg); showToast('✓ Reminder text disalin ke clipboard'); }
+    catch { showToast('Gagal copy. Coba manual.', 'error'); }
   }
 
   // ============ EDITOR VIEW ============
   function newInvoice() {
     editingId = null;
     document.getElementById('editor-title').textContent = 'Invoice Baru';
-    document.getElementById('iv_number').value = 'INV/' + new Date().toISOString().slice(0,7).replace('-', '/') + '/' + String(DB.listInvoices().length + 1).padStart(3, '0');
+    document.getElementById('iv_number').value = 'INV/' + new Date().toISOString().slice(0,7).replace('-', '/') + '/' + String(invoicesCache.length + 1).padStart(3, '0');
     document.getElementById('iv_date').value = new Date().toISOString().slice(0,10);
     const due = new Date(); due.setDate(due.getDate() + 30);
     document.getElementById('iv_due').value = due.toISOString().slice(0,10);
@@ -232,7 +400,7 @@
     document.getElementById('iv_addr').value = '';
     document.getElementById('iv_npwp').value = '';
     document.getElementById('iv_ppn').value = 11;
-    document.getElementById('iv_status').value = 'unpaid';
+    document.getElementById('iv_status').value = 'draft';
     document.getElementById('iv_notes').value = 'Termin: 30 hari sejak invoice diterbitkan. Pembayaran ditransfer ke rekening tertera.';
     currentItems = [{ desc: '', qty: 1, unit: 'pcs', price: 0 }];
     renderItemRows();
@@ -240,28 +408,27 @@
   }
 
   function editInvoice(id) {
-    const inv = DB.listInvoices().find(x => x.id === id);
+    const inv = invoicesCache.find(x => x.id === id);
     if (!inv) return;
     editingId = id;
     document.getElementById('editor-title').textContent = 'Invoice ' + inv.invNumber;
     document.getElementById('iv_number').value = inv.invNumber;
     document.getElementById('iv_date').value = inv.createdAt.slice(0,10);
-    document.getElementById('iv_due').value = inv.dueDate;
+    document.getElementById('iv_due').value = inv.dueDate || '';
     document.getElementById('iv_client').value = inv.clientName;
     document.getElementById('iv_addr').value = inv.clientAddress || '';
     document.getElementById('iv_npwp').value = inv.clientNPWP || '';
     document.getElementById('iv_ppn').value = inv.ppnRate;
-    document.getElementById('iv_status').value = inv.status;
+    // map paid/unpaid to a UI-valid option
+    const uiStatus = ['draft','sent','overdue'].includes(inv.status) ? inv.status : (inv.status === 'unpaid' ? 'sent' : 'sent');
+    document.getElementById('iv_status').value = uiStatus;
     document.getElementById('iv_notes').value = inv.notes || '';
     currentItems = JSON.parse(JSON.stringify(inv.items));
     renderItemRows();
     showView('editor');
   }
 
-  function backToList() {
-    showView('list');
-    renderList();
-  }
+  function backToList() { showView('list'); renderList(); }
 
   function showView(v) {
     document.getElementById('view-list').style.display = v === 'list' ? 'block' : 'none';
@@ -301,22 +468,13 @@
   }
 
   function removeItem(idx) {
-    if (currentItems.length === 1) {
-      showToast('Minimal harus ada 1 item', 'error');
-      return;
-    }
+    if (currentItems.length === 1) { showToast('Minimal harus ada 1 item', 'error'); return; }
     currentItems.splice(idx, 1);
     renderItemRows();
     renderPreview();
   }
 
-  // Bind metadata change to live preview
-  ['iv_number','iv_date','iv_due','iv_client','iv_addr','iv_npwp','iv_ppn','iv_notes'].forEach(id => {
-    document.addEventListener('DOMContentLoaded', () => {
-      document.getElementById(id).addEventListener('input', renderPreview);
-    });
-  });
-  // Direct binding (since DOMContentLoaded may have fired)
+  // Bind metadata inputs to preview
   setTimeout(() => {
     ['iv_number','iv_date','iv_due','iv_client','iv_addr','iv_npwp','iv_ppn','iv_notes'].forEach(id => {
       const el = document.getElementById(id);
@@ -341,7 +499,9 @@
 
     document.getElementById('inv-preview').innerHTML = `
       <div class="kop-surat-top" style="height: 80px;">
-        <div class="logo-circle" style="width: 52px; height: 52px;">YK</div>
+        <div class="logo-circle" style="width: 52px; height: 52px;">
+          <img src="../assets/brand-logos/LogoYK.svg" alt="YK Logo" />
+        </div>
         <div class="brand-block">
           <div class="name">PT. YOSI HUTAMA KARYA</div>
           <div class="sub">BUILD · PROTECT · PERFORM</div>
@@ -403,7 +563,7 @@
     `;
   }
 
-  function saveInvoice() {
+  async function saveInvoice() {
     const number = document.getElementById('iv_number').value;
     const client = document.getElementById('iv_client').value.trim();
     if (!client) { showToast('Nama klien wajib diisi', 'error'); return; }
@@ -411,48 +571,47 @@
 
     const payload = {
       invNumber: number,
-      createdAt: new Date(document.getElementById('iv_date').value).toISOString(),
       clientName: client,
       clientAddress: document.getElementById('iv_addr').value,
       clientNPWP: document.getElementById('iv_npwp').value,
       items: currentItems.filter(i => i.desc),
       ppnRate: Number(document.getElementById('iv_ppn').value) || 0,
-      dueDate: document.getElementById('iv_due').value,
+      dueDate: document.getElementById('iv_due').value || null,
       status: document.getElementById('iv_status').value,
       notes: document.getElementById('iv_notes').value
     };
 
     if (editingId) {
-      // Update existing
-      const all = DB.listInvoices();
-      const idx = all.findIndex(x => x.id === editingId);
-      if (idx >= 0) {
-        all[idx] = { ...all[idx], ...payload };
-        DB.write(DB.KEYS.invoices, all);
-        showToast('✓ Invoice diperbarui');
-      }
+      const updated = await DB.updateInvoice(editingId, payload);
+      if (updated) showToast('✓ Invoice diperbarui');
     } else {
-      const created = DB.addInvoice(payload);
-      editingId = created.id;
-      showToast('✓ Invoice baru disimpan ke database');
+      const created = await DB.addInvoice(payload);
+      if (created) { editingId = created.id; showToast('✓ Invoice tersimpan'); }
     }
+    return editingId;
   }
 
-  function downloadInvoicePDF() {
+  async function downloadInvoicePDF() {
+    // Save first to make sure we have an ID
+    const savedId = await saveInvoice();
+    if (!savedId) return;
+
     const el = document.getElementById('inv-preview');
     const num = document.getElementById('iv_number').value.replace(/\//g, '-');
     const client = document.getElementById('iv_client').value.replace(/[^a-zA-Z0-9]/g, '_');
     showToast('Generating PDF...');
-    html2pdf().set({
+    await html2pdf().set({
       margin: 0,
       filename: `Invoice-${num}-${client}.pdf`,
       image: { type: 'jpeg', quality: 0.98 },
       html2canvas: { scale: 2, useCORS: true },
       jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-    }).from(el).save().then(() => {
-      // Auto-save if new
-      if (!editingId) saveInvoice();
-    });
+    }).from(el).save();
+
+    // Mark as sent (auto-promote from draft after PDF download)
+    await DB.markInvoiceSent(savedId);
+    document.getElementById('iv_status').value = 'sent';
+    showToast('✓ PDF terdownload — invoice ditandai SENT');
   }
 
   function showToast(msg, type) {

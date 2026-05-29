@@ -20,7 +20,7 @@
         <p>Pilih template → isi data → live preview → download PDF dengan kop surat resmi.</p>
       </div>
       <div class="flex gap-2 no-print">
-        <button class="btn btn-outline btn-sm" onclick="window.print()">🖨️ Print</button>
+        <button class="btn btn-outline btn-sm" onclick="printSurat()">🖨️ Print</button>
         <button class="btn btn-primary btn-sm" onclick="downloadPDF()">↓ Download PDF</button>
       </div>
     </div>
@@ -29,6 +29,38 @@
     <div id="template-picker-wrap" class="no-print">
       <h3 style="font-size: 13px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--yk-grey); margin-bottom: 12px;">1. Pilih Template Surat</h3>
       <div class="template-grid" id="template-grid"></div>
+
+      <!-- ====== RIWAYAT SURAT (inline, langsung kelihatan) ====== -->
+      <div style="margin-top: 40px;">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
+          <div>
+            <h3 style="font-size: 13px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--yk-grey); margin-bottom: 4px;">Riwayat Surat</h3>
+            <p class="muted text-sm">Semua surat yang sudah di-print / download PDF dianggap sudah dikirim.</p>
+          </div>
+          <button class="btn btn-ghost btn-sm" onclick="refreshHistory()">↻ Refresh</button>
+        </div>
+        <div id="history-stats" style="padding: 14px 20px; background: var(--yk-bg-soft); border: 1px solid var(--yk-border); border-bottom: none; display: flex; gap: 28px; font-size: 13px;">
+          <span><strong id="hs-total">0</strong> total</span>
+          <span><strong id="hs-pdf">0</strong> PDF</span>
+          <span><strong id="hs-print">0</strong> Print</span>
+          <span><strong id="hs-draft">0</strong> Draft</span>
+        </div>
+        <div class="card" style="padding: 0;">
+          <table class="tbl" id="history-table" style="border: none;">
+            <thead>
+              <tr>
+                <th>Tanggal · Jam</th>
+                <th>Nomor</th>
+                <th>Template</th>
+                <th>Penerima</th>
+                <th>Action</th>
+                <th>Oleh</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
     </div>
 
     <!-- EDITOR + PREVIEW -->
@@ -52,7 +84,7 @@
 
           <div style="margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--yk-border); display: flex; gap: 12px;">
             <button class="btn btn-ghost btn-sm" onclick="resetTemplate()">← Ganti Template</button>
-            <button class="btn btn-blue btn-sm" onclick="logToHistory()" style="margin-left: auto;">Simpan ke Log</button>
+            <button class="btn btn-blue btn-sm" onclick="logToHistory('save_draft')" style="margin-left: auto;">Simpan Draft</button>
           </div>
         </div>
       </div>
@@ -65,8 +97,11 @@
   </main>
 </div>
 
+
 <script src="../shared/data.js"></script>
-<script src="../shared/db.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../shared/supabase-config.js"></script>
+<script src="../shared/db.supabase.js"></script>
 <script src="sidebar.js"></script>
 <script>
   mountSidebar('surat');
@@ -158,7 +193,9 @@
 
     document.getElementById('surat-preview').innerHTML = `
       <div class="kop-surat-top">
-        <div class="logo-circle">YK</div>
+        <div class="logo-circle">
+          <img src="../assets/brand-logos/LogoYK.svg" alt="YK Logo" />
+        </div>
         <div class="brand-block">
           <div class="name">PT. YOSI HUTAMA KARYA</div>
           <div class="sub">BUILD · PROTECT · PERFORM</div>
@@ -208,7 +245,7 @@
   }
 
   // ============ DOWNLOAD PDF ============
-  function downloadPDF() {
+  async function downloadPDF() {
     if (!currentTemplate) {
       showToast('Pilih template dulu', 'error');
       return;
@@ -218,28 +255,136 @@
 
     showToast('Generating PDF...');
 
-    html2pdf().set({
+    await html2pdf().set({
       margin: 0,
       filename,
       image: { type: 'jpeg', quality: 0.98 },
       html2canvas: { scale: 2, useCORS: true },
       jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-    }).from(el).save().then(() => {
-      logToHistory(true);
+    }).from(el).save();
+
+    await logToHistory('pdf');
+    showToast('✓ PDF terdownload & ter-log');
+  }
+
+  // ============ PRINT (also logged) ============
+  async function printSurat() {
+    if (!currentTemplate) {
+      showToast('Pilih template dulu', 'error');
+      return;
+    }
+    await logToHistory('print');
+    window.print();
+  }
+
+  // ============ LOG TO SUPABASE ============
+  // Called by Download PDF (action='pdf'), Print (action='print'),
+  // and "Simpan Draft" button (action='save_draft').
+  async function logToHistory(action) {
+    if (!currentTemplate) return;
+    const user = DB.getUser();
+    const saved = await DB.logSurat({
+      template: currentTemplate.id,
+      templateName: currentTemplate.name,
+      action: action || 'save_draft',
+      noSurat: document.getElementById('f_nomor').value,
+      recipient: [formData.recipient_attn, formData.recipient_company].filter(Boolean).join(' · ') || null,
+      recipientCompany: formData.recipient_company || null,
+      perihal: currentTemplate.perihal,
+      body: currentTemplate.body(formData),
+      formData: { ...formData, _nomor: document.getElementById('f_nomor').value, _tanggal: document.getElementById('f_tanggal').value },
+      createdBy: user?.name || 'unknown'
+    });
+    if (action === 'save_draft' && saved) showToast('✓ Draft tersimpan ke log');
+    // refresh inline history table so the new entry shows immediately
+    refreshHistory();
+    return saved;
+  }
+
+  // ============ HISTORY (Riwayat Surat, inline) ============
+  async function refreshHistory() {
+    const tbody = document.querySelector('#history-table tbody');
+    tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; padding: 28px; color: var(--yk-grey);">Loading…</td></tr>';
+
+    const logs = await DB.listSurat();
+    const stats = { total: logs.length, pdf: 0, print: 0, save_draft: 0 };
+    logs.forEach(l => { stats[l.action] = (stats[l.action] || 0) + 1; });
+    document.getElementById('hs-total').textContent = stats.total;
+    document.getElementById('hs-pdf').textContent = stats.pdf;
+    document.getElementById('hs-print').textContent = stats.print;
+    document.getElementById('hs-draft').textContent = stats.save_draft;
+
+    if (!logs.length) {
+      tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; padding: 40px; color: var(--yk-grey);">Belum ada surat di-generate. Pilih template + isi data + klik Download PDF / Print.</td></tr>';
+      return;
+    }
+    tbody.innerHTML = logs.map(l => {
+      const d = new Date(l.createdAt);
+      const date = d.toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' });
+      const time = d.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', hour12: false });
+      const actionBadge = ({
+        pdf: '<span class="pill pill-paid">↓ PDF</span>',
+        print: '<span class="pill pill-unpaid">🖨️ Print</span>',
+        save_draft: '<span class="pill pill-draft">📄 Draft</span>'
+      })[l.action] || l.action;
+      const tip = l.action === 'save_draft' ? 'Klik untuk lanjutkan edit draft' : 'Klik untuk buka & re-print';
+      return `
+        <tr data-log-id="${l.id}" style="cursor: pointer;" title="${tip}">
+          <td style="font-size: 13px;"><strong>${date}</strong><div class="muted text-sm" style="font-family: var(--font-mono);">${time} WIB</div></td>
+          <td style="font-size: 12px; font-family: var(--font-mono);">${l.noSurat || '-'}</td>
+          <td><strong style="font-size: 13px;">${l.templateName || l.template}</strong><div class="muted text-sm">${l.perihal || ''}</div></td>
+          <td style="font-size: 13px;">${l.recipientCompany || l.recipient || '-'}</td>
+          <td>${actionBadge}</td>
+          <td style="font-size: 13px;">${l.createdBy || '-'}</td>
+        </tr>
+      `;
+    }).join('');
+
+    // cache logs by id so row click can pull the snapshot without another DB round-trip
+    window._suratLogsById = Object.fromEntries(logs.map(l => [l.id, l]));
+
+    // row click → re-open in editor with all fields restored
+    document.querySelectorAll('#history-table tbody tr[data-log-id]').forEach(tr => {
+      tr.addEventListener('click', () => reopenSurat(tr.dataset.logId));
     });
   }
 
-  function logToHistory(silent) {
-    if (!currentTemplate) return;
-    DB.logSurat({
-      templateId: currentTemplate.id,
-      templateName: currentTemplate.name,
-      recipient: formData.recipient_company || '-',
-      nomor: document.getElementById('f_nomor').value,
-      signer: formData.signer_name || '-'
+  // ============ RE-OPEN A LOGGED SURAT ============
+  // Loads the template, restores formData snapshot, then triggers preview.
+  // Works for drafts (continue editing) AND sent surat (view & re-print).
+  function reopenSurat(logId) {
+    const log = (window._suratLogsById || {})[logId];
+    if (!log) { showToast('Log tidak ditemukan', 'error'); return; }
+    if (!SURAT_TEMPLATES.find(t => t.id === log.template)) {
+      showToast(`Template "${log.template}" tidak ada lagi`, 'error');
+      return;
+    }
+
+    // 1. Load the template (this resets state, renders empty form)
+    pickTemplate(log.template);
+
+    // 2. Restore form values from the saved snapshot
+    const snap = log.formData || {};
+    if (snap._nomor) document.getElementById('f_nomor').value = snap._nomor;
+    if (snap._tanggal) document.getElementById('f_tanggal').value = snap._tanggal;
+
+    // populate each template field
+    document.querySelectorAll('#template-fields [data-key]').forEach(el => {
+      const k = el.dataset.key;
+      if (snap[k] !== undefined && snap[k] !== null) {
+        el.value = snap[k];
+        formData[k] = snap[k];
+      }
     });
-    if (!silent) showToast('✓ Disimpan ke log');
+
+    renderPreview();
+    showToast(`✓ ${log.action === 'save_draft' ? 'Draft' : 'Surat'} dibuka — siap diedit`);
+    // scroll to top so user sees editor
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
+
+  // load history on page open
+  refreshHistory();
 
   // Helper for toast (defined in layout.js for public; we redeclare for internal):
   function showToast(msg, type) {
