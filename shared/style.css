@@ -1005,6 +1005,8 @@ h4 { font-size: 1.125rem; }
 }
 .project-card-text .proj-title {
   font-size: 1.35rem; line-height: 1.25; margin: 0;
+  text-wrap: balance;
+  min-height: calc(1.35rem * 1.25 * 2);
 }
 .project-meta {
   display: grid; grid-template-columns: 1fr 1fr;
