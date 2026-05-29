@@ -117,8 +117,7 @@ const DB = {
           clientAddress: 'Jl. Margonda Raya No. 88, Depok',
           clientNPWP: '02.345.678.9-012.000',
           items: [
-            { desc: 'YK Proof® Coating 20kg', qty: 8, unit: 'can', price: 800000 },
-            { desc: 'YK WP Mortar® Sak 25kg', qty: 12, unit: 'sak', price: 175000 }
+            { desc: 'YK Water Proofing® Coating 20kg', qty: 8, unit: 'can', price: 800000 }
           ],
           ppnRate: 11,
           dueDate: '2026-06-17',

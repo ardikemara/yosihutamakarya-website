@@ -337,7 +337,7 @@ Demikian penawaran ini kami sampaikan. Atas perhatian dan kerjasamanya, kami uca
       { key: 'recipient_attn', label: 'Up. (Person)', type: 'text', placeholder: 'Bapak Andi Wijaya / Site Manager' },
       { key: 'recipient_address', label: 'Alamat Pengiriman', type: 'textarea', required: true, placeholder: 'Proyek Apartemen Sky Garden, Jl. Sudirman No. 45, Jakarta Selatan' },
       { key: 'ref_po', label: 'Nomor PO / Invoice Acuan', type: 'text', placeholder: 'PO-2026-0042' },
-      { key: 'item_list', label: 'Daftar Barang Dikirim', type: 'textarea', required: true, placeholder: 'YK NN® Drum 240kg — 2 drum\nYK Bond® Pail 20kg — 5 pail\nYK Proof® Coating 20kg — 8 can' },
+      { key: 'item_list', label: 'Daftar Barang Dikirim', type: 'textarea', required: true, placeholder: 'YK NN® Drum 240kg — 2 drum\nYK Bond® Pail 20kg — 5 pail\nYK Water Proofing® Coating 20kg — 8 can' },
       { key: 'vehicle_plate', label: 'No. Polisi Kendaraan', type: 'text', placeholder: 'B 1234 XYZ' },
       { key: 'driver_name', label: 'Nama Pengemudi', type: 'text', placeholder: 'Pak Joko' },
       { key: 'signer_name', label: 'Nama Penanda Tangan (Pengirim)', type: 'text', required: true, placeholder: 'Ardi Kemara' },

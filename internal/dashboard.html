@@ -120,12 +120,12 @@
 
   // Recent leads
   document.getElementById('recent-leads').innerHTML = leads.slice(0, 4).map(l => `
-    <div style="padding: 12px 0; border-bottom: 1px solid var(--yk-border); display: flex; justify-content: space-between; gap: 12px;">
+    <div style="padding: 12px 0; border-bottom: 1px solid var(--yk-border); display: flex; justify-content: space-between; align-items: center; gap: 12px;">
       <div>
         <strong style="font-size: 14px;">${l.name}</strong> <span class="muted text-sm">· ${l.company || '-'}</span>
         <div class="text-sm muted" style="margin-top: 2px;">${l.product || 'Umum'} · ${l.message ? l.message.substring(0, 60) + '...' : 'Tidak ada pesan'}</div>
       </div>
-      <span class="pill ${l.status === 'new' ? 'pill-unpaid' : 'pill-paid'}">${l.status}</span>
+      <span class="pill ${l.status === 'new' ? 'pill-unpaid' : 'pill-paid'}" style="flex-shrink: 0;">${l.status}</span>
     </div>
   `).join('') || '<p class="muted">Belum ada lead.</p>';
 
@@ -135,7 +135,7 @@
     const tot = sub + (sub * i.ppnRate / 100);
     return `
       <div style="padding: 12px 0; border-bottom: 1px solid var(--yk-border);">
-        <div style="display: flex; justify-content: space-between;"><strong style="font-size: 13px;">${i.invNumber}</strong><span class="pill ${i.status === 'overdue' ? 'pill-overdue' : 'pill-unpaid'}">${i.status}</span></div>
+        <div style="display: flex; justify-content: space-between; align-items: center;"><strong style="font-size: 13px;">${i.invNumber}</strong><span class="pill ${i.status === 'overdue' ? 'pill-overdue' : 'pill-unpaid'}" style="flex-shrink: 0;">${i.status}</span></div>
         <div class="text-sm muted" style="margin-top: 2px;">${i.clientName}</div>
         <div class="text-sm" style="margin-top: 4px; font-weight: 600;">${fmtIDR(tot)} · jatuh tempo ${i.dueDate}</div>
       </div>
