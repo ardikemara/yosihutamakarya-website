@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Technical Data Sheet · YK Floor Hardener (Charcoal)</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  /* ===== PRINT ===== */
+  @page {
+    size: A4;
+    margin: 12mm 12mm 14mm 12mm;
+    @bottom-left {
+      content: "PT. YOSI HUTAMA KARYA · yosihutamakarya.com";
+      font-family: 'Inter', sans-serif; font-size: 8pt; color: #6B7280;
+    }
+    @bottom-right {
+      content: "TDS · YK Floor Hardener · Page " counter(page) " of " counter(pages);
+      font-family: 'Inter', sans-serif; font-size: 8pt; color: #6B7280;
+    }
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+    color: #1F2937;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    background: #E5E7EB;
+    padding: 24px 16px 64px;
+    min-height: 100vh;
+  }
+
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    margin: 0 auto 24px;
+    background: #FFFFFF;
+    padding: 12mm 12mm 14mm 12mm;
+    box-shadow: 0 4px 24px rgba(10,10,10,0.12);
+    font-size: 9.5pt;
+    line-height: 1.5;
+    color: #1F2937;
+  }
+  .page:last-of-type { margin-bottom: 0; }
+
+  /* DOWNLOAD BUTTON */
+  .download-btn {
+    position: fixed;
+    top: 20px; right: 20px;
+    background: #1E40AF; color: #FFFFFF;
+    padding: 12px 20px;
+    font-size: 13px; font-weight: 700;
+    letter-spacing: 0.05em; text-transform: uppercase;
+    text-decoration: none;
+    box-shadow: 0 4px 16px rgba(30,64,175,0.4);
+    transition: all 0.2s;
+    z-index: 100;
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: 'Inter', sans-serif;
+  }
+  .download-btn:hover {
+    background: #1E3A8A;
+    box-shadow: 0 6px 20px rgba(30,64,175,0.5);
+    transform: translateY(-1px);
+  }
+  .download-btn .icon { font-size: 16px; }
+
+  @media print {
+    body { background: #FFFFFF; padding: 0; }
+    .page {
+      width: auto; height: auto; min-height: 0;
+      margin: 0; padding: 0; box-shadow: none;
+    }
+    .page-break { page-break-after: always; }
+    .download-btn { display: none; }
+  }
+
+  /* HEADER */
+  .doc-header {
+    display: flex; justify-content: space-between; align-items: center;
+    border-bottom: 3px solid #4A4A4A;
+    padding-bottom: 10px; margin-bottom: 14px;
+    gap: 16px;
+  }
+  .brand { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+  .brand-mark { width: 50px; height: 50px; flex-shrink: 0; }
+  .brand-mark img { width: 100%; height: 100%; object-fit: contain; display: block; }
+  .brand-text { white-space: nowrap; }
+  .brand-text .brand-name {
+    font-size: 11pt; font-weight: 800; color: #4A4A4A;
+    letter-spacing: -0.01em; line-height: 1.1;
+    white-space: nowrap;
+  }
+  .brand-text .brand-tag {
+    font-size: 7.5pt; font-weight: 700; color: #1E40AF;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    margin-top: 3px; white-space: nowrap;
+  }
+  .doc-meta {
+    text-align: right; font-size: 8pt; color: #6B7280;
+    line-height: 1.55; flex-shrink: 0;
+  }
+  .doc-meta .doc-type {
+    font-size: 7.5pt; font-weight: 700; color: #1E40AF;
+    letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 3px;
+  }
+  .doc-meta .doc-rev { color: #4A4A4A; font-weight: 600; }
+
+  .doc-header.compact { padding-bottom: 6px; margin-bottom: 10px; }
+  .doc-header.compact .brand-mark { width: 38px; height: 38px; }
+
+  /* HERO */
+  .hero {
+    background: #4A4A4A; color: #FFFFFF;
+    padding: 14px 20px; margin-bottom: 10px;
+  }
+  .hero-top {
+    display: flex; align-items: flex-end;
+    justify-content: space-between; gap: 16px;
+  }
+  .hero-text { flex: 1; min-width: 0; }
+  .hero .eyebrow {
+    font-size: 8pt; font-weight: 700; color: #3B82F6;
+    letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 6px;
+  }
+  .hero h1 {
+    font-size: 24pt; font-weight: 800;
+    letter-spacing: -0.025em; line-height: 1.05;
+    margin-bottom: 6px;
+  }
+  .hero h1 sup { font-size: 10pt; vertical-align: super; color: #3B82F6; }
+  .hero .subtitle {
+    font-size: 10pt; color: #E5E7EB; font-weight: 400;
+    line-height: 1.4;
+  }
+  .hero .product-code {
+    text-align: right; flex-shrink: 0;
+    border-left: 1px solid rgba(255,255,255,0.18);
+    padding-left: 16px; white-space: nowrap;
+  }
+  .hero .product-code .label {
+    font-size: 7pt; font-weight: 700; color: #9CA3AF;
+    letter-spacing: 0.16em; text-transform: uppercase; margin-bottom: 4px;
+  }
+  .hero .product-code .code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13pt; font-weight: 700; color: #FFFFFF;
+  }
+
+  /* COLOR PALETTE STRIP */
+  .colors {
+    margin-top: 10px; padding-top: 8px;
+    border-top: 1px solid rgba(255,255,255,0.15);
+    display: flex; align-items: center; gap: 14px;
+    flex-wrap: wrap;
+  }
+  .colors-label {
+    font-size: 7.5pt; font-weight: 700; color: #9CA3AF;
+    letter-spacing: 0.16em; text-transform: uppercase;
+  }
+  .color-chip {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 8pt; color: #E5E7EB; font-weight: 500;
+  }
+  .color-swatch {
+    width: 12px; height: 12px; border: 1px solid rgba(255,255,255,0.3);
+    display: inline-block;
+  }
+
+  /* SECTIONS */
+  .section { margin-bottom: 8px; page-break-inside: avoid; }
+  .section:last-of-type { margin-bottom: 0; }
+  .section-head {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 6px; padding-bottom: 4px;
+    border-bottom: 1px solid #E5E7EB;
+  }
+  .section-num {
+    width: 22px; height: 22px;
+    background: #1E40AF; color: #FFFFFF;
+    font-size: 9pt; font-weight: 800;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'JetBrains Mono', monospace;
+    flex-shrink: 0;
+  }
+  .section h2 {
+    font-size: 11pt; font-weight: 800; color: #4A4A4A;
+    letter-spacing: 0.04em; text-transform: uppercase; margin: 0;
+  }
+  .section p { margin-bottom: 0; }
+  .section > *:last-child { margin-bottom: 0; }
+
+  .subhead {
+    font-size: 9pt; font-weight: 700; color: #1E40AF;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    margin-top: 0; margin-bottom: 5px;
+  }
+  .subhead + .subhead { margin-top: 8px; }
+
+  ul.feature-list { list-style: none; padding-left: 0; margin: 0; }
+  ul.feature-list li {
+    padding-left: 16px; position: relative;
+    margin-bottom: 4px; line-height: 1.4;
+  }
+  ul.feature-list li:last-child { margin-bottom: 0; }
+  ul.feature-list li:before {
+    content: "▪"; position: absolute; left: 2px;
+    color: #1E40AF; font-weight: 700;
+  }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+  .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; align-items: start; }
+
+  /* CALLOUT */
+  .callout {
+    background: #FAFAF7; border-left: 4px solid #1E40AF;
+    padding: 11px 16px; margin: 0 0 6px 0;
+  }
+  .callout:last-child { margin-bottom: 0; }
+  .callout .callout-label {
+    font-size: 7.5pt; font-weight: 700; color: #6B7280;
+    letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 4px;
+  }
+  .callout .callout-value {
+    font-size: 14pt; font-weight: 800; color: #4A4A4A;
+    letter-spacing: -0.01em;
+  }
+  .callout .callout-note { font-size: 8.5pt; color: #6B7280; margin-top: 3px; }
+
+  /* LOAD GRID (Konsumsi tier) */
+  .load-grid {
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px;
+    margin-top: 6px;
+  }
+  .load-card {
+    background: #FFFFFF; border: 1px solid #E5E7EB;
+    padding: 8px 12px;
+  }
+  .load-card .load-label {
+    font-size: 7.5pt; font-weight: 700; color: #1E40AF;
+    letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 3px;
+  }
+  .load-card .load-value {
+    font-size: 11pt; font-weight: 800; color: #4A4A4A;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* INLINE CALLOUT (callout + tier in one row) */
+  .callout-inline {
+    display: flex; align-items: center;
+    gap: 18px; flex-wrap: nowrap;
+  }
+  .callout-inline > div:first-child { flex: 0 0 auto; }
+  .tier-inline {
+    flex: 1; display: grid;
+    grid-template-columns: 1fr 1fr 1fr; gap: 10px;
+    padding-left: 18px;
+    border-left: 1px solid #E5E7EB;
+  }
+  .tier {
+    display: flex; flex-direction: column; gap: 2px;
+  }
+  .tier .tier-label {
+    font-size: 7pt; font-weight: 700; color: #1E40AF;
+    letter-spacing: 0.16em; text-transform: uppercase;
+  }
+  .tier .tier-val {
+    font-size: 10pt; font-weight: 800; color: #4A4A4A;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* PROCEDURE BLOCK */
+  .procedure { width: 100%; }
+  .proc-item {
+    display: flex; gap: 14px;
+    padding: 4px 0; border-bottom: 1px solid #F3F4F6;
+  }
+  .proc-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .proc-item:first-child { padding-top: 0; }
+  .proc-label {
+    width: 110px; flex-shrink: 0;
+    font-size: 8pt; font-weight: 800; color: #1E40AF;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    padding-top: 1px; line-height: 1.35;
+  }
+  .proc-body {
+    flex: 1; font-size: 8.5pt; line-height: 1.4; color: #1F2937;
+  }
+  .proc-body em.note {
+    display: block; margin-top: 4px;
+    color: #6B7280; font-style: italic; font-size: 8.25pt;
+  }
+
+  /* TECH TABLE */
+  .tech-table {
+    width: 100%; border-collapse: collapse;
+    margin-top: 0; font-size: 9pt;
+  }
+  .tech-table th {
+    background: #4A4A4A; color: #FFFFFF; text-align: left;
+    padding: 5px 14px; font-size: 8pt; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase;
+  }
+  .tech-table td {
+    padding: 5px 14px; border-bottom: 1px solid #E5E7EB; background: #FFFFFF;
+  }
+  .tech-table tr:nth-child(even) td { background: #FAFAF7; }
+  .tech-table td.label {
+    font-weight: 700; color: #4A4A4A; width: 45%;
+    letter-spacing: 0.04em; text-transform: uppercase; font-size: 8.5pt;
+  }
+  .tech-table td.value {
+    color: #1F2937; font-family: 'JetBrains Mono', monospace; font-size: 9pt;
+  }
+
+  /* FOOTER NOTE */
+  .footer-note {
+    margin-top: 10px; padding: 8px 12px;
+    background: #FAFAF7; border: 1px solid #E5E7EB;
+    font-size: 7.5pt; color: #6B7280; line-height: 1.45;
+    page-break-inside: avoid;
+  }
+  .footer-note strong { color: #4A4A4A; }
+
+  /* CONTACT STRIP */
+  .contact-strip {
+    margin-top: 7px; padding: 8px 16px;
+    background: #1E40AF; color: #FFFFFF;
+    display: flex; justify-content: space-between;
+    align-items: center; gap: 16px;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+  .contact-strip .ct-title {
+    font-size: 10pt; font-weight: 800; letter-spacing: -0.01em;
+  }
+  .contact-strip .ct-sub { font-size: 7.5pt; color: #BFDBFE; margin-top: 1px; }
+  .contact-strip .ct-web {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5pt; font-weight: 700; color: #FFFFFF;
+    letter-spacing: 0.02em;
+  }
+</style>
+</head>
+<body>
+
+<a href="TDS-YK-Floor-Hardener.pdf" download="TDS-YK-Floor-Hardener.pdf" class="download-btn">
+  <span class="icon">↓</span> Download PDF
+</a>
+
+<!-- =============== PAGE 1 =============== -->
+<div class="page page-break">
+
+  <!-- HEADER -->
+  <div class="doc-header">
+    <div class="brand">
+      <div class="brand-mark"><img src="assets/yk-logo.svg" alt="YK"></div>
+      <div class="brand-text">
+        <div class="brand-name">PT. YOSI HUTAMA KARYA</div>
+        <div class="brand-tag">Build · Protect · Perform</div>
+      </div>
+    </div>
+    <div class="doc-meta">
+      <div class="doc-type">Technical Data Sheet</div>
+      <div>Rev. <span class="doc-rev">01 / 2026</span></div>
+      <div>yosihutamakarya.com</div>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-top">
+      <div class="hero-text">
+        <div class="eyebrow">Concrete Floor Hardener · Dry Shake · Abrasion Resistant</div>
+        <h1>YK Floor Hardener<sup>®</sup></h1>
+        <div class="subtitle">Bubuk siap pakai pengeras permukaan lantai beton — meningkatkan ketahanan abrasi dan benturan, mengurangi debu, tahan minyak dan pelumas.</div>
+      </div>
+      <div class="product-code">
+        <div class="label">Product Code</div>
+        <div class="code">YK–FH</div>
+      </div>
+    </div>
+    <div class="colors">
+      <span class="colors-label">Warna Tersedia</span>
+      <span class="color-chip"><span class="color-swatch" style="background:#D6C9A8;"></span>Natural</span>
+      <span class="color-chip"><span class="color-swatch" style="background:#9CA3AF;"></span>Abu-abu</span>
+      <span class="color-chip"><span class="color-swatch" style="background:#6B7280;"></span>Pebble Grey</span>
+      <span class="color-chip"><span class="color-swatch" style="background:#15803D;"></span>Hijau</span>
+      <span class="color-chip"><span class="color-swatch" style="background:#B91C1C;"></span>Merah</span>
+      <span class="color-chip"><span class="color-swatch" style="background:#EAB308;"></span>Kuning</span>
+    </div>
+  </div>
+
+  <!-- 01 DESKRIPSI -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-num">01</div>
+      <h2>Deskripsi</h2>
+    </div>
+    <p>Bubuk siap pakai yang terdiri dari semen, pewarna, aditif, dan agregat kasar. Bahan-bahan tersebut digunakan untuk memperkeras permukaan lantai beton.</p>
+  </div>
+
+  <!-- 02 KEGUNAAN -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-num">02</div>
+      <h2>Kegunaan</h2>
+    </div>
+    <p>YK Floor Hardener ditaburkan pada permukaan lantai beton yang masih basah untuk meningkatkan ketahanan terhadap abrasi dan mengurangi timbulnya debu. Cocok untuk lantai yang sering mendapat beban mekanis seperti: gudang, pelabuhan, jalur kendaraan, engineering workshop, tempat parkir, bengkel, dan garasi.</p>
+  </div>
+
+  <!-- 03 KEUNTUNGAN -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-num">03</div>
+      <h2>Keuntungan</h2>
+    </div>
+    <div class="two-col">
+      <div>
+        <ul class="feature-list">
+          <li>Ketahanan terhadap abrasi / gesekan tinggi</li>
+          <li>Mengurangi debu pada permukaan</li>
+          <li>Meningkatkan ketahanan terhadap benturan</li>
+          <li>Meningkatkan ketahanan terhadap minyak dan pelumas</li>
+        </ul>
+      </div>
+      <div>
+        <ul class="feature-list">
+          <li>Mengandung pewarna</li>
+          <li>Mudah aplikasinya — ditaburkan pada beton yang baru dicor</li>
+          <li>Hasil akhir rata bila diaplikasikan secara benar</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 04 KONSUMSI -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-num">04</div>
+      <h2>Konsumsi (Dosis)</h2>
+    </div>
+    <div class="callout callout-inline">
+      <div>
+        <div class="callout-label">Konsumsi Rata-Rata</div>
+        <div class="callout-value">3 – 6 kg / m²</div>
+        <div class="callout-note">Menghasilkan lapisan perkuatan dengan ketebalan 2 – 3 mm.</div>
+      </div>
+      <div class="tier-inline">
+        <div class="tier"><span class="tier-label">Ringan</span><span class="tier-val">3 kg/m²</span></div>
+        <div class="tier"><span class="tier-label">Sedang</span><span class="tier-val">4 – 5 kg/m²</span></div>
+        <div class="tier"><span class="tier-label">Berat</span><span class="tier-val">6 kg/m²</span></div>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+
+<!-- =============== PAGE 2 =============== -->
+<div class="page">
+
+  <!-- COMPACT HEADER -->
+  <div class="doc-header compact">
+    <div class="brand">
+      <div class="brand-mark"><img src="assets/yk-logo.svg" alt="YK"></div>
+      <div class="brand-text">
+        <div class="brand-name">PT. YOSI HUTAMA KARYA</div>
+        <div class="brand-tag">Build · Protect · Perform</div>
+      </div>
+    </div>
+    <div class="doc-meta">
+      <div class="doc-type">Technical Data Sheet</div>
+      <div>Rev. <span class="doc-rev">01 / 2026</span> · Page 2 of 2</div>
+      <div>yosihutamakarya.com</div>
+    </div>
+  </div>
+
+  <!-- 05 PETUNJUK PEMAKAIAN -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-num">05</div>
+      <h2>Petunjuk Pemakaian</h2>
+    </div>
+    <div class="procedure">
+      <div class="proc-item">
+        <div class="proc-label">Persiapan<br>Permukaan</div>
+        <div class="proc-body">Tebal pelat beton minimal 15 cm dengan kekuatan tekan yang cukup. Disarankan menambah aditif beton yang sesuai untuk memperbaiki sifat-sifat beton. Ratakan beton yang baru dituang dengan batang penggetar. Setelah plastisitasnya cukup, haluskan permukaannya dengan trowel mesin.</div>
+      </div>
+      <div class="proc-item">
+        <div class="proc-label">Penaburan</div>
+        <div class="proc-body">Pelat beton siap ditaburi YK Floor Hardener apabila permukaannya ditekan dengan ibu jari hanya meninggalkan bekas sedalam 3 – 5 mm. Taburkan secara merata dengan tangan atau alat yang sesuai.</div>
+      </div>
+      <div class="proc-item">
+        <div class="proc-label">Pemadatan</div>
+        <div class="proc-body">Tunggu sampai YK Floor Hardener telah dilembabkan oleh kandungan air semen pada permukaan beton, gunakan trowel mesin dengan putaran rendah dan dasar yang benar-benar rata (flat).<em class="note">Catatan: Jika permukaan yang ditrowel terlepas atau timbul banyak laitance, berarti beton masih terlalu basah.</em></div>
+      </div>
+      <div class="proc-item">
+        <div class="proc-label">Penghalusan</div>
+        <div class="proc-body">Segera setelah beton mulai mengeras (initial setting), lakukan penghalusan dengan trowel mesin yang sama, tetapi dengan baling logam yang lebih halus, dengan posisi sudut rendah. Proses penghalusan akhir dapat dilakukan kemudian dengan mesin trowel dalam putaran tinggi.</div>
+      </div>
+      <div class="proc-item">
+        <div class="proc-label">Curing</div>
+        <div class="proc-body">Permukaan YK Floor Hardener harus dilindungi untuk mencegah pengeringan yang terlalu cepat dan retak-retak rambut — diperlukan sistem curing yang memadai. Untuk keterangan lebih lanjut, hubungi technical service kami.</div>
+      </div>
+      <div class="proc-item">
+        <div class="proc-label">Sambungan</div>
+        <div class="proc-body">Construction joints, expansion joints, dan sambungan lantai lainnya sebaiknya dipotong setelah 24 jam. Pada saat beton sudah mengeras, sambungan dapat diisi dengan sealant yang sesuai dengan kebutuhan lantai.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 06 WAKTU PENGERINGAN -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-num">06</div>
+      <h2>Waktu Pengeringan</h2>
+    </div>
+    <div class="load-grid">
+      <div class="load-card">
+        <div class="load-label">Beban Manusia</div>
+        <div class="load-value">1 – 2 jam</div>
+      </div>
+      <div class="load-card">
+        <div class="load-label">Kendaraan Ringan</div>
+        <div class="load-value">7 – 10 hari</div>
+      </div>
+      <div class="load-card">
+        <div class="load-label">Kering Sempurna</div>
+        <div class="load-value">28 hari</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 07 DATA TEKNIS -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-num">07</div>
+      <h2>Data Teknis</h2>
+    </div>
+    <table class="tech-table">
+      <thead><tr><th>Parameter</th><th>Nilai</th></tr></thead>
+      <tbody>
+        <tr><td class="label">Bentuk</td><td class="value">Bubuk Siap Pakai</td></tr>
+        <tr><td class="label">Komposisi</td><td class="value">Semen + Pewarna + Aditif + Agregat</td></tr>
+        <tr><td class="label">Warna Tersedia</td><td class="value">Natural · Abu-abu · Pebble Grey · Hijau · Merah · Kuning</td></tr>
+        <tr><td class="label">Ketebalan Lapisan</td><td class="value">2 – 3 mm</td></tr>
+        <tr><td class="label">Metode Aplikasi</td><td class="value">Dry Shake (tabur pada beton basah)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 08 + 09 (combined two-col) -->
+  <div class="two-col">
+    <div class="section">
+      <div class="section-head">
+        <div class="section-num">08</div>
+        <h2>Umur &amp; Penyimpanan</h2>
+      </div>
+      <p>9 (sembilan) bulan jika disimpan dalam kemasan asli yang belum dibuka, di tempat yang kering, sejuk, dan teduh, terhindar dari sinar matahari langsung.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-head">
+        <div class="section-num">09</div>
+        <h2>Catatan Penting</h2>
+      </div>
+      <p>Pasir silica yang terkandung di dalam YK Floor Hardener mungkin mengandung bahan organik yang dapat menghasilkan bintik-bintik hitam pada permukaan. Hal ini karakteristik alami material, bukan cacat produk.</p>
+    </div>
+  </div>
+
+  <!-- DISCLAIMER -->
+  <div class="footer-note">
+    <strong>Disclaimer:</strong> Informasi pada lembar data ini berdasarkan pengetahuan dan pengalaman kami terkini. Pengguna bertanggung jawab atas kesesuaian produk untuk aplikasi spesifiknya, dan disarankan melakukan uji coba lapangan terlebih dahulu. PT. Yosi Hutama Karya berhak mengubah spesifikasi tanpa pemberitahuan terlebih dahulu. Untuk MSDS dan rekomendasi teknis lanjutan, silakan hubungi technical service kami.
+  </div>
+
+  <!-- CONTACT STRIP -->
+  <div class="contact-strip">
+    <div>
+      <div class="ct-title">PT. YOSI HUTAMA KARYA</div>
+      <div class="ct-sub">Technical Service · Sales · Quotation</div>
+    </div>
+    <div class="ct-web">yosihutamakarya.com</div>
+  </div>
+
+</div>
+
+</body>
+</html>

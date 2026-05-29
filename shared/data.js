@@ -103,7 +103,7 @@ const PRODUCTS = [
     description: 'Lantai beton tahan abrasi, anti debu, & tahan oli, sekali pasang awet bertahun-tahun, dengan 6 pilihan warna untuk zonasi area kerja.',
     skus: ['YK Floor Hardener®'],
     items: [
-      { name: 'YK Floor Hardener®', type: 'Floor Hardener Bubuk', desc: 'Bubuk pengeras lantai beton untuk gudang, pelabuhan, jalur kendaraan, parkir, bengkel.', stats: ['Lapisan 2-3 mm', 'Tahan oli & abrasi', '6 pilihan warna'], dose: '3 kg/m² (ringan) – 6 kg/m² (berat)', pack: 'Sak 25kg' }
+      { name: 'YK Floor Hardener®', type: 'Floor Hardener Bubuk', desc: 'Bubuk pengeras lantai beton untuk gudang, pelabuhan, jalur kendaraan, parkir, bengkel.', stats: ['Lapisan 2-3 mm', 'Tahan oli & abrasi', '6 pilihan warna'], dose: '3 kg/m² (ringan) – 6 kg/m² (berat)', pack: 'Sak 25kg', tds: 'TDS-YK-Floor-Hardener-charcoal.html' }
     ]
   },
   {
