@@ -5,84 +5,673 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Tentang Kami · Yosi Hutama Karya</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="shared/style.css" />
+<link rel="stylesheet" href="shared/style.css?v=2" />
+<script>
+  // Cascading image fallback: try .jpg → .png → remove (show placeholder)
+  function phFallback(el) {
+    if (el.dataset.fb) { el.remove(); return; }
+    el.dataset.fb = '1';
+    el.src = el.src.replace(/\.jpg(\?.*)?$/, '.png$1');
+  }
+</script>
+<style>
+  /* ===== TENTANG PAGE PREMIUM STYLES ===== */
+  .tentang-hero {
+    position: relative;
+    padding: 100px 0 80px;
+    background: var(--yk-black);
+    color: #fff;
+    overflow: hidden;
+  }
+  .tentang-hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(10,10,10,0.85) 0%, rgba(10,10,10,0.95) 100%),
+                url('assets/img/tentang-hero.jpg') center/cover no-repeat;
+    z-index: 0;
+  }
+  .tentang-hero .container { position: relative; z-index: 1; }
+  .tentang-hero h1 { color: #fff; font-size: clamp(2.5rem, 5.5vw, 4.5rem); }
+
+  /* Section divider — thin horizontal line w/ centered icon */
+  .yk-divider {
+    display: flex; align-items: center; justify-content: center;
+    gap: 16px; max-width: 880px; margin: 0 auto;
+    padding: 56px 24px;
+  }
+  .yk-divider::before, .yk-divider::after {
+    content: ''; flex: 1; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--yk-border), transparent);
+  }
+  .yk-divider .dvd-mark {
+    font-family: var(--font-mono);
+    font-size: 11px; letter-spacing: 0.25em;
+    text-transform: uppercase; color: var(--yk-blue);
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  /* Split layout (text + image side-by-side) */
+  .split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+  }
+  .split.reverse { direction: rtl; }
+  .split.reverse > * { direction: ltr; }
+  @media (max-width: 860px) {
+    .split { grid-template-columns: 1fr; gap: 32px; }
+  }
+
+  /* Stats strip */
+  .stats-strip {
+    background: var(--yk-bg-soft);
+    border-top: 1px solid var(--yk-border);
+    border-bottom: 1px solid var(--yk-border);
+    padding: 56px 0;
+  }
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+    text-align: center;
+  }
+  @media (max-width: 720px) {
+    .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 32px 16px; }
+  }
+  .stat-block .num {
+    font-size: clamp(2.5rem, 4.5vw, 3.5rem);
+    font-weight: 800; color: var(--yk-black);
+    letter-spacing: -0.03em; line-height: 1;
+  }
+  .stat-block .num .accent { color: var(--yk-blue); }
+  .stat-block .label {
+    margin-top: 12px;
+    font-size: 12px; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--yk-grey);
+    font-weight: 700;
+  }
+  .stat-block .sub {
+    margin-top: 6px;
+    font-size: 13px; color: var(--yk-grey);
+  }
+
+  /* Gallery (3-up) */
+  .gallery-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  @media (max-width: 720px) { .gallery-3 { grid-template-columns: 1fr; } }
+  .gallery-3 .img-ph { aspect-ratio: 4/5; }
+
+  /* Gallery (masonry-like 2 col mixed) */
+  .gallery-mix {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 16px;
+    height: 560px;
+  }
+  .gallery-mix > :nth-child(1) { grid-row: span 2; }
+  @media (max-width: 720px) {
+    .gallery-mix { grid-template-columns: 1fr; height: auto; grid-template-rows: none; }
+    .gallery-mix > :nth-child(1) { grid-row: auto; aspect-ratio: 4/3; }
+    .gallery-mix > * { aspect-ratio: 4/3; }
+  }
+
+  /* Values grid (4-up cards w/ icon) */
+  .values-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+  @media (max-width: 980px) { .values-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 540px) { .values-grid { grid-template-columns: 1fr; } }
+  .value-card {
+    background: #fff;
+    border: 1px solid var(--yk-border);
+    border-top: 3px solid var(--yk-blue);
+    padding: 32px 24px;
+    transition: all 0.2s;
+  }
+  .value-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-top-color: var(--yk-black);
+  }
+  .value-card .vc-num {
+    font-family: var(--font-mono);
+    font-size: 11px; color: var(--yk-blue);
+    letter-spacing: 0.2em; font-weight: 700;
+    margin-bottom: 16px;
+  }
+  .value-card h4 {
+    font-size: 1.125rem; color: var(--yk-black);
+    margin-bottom: 12px;
+  }
+  .value-card p { font-size: 14px; color: var(--yk-grey); line-height: 1.6; }
+
+  /* Timeline */
+  .timeline {
+    position: relative;
+    padding-left: 32px;
+    border-left: 2px solid var(--yk-border);
+  }
+  .timeline-item {
+    position: relative;
+    padding-bottom: 40px;
+  }
+  .timeline-item:last-child { padding-bottom: 0; }
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -41px; top: 4px;
+    width: 16px; height: 16px;
+    background: var(--yk-blue);
+    border: 3px solid #fff;
+    box-shadow: 0 0 0 1px var(--yk-blue);
+  }
+  .timeline-year {
+    font-family: var(--font-mono);
+    font-size: 13px; color: var(--yk-blue);
+    font-weight: 700; letter-spacing: 0.1em;
+    margin-bottom: 6px;
+  }
+  .timeline-item h4 { margin-bottom: 6px; }
+  .timeline-item p { color: var(--yk-grey); font-size: 14px; }
+
+  /* Quote section */
+  .quote-block {
+    background: var(--yk-black);
+    color: #fff;
+    padding: 80px 0;
+  }
+  .quote-block blockquote {
+    max-width: 760px; margin: 0 auto;
+    text-align: center;
+  }
+  .quote-block .qmark {
+    font-family: Georgia, serif;
+    font-size: 80px; line-height: 1;
+    color: var(--yk-blue-light);
+    margin-bottom: -20px;
+  }
+  .quote-block .qtxt {
+    font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+    line-height: 1.4; font-weight: 600;
+    color: #fff; letter-spacing: -0.01em;
+  }
+  .quote-block .qcite {
+    margin-top: 32px;
+    font-size: 13px; letter-spacing: 0.15em;
+    text-transform: uppercase; color: rgba(255,255,255,0.6);
+    font-weight: 700;
+  }
+
+  /* Cert / standards */
+  .cert-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+  @media (max-width: 720px) { .cert-grid { grid-template-columns: repeat(2, 1fr); } }
+  .cert-grid .img-ph { aspect-ratio: 1; }
+
+  /* Team grid */
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+  @media (max-width: 720px) { .team-grid { grid-template-columns: 1fr; } }
+  .team-card { text-align: center; }
+  .team-card .img-ph { aspect-ratio: 1; margin-bottom: 16px; }
+  .team-card h4 { margin-bottom: 4px; }
+  .team-card .role {
+    font-size: 12px; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--yk-blue);
+    font-weight: 700;
+  }
+
+  /* Big feature image (full-width) */
+  .feature-image-full {
+    margin: 0;
+    aspect-ratio: 21/9;
+  }
+  @media (max-width: 720px) { .feature-image-full { aspect-ratio: 4/3; } }
+</style>
 </head>
 <body>
 <div id="yk-nav"></div>
 
-<section class="section" style="padding: 60px 0 40px; background: var(--yk-black); color: #fff;">
+<!-- ============ 1. HERO ============ -->
+<section class="tentang-hero">
   <div class="container">
     <div class="eyebrow" style="color: var(--yk-blue-light);">Tentang Perusahaan</div>
-    <h1 style="color: #fff; margin-top: 8px;">PT. Yosi Hutama Karya</h1>
-    <p class="lead" style="color: rgba(255,255,255,0.7); margin-top: 16px; max-width: 720px;">Produsen aditif konstruksi merek YK, melayani kontraktor, ready-mix plant, precaster, dan toko bangunan di seluruh Indonesia.</p>
-  </div>
-</section>
-
-<section class="section">
-  <div class="container-narrow">
-    <div class="img-ph" style="aspect-ratio: 16/9; margin-bottom: 48px;">
-      <div class="ph-name">assets/img/tentang-kantor.jpg</div>
-      <div class="ph-size">1600 × 900 px (16:9)</div>
-      <div class="ph-desc">Foto: facade kantor PT. Yosi Hutama Karya / tim / fasilitas produksi</div>
-    </div>
-
-    <h2 style="margin-bottom: 24px;">Misi Kami</h2>
-    <p class="lead" style="margin-bottom: 32px;">Menyediakan aditif & material konstruksi berkualitas industri dengan harga yang dapat dijangkau pelaku konstruksi lokal, dari kontraktor besar sampai tukang renovasi rumah.</p>
-
-    <p>Sejak awal, PT. Yosi Hutama Karya percaya bahwa kualitas tinggi tidak harus mahal. Dengan R&amp;D lokal dan produksi dalam negeri, kami mampu menghadirkan formula yang setara dengan brand premium internasional, tapi dengan harga yang masuk akal untuk kondisi pasar Indonesia.</p>
-
-    <h3 style="margin-top: 48px;">Yang Kami Kerjakan</h3>
-    <p>Sembilan lini produk YK mencakup seluruh siklus konstruksi:</p>
-    <ul style="margin: 16px 0 24px 24px; line-height: 1.9;">
-      <li><strong>Concrete Admixture</strong>, superplasticizer untuk beton struktural premium</li>
-      <li><strong>Mortar Admixture</strong>, penyumbat bocor & SBR bonding untuk renovasi</li>
-      <li><strong>Ready Mix Mortar</strong>, plester & waterproofing siap pakai</li>
-      <li><strong>Waterproofing</strong>, coating akrilik tahan UV & mortar kedap air</li>
-      <li><strong>Mould Release &amp; Curing</strong>, pelengkap pengecoran profesional</li>
-      <li><strong>Floor Treatments</strong>, floor hardener 6 warna untuk gudang &amp; pabrik</li>
-      <li><strong>Grouting</strong>, semen & epoxy presisi tinggi untuk fondasi mesin</li>
-      <li><strong>Tile Adhesive</strong>, perekat keramik dengan fitur on-tile</li>
-      <li><strong>Bonding Agent</strong>, PVA emulsion multi-fungsi (5 aplikasi dalam 1)</li>
-    </ul>
-
-    <h3 style="margin-top: 48px;">Komitmen Kualitas</h3>
-    <p>Setiap produk YK melewati quality control pabrik dengan mix design terstandarisasi. Formula kami memenuhi standar internasional seperti CRD C-621 dan ASTM C-1107, dan dirancang bebas klorin untuk keamanan struktur bertulang dan pratekan.</p>
-
-    <h3 style="margin-top: 48px;">Dukungan di Lapangan</h3>
-    <p>Kami tidak hanya menjual produk, kami menjual hasil. Setiap pesanan dilengkapi dengan:</p>
-    <ul style="margin: 16px 0 24px 24px; line-height: 1.9;">
-      <li>Site visit gratis oleh aplikator senior</li>
-      <li>Konsultasi mix design & dosis aplikasi</li>
-      <li>Pengujian sample di lab klien (jika diminta)</li>
-      <li>Garansi hasil untuk aplikasi sesuai TDS</li>
-      <li>After-sales support tanpa biaya tambahan</li>
-    </ul>
-
-    <div class="panel" style="margin-top: 48px; border-left: 3px solid var(--yk-blue);">
-      <strong style="font-size: 14px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--yk-blue);">BUILD · PROTECT · PERFORM</strong>
-      <p style="margin-top: 8px; font-size: 1.0625rem;">Tagline kami menggambarkan tiga peran yang dimainkan produk YK di setiap proyek: membangun struktur, melindungi dari elemen, dan memberikan performa jangka panjang.</p>
-    </div>
-
-    <h3 style="margin-top: 48px;">Informasi Perusahaan</h3>
-    <div class="panel" style="margin-top: 16px;">
-      <div style="display: grid; grid-template-columns: 160px 1fr; gap: 12px 24px; font-size: 14px;">
-        <div style="color: var(--yk-grey); font-weight: 600;">Nama Resmi</div><div>PT. Yosi Hutama Karya</div>
-        <div style="color: var(--yk-grey); font-weight: 600;">Brand Produk</div><div>Yosi Hutama Karya</div>
-        <div style="color: var(--yk-grey); font-weight: 600;">NPWP</div><div>91.567.890.1-234.000</div>
-        <div style="color: var(--yk-grey); font-weight: 600;">Alamat</div><div>Jl. Jend. Ahmad Yani Kav. 3,<br/>Kel. Kayu Putih, Kec. Pulo Gadung,<br/>Jakarta Timur 13210, Indonesia</div>
-        <div style="color: var(--yk-grey); font-weight: 600;">Telepon</div><div>+62 21 475 7386</div>
-        <div style="color: var(--yk-grey); font-weight: 600;">Faks</div><div>+62 21 475 7387</div>
-        <div style="color: var(--yk-grey); font-weight: 600;">Email</div><div>info@yosihutamankarya.com</div>
-        <div style="color: var(--yk-grey); font-weight: 600;">Website</div><div>www.yosihutamakarya.com</div>
+    <h1 style="margin-top: 12px;">PT. Yosi Hutama Karya</h1>
+    <p class="lead" style="color: rgba(255,255,255,0.75); margin-top: 20px; max-width: 760px; font-size: 1.25rem;">
+      Produsen aditif konstruksi merek <strong style="color: #fff;">YK</strong>, melayani kontraktor, ready-mix plant, precaster, dan toko bangunan di seluruh Indonesia sejak berdiri.
+    </p>
+    <div style="margin-top: 40px; display: flex; gap: 32px; flex-wrap: wrap;">
+      <div>
+        <div style="font-family: var(--font-mono); font-size: 11px; color: var(--yk-blue-light); letter-spacing: 0.2em; font-weight: 700;">EST.</div>
+        <div style="color: #fff; font-size: 1.5rem; font-weight: 700; margin-top: 4px;">Jakarta Timur</div>
+      </div>
+      <div>
+        <div style="font-family: var(--font-mono); font-size: 11px; color: var(--yk-blue-light); letter-spacing: 0.2em; font-weight: 700;">LINI PRODUK</div>
+        <div style="color: #fff; font-size: 1.5rem; font-weight: 700; margin-top: 4px;">9 Kategori</div>
+      </div>
+      <div>
+        <div style="font-family: var(--font-mono); font-size: 11px; color: var(--yk-blue-light); letter-spacing: 0.2em; font-weight: 700;">JANGKAUAN</div>
+        <div style="color: #fff; font-size: 1.5rem; font-weight: 700; margin-top: 4px;">Nasional</div>
       </div>
     </div>
   </div>
 </section>
 
+<!-- ============ 2. FEATURE IMAGE FULL-WIDTH ============ -->
+<section style="padding: 0; background: var(--yk-bg-soft);">
+  <div class="container" style="padding: 0;">
+    <div class="img-ph feature-image-full" style="border: none; background: var(--yk-cream);">
+      <img class="ph-real" src="assets/img/tentang-facade.jpg" alt="Facade kantor PT. Yosi Hutama Karya" onerror="phFallback(this)">
+      <div class="ph-name">tentang-facade.jpg</div>
+      <div class="ph-size">2100 × 900 px (21:9)</div>
+      <div class="ph-desc">Foto: facade kantor / fasilitas produksi / drone shot pabrik</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 3. STATS STRIP ============ -->
+<section class="stats-strip">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-block">
+        <div class="num">9</div>
+        <div class="label">Lini Produk</div>
+        <div class="sub">Concrete · Mortar · Floor · Tile</div>
+      </div>
+      <div class="stat-block">
+        <div class="num"><span class="accent">+40</span>%</div>
+        <div class="label">Kuat Tekan</div>
+        <div class="sub">Boost vs. mix konvensional</div>
+      </div>
+      <div class="stat-block">
+        <div class="num"><span class="accent">−20</span>%</div>
+        <div class="label">Kebutuhan Air</div>
+        <div class="sub">Dengan superplasticizer YK</div>
+      </div>
+      <div class="stat-block">
+        <div class="num">100<span style="font-size: 0.6em;">%</span></div>
+        <div class="label">QC Pabrik</div>
+        <div class="sub">Setiap batch diuji</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="yk-divider"><div class="dvd-mark">01 · Misi Kami</div></div>
+
+<!-- ============ 4. MISI (split: text + image) ============ -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <div class="split">
+      <div>
+        <div class="eyebrow">Misi</div>
+        <h2 style="margin-top: 12px; margin-bottom: 24px;">Kualitas Industri,<br/>Harga Lokal.</h2>
+        <p class="lead" style="margin-bottom: 24px;">
+          Menyediakan aditif &amp; material konstruksi berkualitas industri dengan harga yang dapat dijangkau pelaku konstruksi lokal, dari kontraktor besar sampai tukang renovasi rumah.
+        </p>
+        <p>
+          Sejak awal, PT. Yosi Hutama Karya percaya bahwa kualitas tinggi tidak harus mahal. Dengan R&amp;D lokal dan produksi dalam negeri, kami menghadirkan formula yang setara dengan brand premium internasional, tapi dengan harga yang masuk akal untuk kondisi pasar Indonesia.
+        </p>
+      </div>
+      <div>
+        <div class="img-ph" style="aspect-ratio: 4/5;">
+          <img class="ph-real" src="assets/img/tentang-misi.jpg" alt="R&D Lab YK" onerror="phFallback(this)">
+          <div class="ph-name">tentang-misi.jpg</div>
+          <div class="ph-size">800 × 1000 px (4:5)</div>
+          <div class="ph-desc">Foto: R&D lab / pengujian formula / chemist meracik aditif</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="yk-divider"><div class="dvd-mark">02 · Nilai &amp; Prinsip</div></div>
+
+<!-- ============ 5. VALUES (4 cards) ============ -->
+<section class="section" style="padding-top: 0; background: var(--yk-bg-soft);">
+  <div class="container">
+    <div class="section-head" style="margin-bottom: 40px;">
+      <div class="eyebrow">Nilai Inti</div>
+      <h2>Empat Prinsip yang Memandu Kami</h2>
+      <p>Setiap formula, setiap aplikator yang kami training, setiap site visit, dipandu oleh empat prinsip kerja ini.</p>
+    </div>
+    <div class="values-grid">
+      <div class="value-card">
+        <div class="vc-num">/ 01</div>
+        <h4>BUILD</h4>
+        <p>Membangun struktur dengan formula presisi. Concrete admixture &amp; grouting yang teruji untuk fondasi, kolom, &amp; precast.</p>
+      </div>
+      <div class="value-card">
+        <div class="vc-num">/ 02</div>
+        <h4>PROTECT</h4>
+        <p>Melindungi struktur dari air, abrasi, dan elemen. Waterproofing, mortar admixture, dan floor treatment yang tahan jangka panjang.</p>
+      </div>
+      <div class="value-card">
+        <div class="vc-num">/ 03</div>
+        <h4>PERFORM</h4>
+        <p>Memberikan performa terukur. Setiap produk punya TDS jelas, dosis terstandarisasi, dan hasil yang konsisten dari batch ke batch.</p>
+      </div>
+      <div class="value-card">
+        <div class="vc-num">/ 04</div>
+        <h4>SUPPORT</h4>
+        <p>Tidak hanya jual produk, tapi jual hasil. Site visit gratis, konsultasi mix design, dan garansi aplikasi sesuai TDS.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="yk-divider"><div class="dvd-mark">03 · Fasilitas &amp; Produksi</div></div>
+
+<!-- ============ 6. FASILITAS (gallery + text) ============ -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">Fasilitas Produksi</div>
+      <h2>Dari Mixing Plant ke Sak 25kg</h2>
+      <p>Produksi terpusat di Jakarta Timur, dengan kontrol QC pada setiap titik mulai dari penerimaan bahan baku sampai pelabelan akhir.</p>
+    </div>
+    <div class="gallery-mix">
+      <div class="img-ph">
+        <img class="ph-real" src="assets/img/fasilitas-1.jpg" alt="Mixing plant" onerror="phFallback(this)">
+        <div class="ph-name">fasilitas-1.jpg</div>
+        <div class="ph-size">1200 × 1400 px</div>
+        <div class="ph-desc">Foto utama: mixing plant / area produksi / mesin batching</div>
+      </div>
+      <div class="img-ph">
+        <img class="ph-real" src="assets/img/fasilitas-2.jpg" alt="QC lab" onerror="phFallback(this)">
+        <div class="ph-name">fasilitas-2.jpg</div>
+        <div class="ph-size">800 × 600 px</div>
+        <div class="ph-desc">QC lab / pengujian kuat tekan / slump test</div>
+      </div>
+      <div class="img-ph">
+        <img class="ph-real" src="assets/img/fasilitas-3.jpg" alt="Warehouse" onerror="phFallback(this)">
+        <div class="ph-name">fasilitas-3.jpg</div>
+        <div class="ph-size">800 × 600 px</div>
+        <div class="ph-desc">Warehouse / stok sak / loading area</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="yk-divider"><div class="dvd-mark">04 · Lini Produk Kami</div></div>
+
+<!-- ============ 7. LINI PRODUK (split: image + list) ============ -->
+<section class="section" style="padding-top: 0; background: var(--yk-bg-soft);">
+  <div class="container">
+    <div class="split reverse">
+      <div>
+        <div class="eyebrow">Yang Kami Kerjakan</div>
+        <h2 style="margin-top: 12px; margin-bottom: 24px;">Sembilan Lini Produk YK</h2>
+        <p style="margin-bottom: 24px;">Mencakup seluruh siklus konstruksi, dari pondasi sampai finishing.</p>
+        <ul style="list-style: none; padding: 0; line-height: 1.9;">
+          <li style="padding: 10px 0; border-bottom: 1px solid var(--yk-border);"><strong>Concrete Admixture</strong> — superplasticizer untuk beton struktural premium</li>
+          <li style="padding: 10px 0; border-bottom: 1px solid var(--yk-border);"><strong>Mortar Admixture</strong> — penyumbat bocor &amp; SBR bonding untuk renovasi</li>
+          <li style="padding: 10px 0; border-bottom: 1px solid var(--yk-border);"><strong>Ready Mix Mortar</strong> — plester &amp; waterproofing siap pakai</li>
+          <li style="padding: 10px 0; border-bottom: 1px solid var(--yk-border);"><strong>Waterproofing</strong> — coating akrilik tahan UV &amp; mortar kedap air</li>
+          <li style="padding: 10px 0; border-bottom: 1px solid var(--yk-border);"><strong>Mould Release &amp; Curing</strong> — pelengkap pengecoran profesional</li>
+          <li style="padding: 10px 0; border-bottom: 1px solid var(--yk-border);"><strong>Floor Treatments</strong> — floor hardener 6 warna untuk gudang &amp; pabrik</li>
+          <li style="padding: 10px 0; border-bottom: 1px solid var(--yk-border);"><strong>Grouting</strong> — semen &amp; epoxy presisi tinggi untuk fondasi mesin</li>
+          <li style="padding: 10px 0; border-bottom: 1px solid var(--yk-border);"><strong>Tile Adhesive</strong> — perekat keramik dengan fitur on-tile</li>
+          <li style="padding: 10px 0;"><strong>Bonding Agent</strong> — PVA emulsion multi-fungsi (5 aplikasi dalam 1)</li>
+        </ul>
+        <a href="produk.html" class="btn btn-blue" style="margin-top: 32px;">Lihat Katalog Lengkap →</a>
+      </div>
+      <div>
+        <div class="gallery-3" style="grid-template-columns: 1fr 1fr; gap: 12px;">
+          <div class="img-ph" style="aspect-ratio: 3/4;">
+            <img class="ph-real" src="assets/img/produk-1.jpg" alt="Produk YK" onerror="phFallback(this)">
+            <div class="ph-name">produk-1.jpg</div>
+            <div class="ph-desc">Sak concrete admixture</div>
+          </div>
+          <div class="img-ph" style="aspect-ratio: 3/4;">
+            <img class="ph-real" src="assets/img/produk-2.jpg" alt="Produk YK" onerror="phFallback(this)">
+            <div class="ph-name">produk-2.jpg</div>
+            <div class="ph-desc">Pail waterproofing</div>
+          </div>
+          <div class="img-ph" style="aspect-ratio: 3/4;">
+            <img class="ph-real" src="assets/img/produk-3.jpg" alt="Produk YK" onerror="phFallback(this)">
+            <div class="ph-name">produk-3.jpg</div>
+            <div class="ph-desc">Floor hardener (6 warna)</div>
+          </div>
+          <div class="img-ph" style="aspect-ratio: 3/4;">
+            <img class="ph-real" src="assets/img/produk-4.jpg" alt="Produk YK" onerror="phFallback(this)">
+            <div class="ph-name">produk-4.jpg</div>
+            <div class="ph-desc">Tile adhesive sak</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="yk-divider"><div class="dvd-mark">05 · Komitmen Kualitas</div></div>
+
+<!-- ============ 8. KOMITMEN KUALITAS (split) ============ -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <div class="split">
+      <div>
+        <div class="img-ph" style="aspect-ratio: 1;">
+          <img class="ph-real" src="assets/img/tentang-qc.jpg" alt="QC pabrik YK" onerror="phFallback(this)">
+          <div class="ph-name">tentang-qc.jpg</div>
+          <div class="ph-size">1000 × 1000 px (1:1)</div>
+          <div class="ph-desc">Foto: QC pabrik / pengujian kuat tekan / slump test / teknisi cek mix</div>
+        </div>
+      </div>
+      <div>
+        <div class="eyebrow">Komitmen Kualitas</div>
+        <h2 style="margin-top: 12px; margin-bottom: 24px;">Lulus Standar Internasional, Diuji Lokal.</h2>
+        <p style="margin-bottom: 20px;">
+          Setiap produk YK melewati quality control pabrik dengan mix design terstandarisasi. Formula kami memenuhi standar internasional seperti <strong>CRD C-621</strong> dan <strong>ASTM C-1107</strong>, dan dirancang <strong>bebas klorin</strong> untuk keamanan struktur bertulang dan pratekan.
+        </p>
+        <div class="cert-grid" style="margin-top: 32px;">
+          <div class="img-ph logo-ph" style="aspect-ratio: 1; padding: 16px;">
+            <div class="ph-name">ASTM C-1107</div>
+            <div class="ph-desc">Grouting standard</div>
+          </div>
+          <div class="img-ph logo-ph" style="aspect-ratio: 1; padding: 16px;">
+            <div class="ph-name">CRD C-621</div>
+            <div class="ph-desc">Corps of Engineers</div>
+          </div>
+          <div class="img-ph logo-ph" style="aspect-ratio: 1; padding: 16px;">
+            <div class="ph-name">SNI</div>
+            <div class="ph-desc">Standar Nasional</div>
+          </div>
+          <div class="img-ph logo-ph" style="aspect-ratio: 1; padding: 16px;">
+            <div class="ph-name">Cl⁻ Free</div>
+            <div class="ph-desc">Bebas klorin</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 9. QUOTE STRIP ============ -->
+<section class="quote-block">
+  <div class="container">
+    <blockquote>
+      <div class="qmark">"</div>
+      <div class="qtxt">
+        Kami tidak hanya menjual produk, kami menjual hasil. Setiap sak yang keluar dari pabrik kami dilengkapi dengan dukungan teknis di lapangan, karena formula terbaik pun butuh aplikasi yang benar.
+      </div>
+      <div class="qcite">— Tim Aplikator Senior YK</div>
+    </blockquote>
+  </div>
+</section>
+
+<div class="yk-divider"><div class="dvd-mark">06 · Dukungan Lapangan</div></div>
+
+<!-- ============ 10. DUKUNGAN LAPANGAN (split reverse) ============ -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <div class="split reverse">
+      <div>
+        <div class="eyebrow">Site Support</div>
+        <h2 style="margin-top: 12px; margin-bottom: 24px;">Aplikator Senior ke Lokasi Proyek Anda.</h2>
+        <p style="margin-bottom: 24px;">
+          Kami tidak hanya menjual produk, kami menjual hasil. Setiap pesanan dilengkapi dengan paket dukungan teknis lengkap, gratis.
+        </p>
+        <ul style="list-style: none; padding: 0;">
+          <li style="display: flex; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--yk-border);">
+            <div style="width: 24px; height: 24px; background: var(--yk-blue); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 800; flex-shrink: 0;">✓</div>
+            <div><strong>Site visit gratis</strong> oleh aplikator senior</div>
+          </li>
+          <li style="display: flex; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--yk-border);">
+            <div style="width: 24px; height: 24px; background: var(--yk-blue); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 800; flex-shrink: 0;">✓</div>
+            <div><strong>Konsultasi mix design</strong> &amp; dosis aplikasi</div>
+          </li>
+          <li style="display: flex; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--yk-border);">
+            <div style="width: 24px; height: 24px; background: var(--yk-blue); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 800; flex-shrink: 0;">✓</div>
+            <div><strong>Pengujian sample</strong> di lab klien (jika diminta)</div>
+          </li>
+          <li style="display: flex; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--yk-border);">
+            <div style="width: 24px; height: 24px; background: var(--yk-blue); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 800; flex-shrink: 0;">✓</div>
+            <div><strong>Garansi hasil</strong> untuk aplikasi sesuai TDS</div>
+          </li>
+          <li style="display: flex; gap: 16px; padding: 14px 0;">
+            <div style="width: 24px; height: 24px; background: var(--yk-blue); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 800; flex-shrink: 0;">✓</div>
+            <div><strong>After-sales support</strong> tanpa biaya tambahan</div>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <div class="gallery-3" style="grid-template-columns: 1fr; gap: 12px;">
+          <div class="img-ph" style="aspect-ratio: 16/10;">
+            <img class="ph-real" src="assets/img/site-1.jpg" alt="Aplikator di site" onerror="phFallback(this)">
+            <div class="ph-name">site-1.jpg</div>
+            <div class="ph-desc">Aplikator senior konsultasi mix design dengan kontraktor</div>
+          </div>
+          <div class="gallery-3" style="gap: 12px;">
+            <div class="img-ph" style="aspect-ratio: 1;">
+              <img class="ph-real" src="assets/img/site-2.jpg" alt="Site visit" onerror="phFallback(this)">
+              <div class="ph-name">site-2.jpg</div>
+              <div class="ph-desc">Pengecekan kuat tekan di site</div>
+            </div>
+            <div class="img-ph" style="aspect-ratio: 1;">
+              <img class="ph-real" src="assets/img/site-3.jpg" alt="Aplikasi" onerror="phFallback(this)">
+              <div class="ph-name">site-3.jpg</div>
+              <div class="ph-desc">Aplikasi waterproofing</div>
+            </div>
+            <div class="img-ph" style="aspect-ratio: 1;">
+              <img class="ph-real" src="assets/img/site-4.jpg" alt="Floor hardener" onerror="phFallback(this)">
+              <div class="ph-name">site-4.jpg</div>
+              <div class="ph-desc">Trowel floor hardener</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="yk-divider"><div class="dvd-mark">07 · Tim Inti</div></div>
+
+<!-- ============ 11. TIM (3-up portraits) ============ -->
+<section class="section" style="padding-top: 0; background: var(--yk-bg-soft);">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">Tim Inti</div>
+      <h2>Orang-Orang di Balik Setiap Sak YK</h2>
+      <p>Dari R&amp;D di lab sampai aplikator di site, tim kami punya pengalaman langsung di konstruksi Indonesia.</p>
+    </div>
+    <div class="team-grid">
+      <div class="team-card">
+        <div class="img-ph">
+          <img class="ph-real" src="assets/img/team-1.jpg" alt="Tim R&D" onerror="phFallback(this)">
+          <div class="ph-name">team-1.jpg</div>
+          <div class="ph-desc">Foto kepala R&D / chemist senior</div>
+        </div>
+        <h4>R&amp;D &amp; Formulasi</h4>
+        <div class="role">Chemist &amp; Engineer</div>
+        <p style="font-size: 13px; color: var(--yk-grey); margin-top: 8px;">Mengembangkan formula yang setara standar internasional dengan bahan baku lokal.</p>
+      </div>
+      <div class="team-card">
+        <div class="img-ph">
+          <img class="ph-real" src="assets/img/team-2.jpg" alt="Tim Aplikator" onerror="phFallback(this)">
+          <div class="ph-name">team-2.jpg</div>
+          <div class="ph-desc">Foto aplikator senior di site</div>
+        </div>
+        <h4>Aplikator Senior</h4>
+        <div class="role">Site Support</div>
+        <p style="font-size: 13px; color: var(--yk-grey); margin-top: 8px;">Datang ke site, konsultasi mix design, memastikan produk diaplikasikan sesuai TDS.</p>
+      </div>
+      <div class="team-card">
+        <div class="img-ph">
+          <img class="ph-real" src="assets/img/team-3.jpg" alt="Tim Sales" onerror="phFallback(this)">
+          <div class="ph-name">team-3.jpg</div>
+          <div class="ph-desc">Foto tim sales / customer service</div>
+        </div>
+        <h4>Sales &amp; Customer Service</h4>
+        <div class="role">Account Manager</div>
+        <p style="font-size: 13px; color: var(--yk-grey); margin-top: 8px;">Mengelola kebutuhan proyek dari penawaran sampai pengiriman, dengan respon &lt; 24 jam.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="yk-divider"><div class="dvd-mark">08 · Tagline</div></div>
+
+<!-- ============ 12. TAGLINE / BUILD PROTECT PERFORM ============ -->
+<section class="section" style="padding-top: 0;">
+  <div class="container-narrow" style="text-align: center;">
+    <div class="eyebrow">Tagline</div>
+    <div style="display: flex; gap: 32px; justify-content: center; align-items: baseline; margin: 32px 0; flex-wrap: wrap;">
+      <div style="font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; color: var(--yk-black); letter-spacing: -0.03em;">BUILD</div>
+      <div style="font-size: 1.5rem; color: var(--yk-blue);">·</div>
+      <div style="font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; color: var(--yk-black); letter-spacing: -0.03em;">PROTECT</div>
+      <div style="font-size: 1.5rem; color: var(--yk-blue);">·</div>
+      <div style="font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; color: var(--yk-black); letter-spacing: -0.03em;">PERFORM</div>
+    </div>
+    <p class="lead" style="max-width: 640px; margin: 0 auto;">
+      Tiga peran yang dimainkan produk YK di setiap proyek: membangun struktur, melindungi dari elemen, dan memberikan performa jangka panjang.
+    </p>
+  </div>
+</section>
+
+<div class="yk-divider"><div class="dvd-mark">09 · Informasi Legal</div></div>
+
+<!-- ============ 13. INFO PERUSAHAAN ============ -->
+<section class="section" style="padding-top: 0; background: var(--yk-bg-soft);">
+  <div class="container-narrow">
+    <div class="section-head" style="margin-bottom: 32px; text-align: center;">
+      <div class="eyebrow">Informasi Legal</div>
+      <h2>Data Perusahaan</h2>
+    </div>
+    <div class="panel" style="background: #fff;">
+      <div style="display: grid; grid-template-columns: 180px 1fr; gap: 16px 32px; font-size: 14px;">
+        <div style="color: var(--yk-grey); font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; font-size: 12px;">Nama Resmi</div><div><strong>PT. Yosi Hutama Karya</strong></div>
+        <div style="color: var(--yk-grey); font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; font-size: 12px;">Brand Produk</div><div>YK (Yosi Hutama Karya)</div>
+        <div style="color: var(--yk-grey); font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; font-size: 12px;">NPWP</div><div>91.567.890.1-234.000</div>
+        <div style="color: var(--yk-grey); font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; font-size: 12px;">Alamat</div><div>Jl. Jend. Ahmad Yani Kav. 3,<br/>Kel. Kayu Putih, Kec. Pulo Gadung,<br/>Jakarta Timur 13210, Indonesia</div>
+        <div style="color: var(--yk-grey); font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; font-size: 12px;">Telepon</div><div>+62 21 475 7386</div>
+        <div style="color: var(--yk-grey); font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; font-size: 12px;">Faks</div><div>+62 21 475 7387</div>
+        <div style="color: var(--yk-grey); font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; font-size: 12px;">Email</div><div><a href="mailto:info@yosihutamakarya.com">info@yosihutamakarya.com</a></div>
+        <div style="color: var(--yk-grey); font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; font-size: 12px;">Website</div><div><a href="https://www.yosihutamakarya.com">www.yosihutamakarya.com</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 14. CTA ============ -->
 <section class="cta-strip">
   <div class="container">
     <h2>Mari Berkolaborasi</h2>
-    <p>Hubungi tim sales kami untuk diskusi kebutuhan proyek Anda.</p>
+    <p>Hubungi tim sales kami untuk diskusi kebutuhan proyek Anda. Site visit gratis, konsultasi mix design tanpa biaya.</p>
     <a href="kontak.html" class="btn btn-primary btn-lg" style="background: #fff; color: var(--yk-black);">Hubungi Kami</a>
   </div>
 </section>
