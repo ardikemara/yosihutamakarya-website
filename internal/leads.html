@@ -6,6 +6,46 @@
 <title>Leads Sales · Portal Internal YK</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="../shared/style.css" />
+<style>
+  /* Pipeline-specific bits — kept inline so style.css stays untouched */
+  .stage-pill { display: inline-block; padding: 3px 10px; font-size: 11px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; border-radius: 999px; }
+  .stage-new        { background: #E0E7FF; color: #3730A3; }
+  .stage-contacted  { background: #FEF3C7; color: #92400E; }
+  .stage-qualified  { background: #DBEAFE; color: var(--yk-blue); }
+  .stage-proposal   { background: #FCE7F3; color: #9D174D; }
+  .stage-won        { background: #DCFCE7; color: var(--yk-success); }
+  .stage-lost       { background: #FEE2E2; color: var(--yk-danger); }
+
+  .pipeline-row { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; margin-bottom: 24px; }
+  .pipe-card { background: var(--yk-white); border: 1px solid var(--yk-border); padding: 14px; cursor: pointer; transition: all 0.15s; }
+  .pipe-card:hover { border-color: var(--yk-blue); }
+  .pipe-card.active { border-color: var(--yk-black); border-width: 2px; padding: 13px; }
+  .pipe-card .pc-label { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--yk-grey); }
+  .pipe-card .pc-count { font-size: 1.5rem; font-weight: 800; color: var(--yk-black); margin-top: 4px; line-height: 1.1; }
+  .pipe-card .pc-bar { height: 3px; margin-top: 8px; background: var(--yk-border); }
+  .pipe-card.stage-new        .pc-bar { background: #6366F1; }
+  .pipe-card.stage-contacted  .pc-bar { background: #F59E0B; }
+  .pipe-card.stage-qualified  .pc-bar { background: var(--yk-blue); }
+  .pipe-card.stage-proposal   .pc-bar { background: #EC4899; }
+  .pipe-card.stage-won        .pc-bar { background: var(--yk-success); }
+  .pipe-card.stage-lost       .pc-bar { background: var(--yk-danger); }
+
+  .followup-badge { font-size: 11px; padding: 2px 8px; border-radius: 999px; font-weight: 600; }
+  .fu-fresh  { background: #DCFCE7; color: var(--yk-success); }
+  .fu-warm   { background: #FEF3C7; color: #92400E; }
+  .fu-stale  { background: #FEE2E2; color: var(--yk-danger); }
+  .fu-never  { background: #E5E7EB; color: var(--yk-grey); }
+
+  .activity-item { padding: 12px 0; border-bottom: 1px solid var(--yk-border); display: grid; grid-template-columns: 28px 1fr; gap: 12px; align-items: start; }
+  .activity-item:last-child { border-bottom: none; }
+  .activity-icon { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; }
+  .ai-whatsapp { background: #DCFCE7; color: var(--yk-success); }
+  .ai-email    { background: #DBEAFE; color: var(--yk-blue); }
+  .ai-call     { background: #FEF3C7; color: #92400E; }
+  .ai-meeting  { background: #FCE7F3; color: #9D174D; }
+  .ai-note     { background: #E5E7EB; color: var(--yk-grey); }
+  .ai-stage_change { background: var(--yk-black); color: #fff; }
+</style>
 </head>
 <body>
 
@@ -15,20 +55,23 @@
   <main class="workspace">
     <div class="workspace-head">
       <div>
-        <h1>Leads Sales</h1>
-        <p>Semua permintaan masuk dari formulir kontak website publik.</p>
+        <h1>Sales Pipeline</h1>
+        <p>Track lead dari masuk sampai close. Klik card stage untuk filter, klik baris untuk detail & follow-up.</p>
       </div>
     </div>
+
+    <!-- Pipeline summary cards -->
+    <div class="pipeline-row" id="pipeline-row"></div>
 
     <div class="card" style="padding: 0;">
       <table class="tbl" id="leads-table">
         <thead>
           <tr>
-            <th>Tanggal</th>
+            <th>Tanggal Masuk</th>
             <th>Nama / Perusahaan</th>
-            <th>Kontak</th>
             <th>Produk</th>
-            <th>Status</th>
+            <th>Stage</th>
+            <th>Last Follow-up</th>
             <th>Aksi</th>
           </tr>
         </thead>
@@ -38,38 +81,398 @@
   </main>
 </div>
 
+<!-- Lead Detail Modal -->
+<div class="modal-bg" id="lead-modal">
+  <div class="modal" style="max-width: 760px;">
+    <div class="modal-head">
+      <div>
+        <h3 id="lm-name" style="margin-bottom: 4px;">—</h3>
+        <div id="lm-subtitle" class="muted text-sm">—</div>
+      </div>
+      <button class="modal-close" onclick="closeModal()">×</button>
+    </div>
+    <div class="modal-body">
+
+      <!-- Top row: stage + last contact -->
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid var(--yk-border);">
+        <div>
+          <label style="margin-bottom: 6px;">Stage Sekarang</label>
+          <select id="lm-stage" style="font-weight: 600;">
+            <option value="new">NEW · baru masuk</option>
+            <option value="contacted">CONTACTED · sudah di-follow up</option>
+            <option value="qualified">QUALIFIED · potensial serius</option>
+            <option value="proposal">PROPOSAL · sudah kasih penawaran</option>
+            <option value="won">WON · deal closed 🎉</option>
+            <option value="lost">LOST · tidak jadi</option>
+          </select>
+        </div>
+        <div>
+          <label style="margin-bottom: 6px;">Terakhir di-Follow up</label>
+          <div id="lm-lastcontact" style="font-size: 14px; padding-top: 10px;">—</div>
+        </div>
+      </div>
+
+      <!-- Lead info -->
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px 24px; margin-bottom: 20px;">
+        <div><label style="margin-bottom: 4px;">Kontak</label><div id="lm-phone" style="font-size: 14px;">—</div></div>
+        <div><label style="margin-bottom: 4px;">Email</label><div id="lm-email" style="font-size: 14px; word-break: break-all;">—</div></div>
+        <div><label style="margin-bottom: 4px;">Produk Diminati</label><div id="lm-product" style="font-size: 14px; font-weight: 600; color: var(--yk-blue);">—</div></div>
+        <div><label style="margin-bottom: 4px;">Volume / Timeline</label><div id="lm-volume" style="font-size: 14px;">—</div></div>
+        <div style="grid-column: 1 / -1;">
+          <label style="margin-bottom: 4px;">Pesan dari Prospek</label>
+          <div id="lm-message" class="panel" style="font-size: 13px; line-height: 1.6; white-space: pre-wrap;">—</div>
+        </div>
+      </div>
+
+      <!-- Follow-up composer -->
+      <div style="background: var(--yk-bg-soft); padding: 16px; border-left: 3px solid var(--yk-blue); margin-bottom: 20px;">
+        <label style="margin-bottom: 6px;">Pre-text WhatsApp (bisa diedit dulu sebelum kirim)</label>
+        <textarea id="lm-watext" rows="4" style="font-size: 13px; background: #fff;"></textarea>
+        <div style="display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap;">
+          <a id="lm-wa-btn" href="#" target="_blank" class="btn btn-blue btn-sm">📱 Kirim WA (auto-log)</a>
+          <a id="lm-mail-btn" href="#" target="_blank" class="btn btn-outline btn-sm">✉ Email</a>
+          <button onclick="quickLog('call')" class="btn btn-ghost btn-sm">📞 Log Telepon</button>
+          <button onclick="quickLog('meeting')" class="btn btn-ghost btn-sm">🤝 Log Meeting</button>
+          <button onclick="quickLog('note')" class="btn btn-ghost btn-sm">📝 Catatan Internal</button>
+        </div>
+      </div>
+
+      <!-- Activity history -->
+      <div>
+        <label style="margin-bottom: 8px;">Riwayat Follow-up</label>
+        <div id="lm-activities">—</div>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost btn-sm" onclick="closeModal()">Tutup</button>
+    </div>
+  </div>
+</div>
+
+<!-- Quick log modal (for call/meeting/note) -->
+<div class="modal-bg" id="quicklog-modal">
+  <div class="modal" style="max-width: 480px;">
+    <div class="modal-head">
+      <h3 id="ql-title">Log Aktivitas</h3>
+      <button class="modal-close" onclick="closeQuickLog()">×</button>
+    </div>
+    <div class="modal-body">
+      <label>Catatan singkat</label>
+      <textarea id="ql-note" rows="4" placeholder="Misal: Sudah telepon, minta dikirim spec sheet via email."></textarea>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost btn-sm" onclick="closeQuickLog()">Batal</button>
+      <button class="btn btn-primary btn-sm" onclick="submitQuickLog()">Simpan</button>
+    </div>
+  </div>
+</div>
+
 <script src="../shared/data.js"></script>
-<script src="../shared/db.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../shared/supabase-config.js"></script>
+<script src="../shared/db.supabase.js"></script>
 <script src="sidebar.js"></script>
 <script>
   mountSidebar('leads');
 
-  function render() {
-    const leads = DB.listLeads();
+  const STAGES = [
+    { key: 'new',       label: 'New',       desc: 'Baru masuk' },
+    { key: 'contacted', label: 'Contacted', desc: 'Sudah di-follow up' },
+    { key: 'qualified', label: 'Qualified', desc: 'Potensial serius' },
+    { key: 'proposal',  label: 'Proposal',  desc: 'Penawaran terkirim' },
+    { key: 'won',       label: 'Won',       desc: 'Deal closed' },
+    { key: 'lost',      label: 'Lost',      desc: 'Tidak jadi' }
+  ];
+
+  let leadsCache = [];
+  let currentLead = null;
+  let stageFilter = null;
+
+  // ---------- helpers ----------
+  function waPhone(phone) {
+    if (!phone) return '';
+    let d = phone.replace(/[^0-9]/g, '');
+    if (d.startsWith('0')) d = '62' + d.slice(1);
+    else if (d.startsWith('8')) d = '62' + d;
+    return d;
+  }
+
+  function waPretext(l) {
+    const u = DB.getUser();
+    const salesName = u ? u.name.split(' ')[0] : 'tim sales';
+    let s = `Halo ${l.name}, saya ${salesName} dari PT. Yosi Hutama Karya. Terima kasih sudah mengirim permintaan via website kami.`;
+    if (l.product) {
+      s += ` Mengenai ketertarikan Bapak/Ibu pada *${l.product}*`;
+      if (l.volume) s += ` (estimasi: ${l.volume})`;
+      s += `, apakah ada waktu sebentar untuk diskusi kebutuhan proyeknya?`;
+    } else {
+      s += ` Boleh saya bantu untuk konsultasi kebutuhan proyek Bapak/Ibu?`;
+    }
+    return s;
+  }
+
+  function emailHref(l) {
+    if (!l.email) return '#';
+    const subj = encodeURIComponent(l.product ? `Penawaran ${l.product} · PT. Yosi Hutama Karya` : `Follow-up Permintaan · PT. Yosi Hutama Karya`);
+    const body = encodeURIComponent(waPretext(l).replace(/\*/g, ''));
+    return `mailto:${l.email}?subject=${subj}&body=${body}`;
+  }
+
+  function waHref(l, customText) {
+    if (!l.phone) return '#';
+    return `https://wa.me/${waPhone(l.phone)}?text=${encodeURIComponent(customText || waPretext(l))}`;
+  }
+
+  // "2 hari lalu" formatter (Indonesian)
+  function ago(iso) {
+    if (!iso) return null;
+    const now = Date.now(); const then = new Date(iso).getTime();
+    const min = Math.floor((now - then) / 60000);
+    if (min < 1) return 'baru saja';
+    if (min < 60) return `${min} menit lalu`;
+    const hr = Math.floor(min / 60);
+    if (hr < 24) return `${hr} jam lalu`;
+    const days = Math.floor(hr / 24);
+    if (days < 30) return `${days} hari lalu`;
+    const months = Math.floor(days / 30);
+    if (months < 12) return `${months} bulan lalu`;
+    return `${Math.floor(months / 12)} tahun lalu`;
+  }
+
+  // Absolute timestamp: "29 Mei 2026 · 11.37 WIB"
+  function fmtDateTime(iso) {
+    if (!iso) return '';
+    const d = new Date(iso);
+    const date = d.toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' });
+    const time = d.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', hour12: false });
+    return `${date} · ${time} WIB`;
+  }
+
+  function followUpBadge(lead) {
+    if (lead.stage === 'won' || lead.stage === 'lost') {
+      return `<span class="followup-badge fu-fresh">closed</span>`;
+    }
+    if (!lead.lastContactedAt) {
+      return `<span class="followup-badge fu-never">belum di-follow up</span>`;
+    }
+    const days = Math.floor((Date.now() - new Date(lead.lastContactedAt).getTime()) / 86400000);
+    const txt = ago(lead.lastContactedAt);
+    const cls = days <= 2 ? 'fu-fresh' : days <= 7 ? 'fu-warm' : 'fu-stale';
+    return `<span class="followup-badge ${cls}">${txt}</span>`;
+  }
+
+  function methodIcon(m) {
+    return ({ whatsapp: '📱', email: '✉', call: '📞', meeting: '🤝', note: '📝', stage_change: '↻' })[m] || '•';
+  }
+  function methodLabel(m) {
+    return ({ whatsapp: 'WhatsApp', email: 'Email', call: 'Telepon', meeting: 'Meeting', note: 'Catatan', stage_change: 'Stage berubah' })[m] || m;
+  }
+
+  // ---------- Pipeline summary ----------
+  function renderPipelineRow() {
+    const counts = Object.fromEntries(STAGES.map(s => [s.key, 0]));
+    leadsCache.forEach(l => { counts[l.stage] = (counts[l.stage] || 0) + 1; });
+    const total = leadsCache.length;
+    document.getElementById('pipeline-row').innerHTML = STAGES.map(s => `
+      <div class="pipe-card stage-${s.key} ${stageFilter === s.key ? 'active' : ''}" onclick="toggleStageFilter('${s.key}')">
+        <div class="pc-label">${s.label}</div>
+        <div class="pc-count">${counts[s.key]}</div>
+        <div class="pc-bar"></div>
+      </div>
+    `).join('');
+  }
+
+  function toggleStageFilter(stage) {
+    stageFilter = stageFilter === stage ? null : stage;
+    renderPipelineRow();
+    renderTable();
+  }
+
+  // ---------- Table ----------
+  function renderTable() {
     const tbody = document.querySelector('#leads-table tbody');
-    if (!leads.length) {
-      tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; padding: 40px; color: var(--yk-grey);">Belum ada lead. Coba submit form di <a href="../kontak.html">halaman kontak publik</a>.</td></tr>';
+    const filtered = stageFilter ? leadsCache.filter(l => l.stage === stageFilter) : leadsCache;
+    if (!filtered.length) {
+      tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding: 40px; color: var(--yk-grey);">Tidak ada lead di stage ini.</td></tr>`;
       return;
     }
-    tbody.innerHTML = leads.map(l => {
-      const d = new Date(l.createdAt);
-      const dateStr = d.toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' });
+    tbody.innerHTML = filtered.map((l, idx) => {
+      const realIdx = leadsCache.indexOf(l);
+      const dateStr = new Date(l.createdAt).toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' });
       return `
-        <tr>
+        <tr data-idx="${realIdx}" style="cursor: pointer;">
           <td style="font-size: 13px;">${dateStr}</td>
           <td><strong>${l.name}</strong><div class="muted text-sm">${l.company || '-'}</div></td>
-          <td>${l.phone || '-'}<div class="muted text-sm">${l.email || ''}</div></td>
-          <td>${l.product || '-'}</td>
-          <td><span class="pill pill-${l.status === 'new' ? 'unpaid' : l.status === 'qualified' ? 'paid' : 'draft'}">${l.status}</span></td>
-          <td>
-            ${l.phone ? `<a href="https://wa.me/${l.phone.replace(/[^0-9]/g, '')}" target="_blank" class="btn btn-ghost btn-sm">WhatsApp</a>` : ''}
-            ${l.email ? `<a href="mailto:${l.email}" class="btn btn-ghost btn-sm">Email</a>` : ''}
+          <td>${l.product || '-'}<div class="muted text-sm">${l.volume || ''}</div></td>
+          <td><span class="stage-pill stage-${l.stage}">${l.stage}</span></td>
+          <td>${followUpBadge(l)}</td>
+          <td onclick="event.stopPropagation()">
+            ${l.phone ? `<a href="${waHref(l)}" target="_blank" class="btn btn-ghost btn-sm" onclick="autoLogWa('${l.id}')">WhatsApp</a>` : ''}
+            ${l.email ? `<a href="${emailHref(l)}" class="btn btn-ghost btn-sm" onclick="autoLogEmail('${l.id}')">Email</a>` : ''}
           </td>
         </tr>
       `;
     }).join('');
+    tbody.querySelectorAll('tr[data-idx]').forEach(tr => {
+      tr.addEventListener('click', () => openModal(leadsCache[parseInt(tr.dataset.idx, 10)]));
+    });
   }
-  render();
+
+  // ---------- Auto-log when WA/Email button clicked from main table ----------
+  async function autoLogWa(leadId) {
+    const lead = leadsCache.find(x => x.id === leadId);
+    const pretext = lead ? waPretext(lead) : 'WA terkirim dari tabel lead';
+    await DB.logActivity(leadId, 'whatsapp', pretext);
+    showToast('✓ WhatsApp ter-log', 'success');
+    setTimeout(refresh, 500);
+  }
+  async function autoLogEmail(leadId) {
+    await DB.logActivity(leadId, 'email', 'Email client dibuka dari tabel lead');
+    showToast('✓ Email ter-log', 'success');
+    setTimeout(refresh, 500);
+  }
+
+  // ---------- Modal ----------
+  async function openModal(lead) {
+    currentLead = lead;
+    document.getElementById('lm-name').textContent = lead.name;
+    document.getElementById('lm-subtitle').textContent =
+      `${lead.company || '-'} · masuk ${new Date(lead.createdAt).toLocaleString('id-ID', { dateStyle: 'long', timeStyle: 'short' })}`;
+    document.getElementById('lm-phone').textContent = lead.phone || '—';
+    document.getElementById('lm-email').textContent = lead.email || '—';
+    document.getElementById('lm-product').textContent = lead.product || '—';
+    document.getElementById('lm-volume').textContent = lead.volume || '—';
+    document.getElementById('lm-message').textContent = lead.message || '(Tidak ada pesan tambahan)';
+
+    // last contact
+    const lc = document.getElementById('lm-lastcontact');
+    if (lead.lastContactedAt) {
+      lc.innerHTML = `<strong>${ago(lead.lastContactedAt)}</strong> · ${methodIcon(lead.lastContactMethod)} ${methodLabel(lead.lastContactMethod)}
+        <div class="muted text-sm" style="margin-top: 2px;">${fmtDateTime(lead.lastContactedAt)}</div>
+        ${lead.lastContactNote ? `<div class="text-sm" style="margin-top: 6px; color: var(--yk-charcoal); font-style: italic;">"${lead.lastContactNote}"</div>` : ''}`;
+    } else {
+      lc.innerHTML = `<span class="muted">Belum pernah di-follow up.</span>`;
+    }
+
+    // stage selector
+    const stageSel = document.getElementById('lm-stage');
+    stageSel.value = lead.stage;
+    stageSel.onchange = async () => {
+      const newStage = stageSel.value;
+      const updated = await DB.updateLeadStage(lead.id, newStage);
+      if (updated) {
+        showToast(`Stage diupdate ke ${newStage.toUpperCase()}`, 'success');
+        await refresh();
+        // re-open modal with fresh data
+        const fresh = leadsCache.find(x => x.id === lead.id);
+        if (fresh) openModal(fresh);
+      }
+    };
+
+    // pretext + buttons
+    const pretext = waPretext(lead);
+    document.getElementById('lm-watext').value = pretext;
+    const waBtn = document.getElementById('lm-wa-btn');
+    const mailBtn = document.getElementById('lm-mail-btn');
+    waBtn.href = waHref(lead, pretext);
+    mailBtn.href = emailHref(lead);
+    waBtn.classList.toggle('hidden', !lead.phone);
+    mailBtn.classList.toggle('hidden', !lead.email);
+    waBtn.onclick = async () => {
+      const pretextSent = document.getElementById('lm-watext').value;
+      await DB.logActivity(lead.id, 'whatsapp', pretextSent);
+      showToast('✓ WhatsApp ter-log', 'success');
+      await refresh();
+      const fresh = leadsCache.find(x => x.id === lead.id);
+      if (fresh) openModal(fresh);
+    };
+    mailBtn.onclick = async () => {
+      await DB.logActivity(lead.id, 'email', `Email dibuka via mailto · subject: Penawaran ${lead.product || ''}`);
+      showToast('✓ Email ter-log', 'success');
+      await refresh();
+      const fresh = leadsCache.find(x => x.id === lead.id);
+      if (fresh) openModal(fresh);
+    };
+    document.getElementById('lm-watext').oninput = (e) => {
+      waBtn.href = waHref(lead, e.target.value);
+    };
+
+    // load activity history
+    const activities = await DB.listActivities(lead.id);
+    const list = document.getElementById('lm-activities');
+    if (!activities.length) {
+      list.innerHTML = `<p class="muted text-sm">Belum ada aktivitas. Kirim WA atau log call untuk mulai.</p>`;
+    } else {
+      list.innerHTML = activities.map(a => {
+        const main = a.method === 'stage_change'
+          ? `<strong>Stage: ${a.fromStage || '?'} → ${a.toStage}</strong>`
+          : `<strong>${methodLabel(a.method)}</strong>`;
+        return `
+          <div class="activity-item">
+            <div class="activity-icon ai-${a.method}">${methodIcon(a.method)}</div>
+            <div>
+              ${main}
+              <span class="muted text-sm"> · ${ago(a.createdAt)}${a.createdBy ? ' · ' + a.createdBy : ''}</span>
+              <div class="muted" style="font-size: 11px; margin-top: 2px; font-family: var(--font-mono);">${fmtDateTime(a.createdAt)}</div>
+              ${a.note ? `<div class="text-sm" style="margin-top: 6px; color: var(--yk-charcoal); padding: 8px 10px; background: var(--yk-bg-soft); border-left: 2px solid var(--yk-border);">${a.note}</div>` : ''}
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    document.getElementById('lead-modal').classList.add('open');
+  }
+
+  function closeModal() {
+    document.getElementById('lead-modal').classList.remove('open');
+    currentLead = null;
+  }
+
+  document.getElementById('lead-modal').addEventListener('click', (e) => {
+    if (e.target.id === 'lead-modal') closeModal();
+  });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { closeModal(); closeQuickLog(); } });
+
+  // ---------- Quick log modal ----------
+  let quickLogMethod = null;
+  function quickLog(method) {
+    quickLogMethod = method;
+    document.getElementById('ql-title').textContent = `Log ${methodLabel(method)}`;
+    document.getElementById('ql-note').value = '';
+    document.getElementById('quicklog-modal').classList.add('open');
+    setTimeout(() => document.getElementById('ql-note').focus(), 50);
+  }
+  function closeQuickLog() {
+    document.getElementById('quicklog-modal').classList.remove('open');
+    quickLogMethod = null;
+  }
+  async function submitQuickLog() {
+    if (!currentLead || !quickLogMethod) return;
+    const note = document.getElementById('ql-note').value.trim();
+    await DB.logActivity(currentLead.id, quickLogMethod, note || null);
+    showToast('Aktivitas tersimpan', 'success');
+    closeQuickLog();
+    await refresh();
+    const fresh = leadsCache.find(x => x.id === currentLead.id);
+    if (fresh) openModal(fresh);
+  }
+
+  // ---------- Toast (mini, sidebar already has its own) ----------
+  function showToast(msg, type = 'success') {
+    let t = document.querySelector('.toast');
+    if (!t) { t = document.createElement('div'); t.className = 'toast'; document.body.appendChild(t); }
+    t.textContent = msg; t.className = `toast ${type} show`;
+    setTimeout(() => t.classList.remove('show'), 2400);
+  }
+
+  // ---------- Refresh ----------
+  async function refresh() {
+    leadsCache = await DB.listLeads();
+    renderPipelineRow();
+    renderTable();
+  }
+  refresh();
 </script>
 </body>
 </html>

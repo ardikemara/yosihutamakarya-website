@@ -86,7 +86,9 @@
 </div>
 
 <script src="../shared/data.js"></script>
-<script src="../shared/db.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../shared/supabase-config.js"></script>
+<script src="../shared/db.supabase.js"></script>
 <script src="sidebar.js"></script>
 <script>
   mountSidebar('dashboard');
@@ -96,9 +98,10 @@
   const greeting = hour < 12 ? 'Selamat pagi' : hour < 15 ? 'Selamat siang' : hour < 18 ? 'Selamat sore' : 'Selamat malam';
   document.getElementById('greeting').textContent = `${greeting}, ${user.name.split(' ')[0]}. Berikut ringkasan hari ini.`;
 
+  (async () => {
   // KPIs
-  const leads = DB.listLeads();
-  const invoices = DB.listInvoices();
+  const leads = await DB.listLeads();
+  const invoices = await DB.listInvoices();
   const overdue = invoices.filter(i => i.status === 'overdue');
   const unpaid = invoices.filter(i => i.status === 'unpaid');
   const totalUnpaid = [...unpaid, ...overdue].reduce((sum, i) => {
@@ -137,6 +140,7 @@
       </div>
     `;
   }).join('') || '<p class="muted">Semua invoice lunas. 🎉</p>';
+  })();
 </script>
 </body>
 </html>

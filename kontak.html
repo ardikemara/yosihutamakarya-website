@@ -92,7 +92,9 @@
 <div id="yk-footer"></div>
 
 <script src="shared/data.js"></script>
-<script src="shared/db.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="shared/supabase-config.js"></script>
+<script src="shared/db.supabase.js"></script>
 <script src="shared/layout.js"></script>
 <script>
   mountLayout('kontak');
@@ -116,14 +118,24 @@
     document.querySelector('textarea[name="message"]').value = `Mohon penawaran untuk: ${productName}`;
   }
 
-  // Submit handler
-  document.getElementById('lead-form').addEventListener('submit', (e) => {
+  // Submit handler (async — writes to Supabase)
+  document.getElementById('lead-form').addEventListener('submit', async (e) => {
     e.preventDefault();
+    const btn = e.target.querySelector('button[type="submit"]');
+    const origLabel = btn.textContent;
+    btn.disabled = true; btn.textContent = 'Mengirim...';
+
     const fd = new FormData(e.target);
     const lead = Object.fromEntries(fd.entries());
-    DB.addLead(lead);
-    showToast('✓ Permintaan terkirim! Tim sales akan menghubungi Anda dalam 1×24 jam.', 'success');
-    e.target.reset();
+    const saved = await DB.addLead(lead);
+
+    btn.disabled = false; btn.textContent = origLabel;
+    if (saved) {
+      showToast('✓ Permintaan terkirim! Tim sales akan menghubungi Anda dalam 1×24 jam.', 'success');
+      e.target.reset();
+    } else {
+      showToast('✗ Gagal mengirim. Coba lagi atau hubungi sales langsung.', 'error');
+    }
   });
 </script>
 </body>

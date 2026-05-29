@@ -23,6 +23,7 @@ function leadFromRow(r) {
     id: r.id,
     createdAt: r.created_at,
     status: r.status,
+    stage: r.stage || 'new',
     name: r.name,
     company: r.company,
     phone: r.phone,
@@ -31,7 +32,10 @@ function leadFromRow(r) {
     volume: r.volume,
     message: r.message,
     notes: r.notes,
-    assignedTo: r.assigned_to
+    assignedTo: r.assigned_to,
+    lastContactedAt: r.last_contacted_at,
+    lastContactMethod: r.last_contact_method,
+    lastContactNote: r.last_contact_note
   };
 }
 function leadToRow(l) {
@@ -121,6 +125,60 @@ const DB = {
     const { data, error } = await sb.from('leads').update({ status }).eq('id', id).select().single();
     if (error) { console.error('updateLeadStatus', error); return null; }
     return leadFromRow(data);
+  },
+
+  // ---------- Sales pipeline ----------
+  async updateLeadStage(id, newStage, opts = {}) {
+    // 1. read current stage so we can log the transition
+    const { data: before, error: e1 } = await sb.from('leads').select('stage').eq('id', id).single();
+    if (e1) { console.error('updateLeadStage read', e1); return null; }
+    const from = before?.stage;
+    if (from === newStage) return before;
+
+    // 2. update stage
+    const { data: after, error: e2 } = await sb.from('leads')
+      .update({ stage: newStage }).eq('id', id).select().single();
+    if (e2) { console.error('updateLeadStage update', e2); return null; }
+
+    // 3. log transition (won't update last_contacted_at — trigger ignores method=stage_change)
+    const u = this.getUser();
+    await sb.from('lead_activities').insert({
+      lead_id: id,
+      method: 'stage_change',
+      from_stage: from,
+      to_stage: newStage,
+      note: opts.note || null,
+      created_by: u?.name || null
+    });
+
+    return leadFromRow(after);
+  },
+
+  async logActivity(leadId, method, note) {
+    const u = this.getUser();
+    const { data, error } = await sb.from('lead_activities').insert({
+      lead_id: leadId,
+      method: method,                    // 'whatsapp' | 'email' | 'call' | 'meeting' | 'note'
+      note: note || null,
+      created_by: u?.name || null
+    }).select().single();
+    if (error) { console.error('logActivity', error); return null; }
+    return data;
+  },
+
+  async listActivities(leadId) {
+    const { data, error } = await sb.from('lead_activities')
+      .select('*').eq('lead_id', leadId).order('created_at', { ascending: false });
+    if (error) { console.error('listActivities', error); return []; }
+    return data.map(r => ({
+      id: r.id,
+      createdAt: r.created_at,
+      method: r.method,
+      note: r.note,
+      fromStage: r.from_stage,
+      toStage: r.to_stage,
+      createdBy: r.created_by
+    }));
   },
 
   // INVOICES

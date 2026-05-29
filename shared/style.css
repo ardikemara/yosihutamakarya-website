@@ -525,16 +525,21 @@ h4 { font-size: 1.125rem; }
 .template-card h4 { font-size: 14px; margin-bottom: 4px; }
 .template-card p { font-size: 12px; color: var(--yk-grey); }
 
-/* ===== KOP SURAT PREVIEW ===== */
+/* ===== KOP SURAT PREVIEW =====
+   A4 page mock-up. Uses flex column so the blue footer always sits
+   at the bottom of the page, even when the body text is short. */
 .surat-preview {
   background: var(--yk-white); border: 1px solid var(--yk-border);
   font-family: var(--font-sans);
-  min-height: 600px;
+  min-height: 297mm;            /* A4 height */
   box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
 }
 .kop-surat-top {
   background: var(--yk-blue); height: 90px;
   display: flex; align-items: center; padding: 0 40px; gap: 20px;
+  flex-shrink: 0;
 }
 .kop-surat-top .logo-circle {
   width: 60px; height: 60px; background: var(--yk-white); border-radius: 50%;
@@ -545,18 +550,31 @@ h4 { font-size: 1.125rem; }
 .kop-surat-top .brand-block .name { font-size: 18px; font-weight: 800; letter-spacing: 0.02em; }
 .kop-surat-top .brand-block .sub { font-size: 11px; opacity: 0.8; letter-spacing: 0.1em; text-transform: uppercase; }
 
-.kop-surat-body { padding: 40px; font-size: 12.5px; line-height: 1.7; color: var(--yk-charcoal); min-height: 420px; }
+.kop-surat-body {
+  padding: 40px;
+  font-size: 12.5px;
+  line-height: 1.7;
+  color: var(--yk-charcoal);
+  flex: 1;                       /* eat all remaining height -> footer ke bawah */
+  display: flex;
+  flex-direction: column;
+}
 .kop-surat-body .meta { display: flex; justify-content: space-between; margin-bottom: 28px; }
 .kop-surat-body .meta-l { line-height: 1.5; }
 .kop-surat-body .perihal { margin: 22px 0; }
 .kop-surat-body .perihal strong { display: inline-block; min-width: 80px; }
 .kop-surat-body .body-text { white-space: pre-wrap; }
-.kop-surat-body .signature { margin-top: 36px; text-align: right; }
+.kop-surat-body .signature {
+  margin-top: 36px;
+  text-align: left;              /* tanda tangan di KIRI */
+}
 .kop-surat-body .signature-name { font-weight: 700; text-decoration: underline; margin-top: 60px; }
 
 .kop-surat-bottom {
   background: var(--yk-blue); padding: 18px 40px; color: var(--yk-white);
   display: grid; grid-template-columns: 1fr 1fr auto; gap: 24px; font-size: 10.5px;
+  flex-shrink: 0;                /* footer tidak menyusut, tetap di bawah */
+  margin-top: auto;              /* dorong ke bottom kalau body kosong */
 }
 .kop-surat-bottom .col strong { display: block; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.85; margin-bottom: 4px; }
 .kop-surat-bottom .footer-mark {
@@ -1095,10 +1113,16 @@ h4 { font-size: 1.125rem; }
 .resource-link svg { transition: transform 0.15s; }
 
 /* ===== PRINT ===== */
+@page { size: A4; margin: 0; }   /* edge-to-edge so blue header/footer reach paper edges */
+
 @media print {
   .no-print, .nav, .sidebar, .workspace-head, .editor-pane:first-child { display: none !important; }
   body { background: white; }
-  .surat-preview, .invoice-preview { box-shadow: none; border: none; }
+  .surat-preview, .invoice-preview {
+    box-shadow: none; border: none;
+    min-height: 297mm;            /* fill exactly one A4 page */
+    height: 297mm;
+  }
   .editor-grid { grid-template-columns: 1fr; }
   .workspace { padding: 0; }
 }
