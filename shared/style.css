@@ -1124,6 +1124,37 @@ h4 { font-size: 1.125rem; }
 }
 .resource-link svg { transition: transform 0.15s; }
 
+/* Coming soon variant for resource cards (not yet a real link) */
+.resource-card.coming-soon {
+  cursor: not-allowed;
+  background: var(--yk-bg-soft);
+  border-style: dashed;
+}
+.resource-card.coming-soon:hover {
+  border-color: var(--yk-border);
+  background: var(--yk-bg-soft);
+}
+.resource-card.coming-soon h4,
+.resource-card.coming-soon p { opacity: 0.55; }
+.resource-card.coming-soon .resource-icon {
+  background: var(--yk-grey);
+  opacity: 0.5;
+}
+.resource-card.coming-soon .resource-link {
+  color: var(--yk-grey);
+  font-style: italic;
+  letter-spacing: 0.08em;
+}
+.coming-soon-badge {
+  position: absolute;
+  top: 14px; right: 14px;
+  background: var(--yk-black); color: var(--yk-white);
+  font-family: var(--font-mono);
+  font-size: 9px; font-weight: 700;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  padding: 4px 8px;
+}
+
 /* ===== PRINT ===== */
 @page { size: A4; margin: 0; }   /* edge-to-edge so blue header/footer reach paper edges */
 
