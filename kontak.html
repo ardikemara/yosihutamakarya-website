@@ -22,10 +22,11 @@
   <div class="container">
     <div style="display: grid; grid-template-columns: 1.4fr 1fr; gap: 48px;">
       <div>
+        <div style="min-height: 72px;">
+          <h3 style="margin-bottom: 6px;">Formulir Lead</h3>
+          <p class="muted" style="font-size: 14px; margin: 0;">Data Bapak/Ibu langsung masuk ke dashboard sales kami untuk follow-up.</p>
+        </div>
         <div class="card">
-          <h3 style="margin-bottom: 8px;">Formulir Lead</h3>
-          <p class="muted" style="font-size: 14px; margin-bottom: 24px;">Data Bapak/Ibu langsung masuk ke dashboard sales kami untuk follow-up.</p>
-
           <form id="lead-form">
             <div class="form-grid">
               <div>
@@ -66,19 +67,39 @@
       </div>
 
       <div>
-        <h3 style="margin-bottom: 20px;">Kontak Langsung</h3>
+        <div style="min-height: 72px;">
+          <h3 style="margin-bottom: 6px;">Kontak Langsung</h3>
+          <p class="muted" style="font-size: 14px; margin: 0;">Hubungi tim sales kami melalui kanal di bawah ini.</p>
+        </div>
+
+        <!-- Kartu Account Manager / Tim Sales (foto humanizing) -->
+        <div class="panel" style="margin-bottom: 16px; padding: 0; overflow: hidden;">
+          <div style="position: relative; width: 100%; aspect-ratio: 4 / 3; background: var(--yk-bg-soft); display: flex; align-items: center; justify-content: center;">
+            <span style="font-size: 12px; color: var(--yk-grey); text-align: center; padding: 0 20px; line-height: 1.5;">Foto tim sales<br/><span style="font-family: monospace; font-size: 11px;">assets/img/sales-account-manager.jpg</span></span>
+            <img src="assets/img/sales-account-manager.jpg" alt="Account Manager Yosi Hutama Karya"
+                 onerror="this.style.display='none'"
+                 style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 20%;" />
+          </div>
+          <div style="padding: 16px 18px;">
+            <strong style="font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--yk-blue);">Tim Sales Anda</strong>
+            <p class="text-sm" style="margin-top: 6px; line-height: 1.55; color: var(--yk-charcoal);">"Isi formulir di samping — saya akan menghubungi Bapak/Ibu dalam 1×24 jam kerja."</p>
+          </div>
+        </div>
+
         <div class="panel" style="margin-bottom: 16px; border-left: 3px solid var(--yk-blue);">
-          <strong style="font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--yk-blue);">Telepon Sales</strong>
-          <div style="font-size: 1.25rem; font-weight: 700; color: var(--yk-black); margin-top: 4px;">+62 21 475 7386</div>
-          <div class="muted text-sm">Senin–Jumat, 08:30–17:00 WIB</div>
-        </div>
-        <div class="panel" style="margin-bottom: 16px;">
-          <strong style="font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--yk-grey);">Email</strong>
-          <div style="font-weight: 600; margin-top: 4px;">info@yosihutamankarya.com</div>
-        </div>
-        <div class="panel" style="margin-bottom: 16px;">
-          <strong style="font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--yk-grey);">WhatsApp</strong>
-          <div style="font-weight: 600; margin-top: 4px;">0812-XXXX-XXXX (Sales)</div>
+          <div>
+            <strong style="font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--yk-blue);">Telepon Sales</strong>
+            <div style="font-size: 1.25rem; font-weight: 700; color: var(--yk-black); margin-top: 4px;">+62 21 475 7386</div>
+            <div class="muted text-sm">Senin–Jumat, 08:30–17:00 WIB</div>
+          </div>
+          <div style="border-top: 1px solid var(--yk-border); margin-top: 14px; padding-top: 14px;">
+            <strong style="font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--yk-grey);">WhatsApp</strong>
+            <div style="font-weight: 600; margin-top: 4px;">0812-XXXX-XXXX (Sales)</div>
+          </div>
+          <div style="border-top: 1px solid var(--yk-border); margin-top: 14px; padding-top: 14px;">
+            <strong style="font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--yk-grey);">Email</strong>
+            <div style="font-weight: 600; margin-top: 4px;">info@yosihutamankarya.com</div>
+          </div>
         </div>
         <div class="panel">
           <strong style="font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--yk-grey);">Kunjungi Kantor</strong>

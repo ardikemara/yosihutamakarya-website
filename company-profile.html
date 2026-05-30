@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Company Profile · PT. Yosi Hutama Karya</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<style>
+  /* ============================================================
+     COMPANY PROFILE, PT. YOSI HUTAMA KARYA
+     A4 print-ready. Buka di browser → Print → Save as PDF.
+     Pengaturan print: A4, Margins = None/Default,
+     centang "Background graphics".
+     ============================================================ */
+
+  :root{
+    --yk-black:#0A0A0A;
+    --yk-cream:#F5F2EC;
+    --yk-white:#FFFFFF;
+    --yk-blue:#1E40AF;
+    --yk-blue-dark:#1E3A8A;
+    --yk-blue-light:#3B82F6;
+    --yk-charcoal:#1F2937;
+    --yk-grey:#6B7280;
+    --yk-concrete:#9CA3AF;
+    --yk-border:#E5E7EB;
+    --yk-bg-soft:#FAFAF7;
+    --font-sans:'Inter','Helvetica Neue',Arial,sans-serif;
+    --font-mono:'JetBrains Mono','Courier New',monospace;
+  }
+
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    font-family:var(--font-sans);
+    color:var(--yk-charcoal);
+    background:#525659;            /* abu-abu seperti viewer PDF (hanya di layar) */
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,h4{font-weight:800;color:var(--yk-black);line-height:1.12;letter-spacing:-0.02em;}
+  .eyebrow{font-size:10.5px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--yk-blue);}
+  .mono{font-family:var(--font-mono);}
+
+  /* ---------- A4 PAGE ---------- */
+  .page{
+    position:relative;
+    width:210mm;
+    height:297mm;
+    background:var(--yk-white);
+    margin:10mm auto;
+    box-shadow:0 4px 24px rgba(0,0,0,0.35);
+    overflow:hidden;
+    page-break-after:always;
+  }
+  .page:last-child{page-break-after:auto;}
+  .pad{padding:18mm 17mm;height:100%;display:flex;flex-direction:column;}
+
+  /* running footer */
+  .foot{
+    position:absolute;left:17mm;right:17mm;bottom:9mm;
+    display:flex;justify-content:space-between;align-items:center;
+    font-family:var(--font-mono);font-size:8.5px;letter-spacing:0.12em;
+    color:var(--yk-concrete);text-transform:uppercase;
+    border-top:1px solid var(--yk-border);padding-top:6px;
+  }
+  .foot b{color:var(--yk-charcoal);font-weight:700;}
+
+  /* ---------- IMAGE PLACEHOLDER ---------- */
+  .imgph{
+    position:relative;overflow:hidden;background:
+      repeating-linear-gradient(135deg,#EFEDE7 0 14px,#F6F4EF 14px 28px);
+    border:1px solid var(--yk-border);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;color:var(--yk-concrete);gap:4px;
+  }
+  .imgph .ph-real{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+  .imgph .ico{font-size:20px;opacity:0.5;}
+  .imgph .nm{font-family:var(--font-mono);font-size:9px;font-weight:700;color:var(--yk-charcoal);letter-spacing:0.04em;}
+  .imgph .rt{font-family:var(--font-mono);font-size:8px;color:var(--yk-grey);}
+  .imgph .ds{font-size:8px;max-width:80%;line-height:1.3;}
+
+  /* ---------- COVER (hal 1) ---------- */
+  .cover{background:var(--yk-black);color:#fff;}
+  .cover .bg{position:absolute;inset:0;}
+  .cover .bg .imgph{width:100%;height:100%;border:none;background:#141414;}
+  .cover .bg .imgph .nm,.cover .bg .imgph .rt,.cover .bg .imgph .ds{color:rgba(255,255,255,0.55);}
+  .cover .scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,10,10,0.66) 0%,rgba(10,10,10,0.30) 32%,rgba(10,10,10,0.55) 64%,rgba(10,10,10,0.97) 100%);}
+  .cover .inner{position:relative;height:100%;padding:20mm 17mm;display:flex;flex-direction:column;}
+  .cover .logo{display:flex;align-items:center;gap:14px;}
+  .cover .logo .logo-img{width:64px;height:64px;object-fit:contain;filter:invert(1) brightness(1.9);}
+  .cover .logo .txt{font-weight:800;font-size:15px;letter-spacing:0.04em;line-height:1.2;}
+  .cover .logo .txt small{display:block;font-family:var(--font-mono);font-size:9px;font-weight:500;letter-spacing:0.2em;color:rgba(255,255,255,0.6);margin-top:3px;}
+  .cover .mid{margin-top:auto;}
+  .cover .kicker{font-family:var(--font-mono);font-size:11px;letter-spacing:0.3em;color:var(--yk-blue-light);text-transform:uppercase;font-weight:700;margin-bottom:14px;}
+  .cover h1{color:#fff;font-size:46px;line-height:1.04;letter-spacing:-0.03em;text-shadow:0 2px 18px rgba(0,0,0,0.6);}
+  .cover .sub,.cover .kicker,.cover .tagline{text-shadow:0 1px 10px rgba(0,0,0,0.55);}
+  .cover h1 .b{color:var(--yk-blue-light);}
+  .cover .sub{margin-top:18px;max-width:130mm;font-size:13px;color:rgba(255,255,255,0.82);line-height:1.6;}
+  .cover .tagline{margin-top:30px;display:flex;gap:18px;align-items:center;font-weight:900;font-size:18px;letter-spacing:0.02em;color:#fff;}
+  .cover .tagline .dot{color:var(--yk-blue-light);}
+  .cover .cfoot{position:relative;margin-top:34px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.18);display:flex;justify-content:space-between;font-family:var(--font-mono);font-size:9.5px;letter-spacing:0.12em;color:rgba(255,255,255,0.7);text-transform:uppercase;}
+
+  /* ---------- SECTION HEADINGS ---------- */
+  .shead{margin-bottom:7mm;}
+  .shead .eyebrow{margin-bottom:6px;}
+  .shead h2{font-size:27px;}
+  .shead .lead{font-size:14px;color:var(--yk-grey);margin-top:7px;max-width:150mm;line-height:1.55;}
+
+  /* ---------- ABOUT (hal 2) ---------- */
+  .about-hero{height:82mm;flex-shrink:0;margin-bottom:9mm;}
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:10mm;}
+  .about-grid p{font-size:14px;color:var(--yk-charcoal);line-height:1.75;margin-bottom:11px;}
+  .about-grid p.lead{font-size:15.5px;color:var(--yk-black);font-weight:600;line-height:1.55;}
+  .about-pull{margin-top:9mm;padding:6mm 7mm;border-left:3px solid var(--yk-blue);background:var(--yk-bg-soft);}
+  .about-pull p{font-size:16px;font-weight:700;color:var(--yk-black);line-height:1.4;letter-spacing:-0.01em;}
+  .about-pull p .a{color:var(--yk-blue);}
+  .statbar{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--yk-border);margin-top:auto;}
+  .statbar .s{padding:7mm 4mm;text-align:center;border-right:1px solid var(--yk-border);}
+  .statbar .s:last-child{border-right:none;}
+  .statbar .n{font-size:30px;font-weight:900;color:var(--yk-black);letter-spacing:-0.03em;line-height:1;}
+  .statbar .n .a{color:var(--yk-blue);}
+  .statbar .l{margin-top:8px;font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--yk-charcoal);}
+  .statbar .sub{margin-top:5px;font-size:10px;color:var(--yk-grey);line-height:1.35;}
+
+  /* ---------- VALUES + QUALITY (hal 3) ---------- */
+  .vgrid{display:grid;grid-template-columns:1fr 1fr;gap:7mm;margin-bottom:9mm;}
+  .vcard{border:1px solid var(--yk-border);border-top:3px solid var(--yk-blue);padding:8mm 7mm;background:var(--yk-white);display:flex;flex-direction:column;}
+  .vcard .vico{color:var(--yk-blue);margin-bottom:12px;}
+  .vcard .vico svg{width:32px;height:32px;display:block;}
+  .vcard .vn{font-family:var(--font-mono);font-size:10px;color:var(--yk-blue);letter-spacing:0.18em;font-weight:700;margin-bottom:8px;}
+  .vcard h4{font-size:19px;margin-bottom:9px;letter-spacing:0.04em;}
+  .vcard p{font-size:14px;color:var(--yk-grey);line-height:1.6;}
+  .qbox{margin-top:auto;background:var(--yk-black);color:#fff;padding:9mm 9mm;display:grid;grid-template-columns:1.4fr 1fr;gap:8mm;align-items:center;}
+  .qbox h3{color:#fff;font-size:20px;margin-bottom:10px;}
+  .qbox p{font-size:14px;color:rgba(255,255,255,0.82);line-height:1.6;}
+  .qbox .badges{display:flex;flex-wrap:wrap;gap:7px;}
+  .qbox .badge{font-family:var(--font-mono);font-size:10px;font-weight:700;letter-spacing:0.06em;padding:7px 11px;border:1px solid rgba(255,255,255,0.3);color:#fff;}
+  .qbox .badge.blue{background:var(--yk-blue);border-color:var(--yk-blue);}
+
+  /* ---------- PRODUCT MAP (hal 4) ---------- */
+  .map-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:5mm;flex:1;}
+  .map-card{border:1px solid var(--yk-border);padding:4mm;display:flex;flex-direction:column;}
+  .map-card .mthumb{height:28mm;margin-bottom:9px;}
+  .map-card .mthumb .ico{font-size:16px;}
+  .map-card .mthumb .nm,.map-card .mthumb .rt,.map-card .mthumb .ds{display:none;}
+  .map-card .mhead{display:flex;align-items:baseline;gap:7px;}
+  .map-card .mn{font-family:var(--font-mono);font-size:11px;font-weight:700;color:var(--yk-blue);}
+  .map-card h4{font-size:14.5px;margin-top:5px;margin-bottom:6px;line-height:1.15;}
+  .map-card p{font-size:14px;color:var(--yk-grey);line-height:1.45;margin-top:auto;}
+  .map-card .sku{margin-top:9px;font-family:var(--font-mono);font-size:10px;font-weight:700;color:var(--yk-charcoal);letter-spacing:0.02em;}
+
+  /* ---------- PRODUCT DETAIL ROWS (hal 5-7) ---------- */
+  .prow{display:grid;grid-template-columns:52mm 1fr;gap:11mm;padding:10mm 0;border-top:1px solid var(--yk-border);align-items:center;}
+  .prow:first-of-type{border-top:none;padding-top:3mm;}
+  .dstrip{margin-top:auto;display:grid;grid-template-columns:repeat(4,1fr);gap:7mm;border-top:1px solid var(--yk-border);padding-top:7mm;}
+  .dstrip .di{display:flex;flex-direction:column;gap:7px;}
+  .dstrip .di svg{width:24px;height:24px;color:var(--yk-blue);}
+  .dstrip .di b{font-size:12.5px;color:var(--yk-black);font-weight:700;}
+  .dstrip .di span{font-size:10.5px;color:var(--yk-grey);line-height:1.4;}
+  .prow .pleft{display:flex;flex-direction:column;}
+  .prow .thumb{height:52mm;width:100%;}
+  .pmeta{flex-wrap:wrap;gap:5mm 8mm;}
+  .qr{margin-top:6mm;width:100%;text-align:center;}
+  .qr .qrbox{height:34mm;width:34mm;margin:0 auto;background:#fff;border:1px solid var(--yk-border);}
+  .qr .qrbox .ico{font-family:var(--font-mono);font-size:13px;font-weight:700;color:var(--yk-concrete);opacity:1;}
+  .qr .qrbox .nm,.qr .qrbox .rt,.qr .qrbox .ds{display:none;}
+  .qr .qrcap{margin-top:5px;font-family:var(--font-mono);font-size:9px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--yk-grey);line-height:1.3;}
+  .prow .pnum{font-family:var(--font-mono);font-size:10px;font-weight:700;color:var(--yk-blue);letter-spacing:0.1em;}
+  .ptitle{display:flex;align-items:baseline;gap:13px;margin-bottom:5px;}
+  .ptitle .pnum{font-family:var(--font-mono);font-size:15px;font-weight:700;color:var(--yk-blue);letter-spacing:0.08em;flex-shrink:0;}
+  .prow h3{font-size:23px;margin:0;line-height:1.1;white-space:nowrap;}
+  .prow .ptype{font-family:var(--font-mono);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--yk-grey);margin-bottom:14px;line-height:1.5;}
+  .painsol{display:flex;flex-direction:column;gap:13px;margin:10px 0 15px;}
+  .painsol .ln{display:flex;gap:10px;font-size:14px;line-height:1.65;}
+  .painsol .tag{flex-shrink:0;width:17mm;font-family:var(--font-mono);font-size:9px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;padding-top:3px;}
+  .painsol .pain .tag{color:var(--yk-danger,#B91C1C);}
+  .painsol .sol .tag{color:var(--yk-blue);}
+  .painsol .pain{color:var(--yk-charcoal);}
+  .painsol .sol{color:var(--yk-charcoal);}
+  .painsol .sol b,.painsol .pain b{font-weight:700;color:var(--yk-black);}
+  .pills{display:flex;flex-wrap:wrap;gap:7px;margin-top:4px;}
+  .pill{font-size:11px;font-weight:600;color:var(--yk-charcoal);background:var(--yk-bg-soft);border:1px solid var(--yk-border);padding:6px 11px;}
+  .pmeta{display:flex;gap:9mm;margin-top:15px;font-size:13px;}
+  .pmeta .k{font-family:var(--font-mono);font-size:9px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--yk-concrete);display:block;margin-bottom:3px;}
+  .pmeta .v{color:var(--yk-charcoal);font-weight:600;}
+
+  /* ---------- SUPPORT (hal 8) ---------- */
+  .sup-hero{height:55mm;flex-shrink:0;margin-bottom:8mm;}
+  .sup-list{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:8mm 9mm;}
+  .sup-list li{display:flex;gap:14px;align-items:flex-start;}
+  .sup-list .ck{flex-shrink:0;width:44px;height:44px;border-radius:10px;background:rgba(30,64,175,0.09);color:var(--yk-blue);display:flex;align-items:center;justify-content:center;}
+  .sup-list .ck svg{width:26px;height:26px;}
+  .sup-list .tt{font-size:15px;}
+  .sup-list .tt b{display:block;color:var(--yk-black);font-weight:700;font-size:15.5px;margin-bottom:4px;}
+  .sup-list .tt span{font-size:13.5px;color:var(--yk-grey);line-height:1.55;}
+  .quote{margin-top:auto;background:var(--yk-bg-soft);border-left:3px solid var(--yk-blue);padding:7mm 7mm;}
+  .quote p{font-size:15px;font-weight:600;color:var(--yk-black);line-height:1.5;letter-spacing:-0.01em;}
+  .quote .c{margin-top:9px;font-family:var(--font-mono);font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--yk-grey);}
+
+  /* ---------- CLOSING (hal 9) ---------- */
+  .close{background:var(--yk-black);color:#fff;}
+  .close .bg{position:absolute;inset:0;}
+  .close .bg .imgph{width:100%;height:100%;border:none;background:#141414;}
+  .close .bg .imgph .nm,.close .bg .imgph .rt,.close .bg .imgph .ds{color:rgba(255,255,255,0.55);}
+  .close .scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,10,10,0.92) 0%,rgba(10,10,10,0.7) 50%,rgba(10,10,10,0.95) 100%);}
+  .close .inner{position:relative;height:100%;padding:20mm 17mm;display:flex;flex-direction:column;}
+  .close .close-logo{width:54px;height:54px;object-fit:contain;filter:invert(1) brightness(1.9);margin-bottom:14mm;}
+  .close .kicker{font-family:var(--font-mono);font-size:11px;letter-spacing:0.3em;color:var(--yk-blue-light);text-transform:uppercase;font-weight:700;}
+  .close h2{color:#fff;font-size:40px;margin-top:14px;line-height:1.05;}
+  .close .sub{margin-top:16px;max-width:125mm;font-size:14px;color:rgba(255,255,255,0.85);line-height:1.6;}
+  .close .contact{margin-top:auto;display:grid;grid-template-columns:1fr 1fr;gap:7mm;}
+  .close .cblock .k{font-family:var(--font-mono);font-size:8.5px;letter-spacing:0.15em;text-transform:uppercase;color:var(--yk-blue-light);font-weight:700;margin-bottom:5px;}
+  .close .cblock .v{font-size:14px;color:#fff;line-height:1.55;}
+  .close .cfoot{margin-top:9mm;padding-top:14px;border-top:1px solid rgba(255,255,255,0.18);display:flex;justify-content:space-between;align-items:center;}
+  .close .cfoot .tg{font-weight:900;font-size:14px;letter-spacing:0.02em;}
+  .close .cfoot .tg .dot{color:var(--yk-blue-light);}
+  .close .cfoot .web{font-family:var(--font-mono);font-size:10px;color:rgba(255,255,255,0.75);letter-spacing:0.08em;}
+
+  /* ---------- PRINT ---------- */
+  @page{size:A4;margin:0;}
+  @media print{
+    body{background:#fff;}
+    .page{margin:0;box-shadow:none;width:210mm;height:297mm;}
+    .screen-only{display:none !important;}
+  }
+  .screen-only{position:fixed;top:12px;left:50%;transform:translateX(-50%);z-index:99;
+    background:var(--yk-blue);color:#fff;font-family:var(--font-mono);font-size:11px;
+    padding:8px 16px;border-radius:30px;box-shadow:0 4px 14px rgba(0,0,0,0.3);letter-spacing:0.04em;}
+</style>
+</head>
+<body>
+
+<div class="screen-only">Print / Ctrl+P → Tujuan: Save as PDF · Ukuran: A4 · Margin: None · ✓ Background graphics</div>
+
+<!-- ============================================================
+     HAL 1, COVER
+     ============================================================ -->
+<section class="page cover">
+  <div class="bg">
+    <div class="imgph">
+      <div class="ico">▣</div>
+      <div class="nm">assets/company-profile/cover.png</div>
+      <div class="rt">210 × 297 mm · full-bleed (portrait)</div>
+      <div class="ds">Foto utama: proyek konstruksi / pengecoran beton / fasilitas pabrik (gelap-dramatis)</div>
+    </div>
+  </div>
+  <div class="scrim"></div>
+  <div class="inner">
+    <div class="logo">
+      <img class="logo-img" src="assets/company-profile/LogoYK.svg" alt="Logo YK" />
+      <div class="txt">PT. YOSI HUTAMA KARYA<small>BUILD · PROTECT · PERFORM</small></div>
+    </div>
+    <div class="mid">
+      <div class="kicker">Company Profile</div>
+      <h1>Aditif &amp; Material<br/>Konstruksi <span class="b">Merek YK.</span></h1>
+      <p class="sub">Produsen lokal aditif konstruksi yang melayani kontraktor, ready-mix plant, precaster, dan toko bangunan di seluruh Indonesia, kualitas standar industri dengan harga yang dapat dijangkau.</p>
+      <div class="tagline">BUILD <span class="dot">·</span> PROTECT <span class="dot">·</span> PERFORM</div>
+    </div>
+    <div class="cfoot">
+      <span>Jakarta Timur · Indonesia</span>
+      <span>www.yosihutamakarya.com</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     HAL 2, SEKILAS PERUSAHAAN
+     ============================================================ -->
+<section class="page">
+  <div class="pad">
+    <div class="shead">
+      <div class="eyebrow">01 · Tentang Perusahaan</div>
+      <h2>Kualitas Industri, Harga Lokal.</h2>
+    </div>
+
+    <div class="imgph about-hero">
+      <div class="ico">▣</div>
+      <div class="nm">assets/company-profile/tentang.png</div>
+      <div class="rt">1600 × 900 px · 16:9</div>
+      <div class="ds">Foto: facade kantor / drone shot pabrik / area produksi</div>
+    </div>
+
+    <div class="about-grid">
+      <div>
+        <p class="lead">PT. Yosi Hutama Karya adalah produsen aditif konstruksi merek YK, melayani pelaku konstruksi dari kontraktor besar sampai tukang renovasi rumah.</p>
+        <p>Kami percaya kualitas tinggi tidak harus mahal. Dengan R&amp;D lokal dan produksi dalam negeri, kami menghadirkan formula yang setara brand premium internasional dengan harga yang masuk akal untuk pasar Indonesia.</p>
+      </div>
+      <div>
+        <p>Produksi terpusat di Jakarta Timur, dengan kontrol QC pada setiap titik, mulai dari penerimaan bahan baku, mixing plant, sampai pelabelan akhir dalam sak 25kg.</p>
+        <p>Sembilan lini produk kami mencakup seluruh siklus konstruksi: dari pondasi dan pengecoran struktur sampai finishing dan perawatan lantai.</p>
+      </div>
+    </div>
+
+    <div class="about-pull">
+      <p>Kualitas tinggi <span class="a">tidak harus mahal</span>, formula setara standar internasional, dengan harga yang masuk akal untuk pasar Indonesia.</p>
+    </div>
+
+    <div class="statbar">
+      <div class="s"><div class="n">9</div><div class="l">Lini Produk</div><div class="sub">Concrete · Mortar · Floor</div></div>
+      <div class="s"><div class="n"><span class="a">+40</span>%</div><div class="l">Kuat Tekan</div><div class="sub">vs. mix konvensional</div></div>
+      <div class="s"><div class="n"><span class="a">−20</span>%</div><div class="l">Kebutuhan Air</div><div class="sub">dengan superplasticizer</div></div>
+      <div class="s"><div class="n">100<span style="font-size:0.6em">%</span></div><div class="l">QC Pabrik</div><div class="sub">setiap batch diuji</div></div>
+    </div>
+  </div>
+  <div class="foot"><span><b>PT. YOSI HUTAMA KARYA</b> · Company Profile</span><span>02</span></div>
+</section>
+
+<!-- ============================================================
+     HAL 3, NILAI & KOMITMEN KUALITAS
+     ============================================================ -->
+<section class="page">
+  <div class="pad">
+    <div class="shead">
+      <div class="eyebrow">02 · Nilai &amp; Komitmen</div>
+      <h2>Empat Prinsip yang Memandu Kami</h2>
+      <p class="lead">Setiap formula, setiap aplikator yang kami training, dan setiap site visit dipandu oleh empat prinsip kerja ini.</p>
+    </div>
+
+    <div class="vgrid">
+      <div class="vcard"><div class="vico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="1"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01M12 6h.01M16 6h.01M8 10h.01M12 10h.01M16 10h.01M8 14h.01M12 14h.01M16 14h.01"/></svg></div><div class="vn">/ 01</div><h4>BUILD</h4><p>Membangun struktur dengan formula presisi, concrete admixture &amp; grouting teruji untuk fondasi, kolom, dan precast.</p></div>
+      <div class="vcard"><div class="vico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/><path d="m9 12 2 2 4-4"/></svg></div><div class="vn">/ 02</div><h4>PROTECT</h4><p>Melindungi struktur dari air, abrasi, dan cuaca, waterproofing, mortar admixture, dan floor treatment tahan jangka panjang.</p></div>
+      <div class="vcard"><div class="vico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m7 14 4-4 3 3 5-6"/></svg></div><div class="vn">/ 03</div><h4>PERFORM</h4><p>Performa terukur, setiap produk punya TDS jelas, dosis terstandarisasi, dan hasil konsisten dari batch ke batch.</p></div>
+      <div class="vcard"><div class="vico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 14v-2a9 9 0 0 1 18 0v2"/><path d="M21 16a2 2 0 0 1-2 2h-1v-6h1a2 2 0 0 1 2 2Z"/><path d="M3 16a2 2 0 0 0 2 2h1v-6H5a2 2 0 0 0-2 2Z"/></svg></div><div class="vn">/ 04</div><h4>SUPPORT</h4><p>Bukan sekadar jual produk, tapi jual hasil, site visit gratis, konsultasi mix design, dan garansi aplikasi sesuai TDS.</p></div>
+    </div>
+
+    <div class="qbox">
+      <div>
+        <h3>Lulus Standar Internasional, Diuji Lokal.</h3>
+        <p>Setiap produk YK melewati quality control pabrik dengan mix design terstandarisasi. Formula kami memenuhi standar internasional dan dirancang bebas klorin untuk keamanan struktur bertulang dan pratekan.</p>
+      </div>
+      <div class="badges">
+        <span class="badge blue">ASTM C-1107</span>
+        <span class="badge blue">CRD C-621</span>
+        <span class="badge">SNI</span>
+        <span class="badge">Cl⁻ FREE</span>
+        <span class="badge">QC TIAP BATCH</span>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span><b>PT. YOSI HUTAMA KARYA</b> · Company Profile</span><span>03</span></div>
+</section>
+
+<!-- ============================================================
+     HAL 4, PETA PRODUK (9 LINI)
+     ============================================================ -->
+<section class="page">
+  <div class="pad">
+    <div class="shead">
+      <div class="eyebrow">03 · Lini Produk</div>
+      <h2>Sembilan Lini Produk YK</h2>
+      <p class="lead">Satu brand untuk seluruh siklus konstruksi, dari pengecoran struktur sampai finishing dan perawatan.</p>
+    </div>
+
+    <div class="map-grid">
+      <div class="map-card"><div class="imgph mthumb"><div class="ico">▣</div><div class="nm">assets/img/katalog/yk-mould-oil.png</div></div><div class="mn">01</div><h4>Mould Release &amp; Curing</h4><p>Lepas cetakan mudah &amp; jaga kelembaban beton baru.</p><div class="sku">YK Mould Oil® · YK Curing®</div></div>
+      <div class="map-card"><div class="imgph mthumb"><div class="ico">▣</div><div class="nm">assets/img/katalog/yk-bond.png</div></div><div class="mn">02</div><h4>Bonding Agent</h4><p>PVA bonding agent multi-fungsi, 5 aplikasi dalam 1.</p><div class="sku">YK Bond®</div></div>
+      <div class="map-card"><div class="imgph mthumb"><div class="ico">▣</div><div class="nm">assets/img/katalog/yk-grout.png</div></div><div class="mn">03</div><h4>Grouting</h4><p>Isi celah presisi tinggi, tidak menyusut, tahan getaran.</p><div class="sku">YK Grout®</div></div>
+      <div class="map-card"><div class="imgph mthumb"><div class="ico">▣</div><div class="nm">assets/img/katalog/yk-accelerator.png</div></div><div class="mn">04</div><h4>Mortar Admixture</h4><p>Tambal bocor seketika, daya rekat tinggi.</p><div class="sku">YK Accelerator®</div></div>
+      <div class="map-card"><div class="imgph mthumb"><div class="ico">▣</div><div class="nm">assets/img/katalog/yk-plaster-mix.png</div></div><div class="mn">05</div><h4>Ready Mix Mortar</h4><p>Mortar siap pakai, tinggal tambah air, mutu konsisten.</p><div class="sku">YK Plaster Mix®</div></div>
+      <div class="map-card"><div class="imgph mthumb"><div class="ico">▣</div><div class="nm">assets/img/katalog/yk-water-proofing.png</div></div><div class="mn">06</div><h4>Waterproofing</h4><p>Lapisan kedap air tahan UV, lentur, menutup pori beton.</p><div class="sku">YK Water Proofing®</div></div>
+      <div class="map-card"><div class="imgph mthumb"><div class="ico">▣</div><div class="nm">assets/img/katalog/yk-floor-hardener.png</div></div><div class="mn">07</div><h4>Floor Treatments</h4><p>Lantai tahan abrasi, oli, &amp; debu, 6 warna.</p><div class="sku">YK Floor Hardener®</div></div>
+      <div class="map-card"><div class="imgph mthumb"><div class="ico">▣</div><div class="nm">assets/img/katalog/yk-tile-adhesive.png</div></div><div class="mn">08</div><h4>Tile Adhesive</h4><p>Perekat keramik, marmer, granit, bisa on-tile.</p><div class="sku">YK Tile Adhesive®</div></div>
+      <div class="map-card"><div class="imgph mthumb"><div class="ico">▣</div><div class="nm">assets/img/katalog/yk-nn.png</div></div><div class="mn">09</div><h4>Concrete Admixture</h4><p>Beton kuat tekan tinggi, setting cepat, durability maksimal.</p><div class="sku">YK NN®</div></div>
+    </div>
+  </div>
+  <div class="foot"><span><b>PT. YOSI HUTAMA KARYA</b> · Company Profile</span><span>04</span></div>
+</section>
+
+<!-- ============================================================
+     HAL 5, DETAIL PRODUK 01–02
+     ============================================================ -->
+<section class="page">
+  <div class="pad">
+    <div class="shead">
+      <div class="eyebrow">04 · Detail Produk · 01–02</div>
+      <h2>Mould &amp; Curing · Bonding Agent</h2>
+    </div>
+
+    <div class="prow">
+      <div class="pleft">
+        <div class="imgph thumb">
+          <div class="ico">▣</div><div class="nm">assets/img/yk-mould-oil.png</div><div class="rt">1024 × 1024 px · 1:1</div><div class="ds">Foto: drum YK Mould Oil® / YK Curing®</div>
+        </div>
+        <div class="qr"><div class="imgph qrbox"><div class="ico">QR</div><div class="nm">assets/company-profile/qr-mould-curing.png</div></div><div class="qrcap">Scan untuk TDS</div></div>
+      </div>
+      <div>
+        <div class="ptitle"><span class="pnum">01</span><h3>Mould Release &amp; Curing</h3></div>
+        <div class="ptype">YK Mould Oil® · YK Curing®</div>
+        <div class="painsol">
+          <div class="ln pain"><span class="tag">Masalah</span><span>Beton lengket di cetakan &amp; retak rambut karena cepat kering, hasil cor jelek dan cetakan cepat rusak.</span></div>
+          <div class="ln sol"><span class="tag">Solusi</span><span>Form release bikin cetakan <b>mudah lepas</b> &amp; curing compound menjaga kelembaban beton baru, anti retak plastis.</span></div>
+        </div>
+        <div class="pills"><span class="pill">1L = 25 m² kayu</span><span class="pill">Cegah retak plastis</span><span class="pill">Permukaan halus</span></div>
+        <div class="pmeta"><div><span class="k">Dosis</span><span class="v">Curing 0,15 – 0,20 kg/m²</span></div><div><span class="k">Kemasan</span><span class="v">Drum 200–225kg / Can 20kg</span></div></div>
+      </div>
+    </div>
+
+    <div class="prow">
+      <div class="pleft">
+        <div class="imgph thumb">
+          <div class="ico">▣</div><div class="nm">assets/img/yk-bond.png</div><div class="rt">1024 × 1024 px · 1:1</div><div class="ds">Foto: pail/drum YK Bond®</div>
+        </div>
+        <div class="qr"><div class="imgph qrbox"><div class="ico">QR</div><div class="nm">assets/company-profile/qr-bonding-agent.png</div></div><div class="qrcap">Scan untuk TDS</div></div>
+      </div>
+      <div>
+        <div class="ptitle"><span class="pnum">02</span><h3>Bonding Agent</h3></div>
+        <div class="ptype">YK Bond®</div>
+        <div class="painsol">
+          <div class="ln pain"><span class="tag">Masalah</span><span>Beton baru tak nempel ke yang lama &amp; acian mengelupas sebelum dicat, patching ulang berkali-kali.</span></div>
+          <div class="ln sol"><span class="tag">Solusi</span><span>PVA bonding agent <b>5-in-1</b> yang menambah daya rekat dan mengurangi retak rambut, kompatibel semua semen.</span></div>
+        </div>
+        <div class="pills"><span class="pill">5 aplikasi 1 produk</span><span class="pill">Tambah daya rekat</span><span class="pill">Kurangi retak rambut</span></div>
+        <div class="pmeta"><div><span class="k">Dosis</span><span class="v">Campur air 1:1 sampai 1:3</span></div><div><span class="k">Kemasan</span><span class="v">Pail 10/20kg · Drum 200kg</span></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span><b>PT. YOSI HUTAMA KARYA</b> · Company Profile</span><span>05</span></div>
+</section>
+
+<!-- ============================================================
+     HAL 6, DETAIL PRODUK 03–04
+     ============================================================ -->
+<section class="page">
+  <div class="pad">
+    <div class="shead">
+      <div class="eyebrow">04 · Detail Produk · 03–04</div>
+      <h2>Grouting · Mortar Admixture</h2>
+    </div>
+
+    <div class="prow">
+      <div class="pleft">
+        <div class="imgph thumb">
+          <div class="ico">▣</div><div class="nm">assets/img/yk-grout.png</div><div class="rt">1024 × 1024 px · 1:1</div><div class="ds">Foto: zak 25kg YK Grout®</div>
+        </div>
+        <div class="qr"><div class="imgph qrbox"><div class="ico">QR</div><div class="nm">assets/company-profile/qr-grouting.png</div></div><div class="qrcap">Scan untuk TDS</div></div>
+      </div>
+      <div>
+        <div class="ptitle"><span class="pnum">03</span><h3>Grouting</h3></div>
+        <div class="ptype">YK Grout®</div>
+        <div class="painsol">
+          <div class="ln pain"><span class="tag">Masalah</span><span>Grout biasa menyusut &amp; retak, mesin berat goyang, fondasi harus dikerjakan ulang berkali-kali.</span></div>
+          <div class="ln sol"><span class="tag">Solusi</span><span>Grouting <b>non-shrink</b> standar CRD C-621 yang mengisi celah presisi dan tahan getaran tinggi.</span></div>
+        </div>
+        <div class="pills"><span class="pill">No shrink (CRD C-621)</span><span class="pill">Setting 4–8 jam</span><span class="pill">Tahan getaran &amp; korosi</span></div>
+        <div class="pmeta"><div><span class="k">Dosis</span><span class="v">± 1.920 kg/m³ mortar</span></div><div><span class="k">Kemasan</span><span class="v">Zak 25kg</span></div></div>
+      </div>
+    </div>
+
+    <div class="prow">
+      <div class="pleft">
+        <div class="imgph thumb">
+          <div class="ico">▣</div><div class="nm">assets/img/yk-accelerator.png</div><div class="rt">1024 × 1024 px · 1:1</div><div class="ds">Foto: can/drum YK Accelerator®</div>
+        </div>
+        <div class="qr"><div class="imgph qrbox"><div class="ico">QR</div><div class="nm">assets/company-profile/qr-mortar-admixture.png</div></div><div class="qrcap">Scan untuk TDS</div></div>
+      </div>
+      <div>
+        <div class="ptitle"><span class="pnum">04</span><h3>Mortar Admixture</h3></div>
+        <div class="ptype">YK Accelerator®</div>
+        <div class="painsol">
+          <div class="ln pain"><span class="tag">Masalah</span><span>Air terus merembes dari basement &amp; watertank, tambalan mortar biasa langsung lepas.</span></div>
+          <div class="ln sol"><span class="tag">Solusi</span><span>Aditif penyumbat bocor yang <b>set seketika</b> walau air masih mengalir, daya rekat kuat di permukaan basah.</span></div>
+        </div>
+        <div class="pills"><span class="pill">Setting seketika</span><span class="pill">Daya rekat kuat</span><span class="pill">Susut kecil</span></div>
+        <div class="pmeta"><div><span class="k">Dosis</span><span class="v">Rasio 1:2 – 1:5 dengan air</span></div><div><span class="k">Kemasan</span><span class="v">Drum 200kg / Can 20kg</span></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span><b>PT. YOSI HUTAMA KARYA</b> · Company Profile</span><span>06</span></div>
+</section>
+
+<!-- ============================================================
+     HAL 7, DETAIL PRODUK 05–06
+     ============================================================ -->
+<section class="page">
+  <div class="pad">
+    <div class="shead">
+      <div class="eyebrow">04 · Detail Produk · 05–06</div>
+      <h2>Ready Mix Mortar · Waterproofing</h2>
+    </div>
+
+    <div class="prow">
+      <div class="pleft">
+        <div class="imgph thumb">
+          <div class="ico">▣</div><div class="nm">assets/img/yk-plaster-mix.png</div><div class="rt">1024 × 1024 px · 1:1</div><div class="ds">Foto: bag 25kg YK Plaster Mix®</div>
+        </div>
+        <div class="qr"><div class="imgph qrbox"><div class="ico">QR</div><div class="nm">assets/company-profile/qr-ready-mix-mortar.png</div></div><div class="qrcap">Scan untuk TDS</div></div>
+      </div>
+      <div>
+        <div class="ptitle"><span class="pnum">05</span><h3>Ready Mix Mortar</h3></div>
+        <div class="ptype">YK Plaster Mix®</div>
+        <div class="painsol">
+          <div class="ln pain"><span class="tag">Masalah</span><span>Adukan manual boros &amp; beda-beda tiap tukang, plesteran retak susut, finishing cat belang.</span></div>
+          <div class="ln sol"><span class="tag">Solusi</span><span>Mortar proporsi pabrik, <b>tinggal tambah air</b>, mutu identik tiap batch, plester + pasang bata dalam 1 produk.</span></div>
+        </div>
+        <div class="pills"><span class="pill">Tinggal tambah air</span><span class="pill">Cegah retak susut</span><span class="pill">Fungsi ganda</span></div>
+        <div class="pmeta"><div><span class="k">Dosis</span><span class="v">3,8 – 4,0 L air per bag 25kg</span></div><div><span class="k">Kemasan</span><span class="v">Bag 25kg</span></div></div>
+      </div>
+    </div>
+
+    <div class="prow">
+      <div class="pleft">
+        <div class="imgph thumb">
+          <div class="ico">▣</div><div class="nm">assets/img/yk-water-proofing.png</div><div class="rt">1024 × 1024 px · 1:1</div><div class="ds">Foto: can/pail YK Water Proofing®</div>
+        </div>
+        <div class="qr"><div class="imgph qrbox"><div class="ico">QR</div><div class="nm">assets/company-profile/qr-waterproofing.png</div></div><div class="qrcap">Scan untuk TDS</div></div>
+      </div>
+      <div>
+        <div class="ptitle"><span class="pnum">06</span><h3>Waterproofing</h3></div>
+        <div class="ptype">YK Water Proofing®</div>
+        <div class="painsol">
+          <div class="ln pain"><span class="tag">Masalah</span><span>Atap &amp; kamar mandi bocor tiap hujan, plafon rusak, perbaikan tidak ada habisnya.</span></div>
+          <div class="ln sol"><span class="tag">Solusi</span><span>Coating akrilik <b>tahan UV</b> &amp; sangat lentur yang menutup pori beton, anti bocor jangka panjang.</span></div>
+        </div>
+        <div class="pills"><span class="pill">Tahan UV &amp; cuaca</span><span class="pill">Sangat lentur</span><span class="pill">Non-toksik anti jamur</span></div>
+        <div class="pmeta"><div><span class="k">Dosis</span><span class="v">0,3 – 0,35 kg/m² per lapis</span></div><div><span class="k">Kemasan</span><span class="v">Coating 1/4/20kg + Membran</span></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span><b>PT. YOSI HUTAMA KARYA</b> · Company Profile</span><span>07</span></div>
+</section>
+
+<!-- ============================================================
+     HAL 8, DETAIL PRODUK 07–08
+     ============================================================ -->
+<section class="page">
+  <div class="pad">
+    <div class="shead">
+      <div class="eyebrow">04 · Detail Produk · 07–08</div>
+      <h2>Floor Treatments · Tile Adhesive</h2>
+    </div>
+
+    <div class="prow">
+      <div class="pleft">
+        <div class="imgph thumb">
+          <div class="ico">▣</div><div class="nm">assets/img/yk-floor-hardener.png</div><div class="rt">1024 × 1024 px · 1:1</div><div class="ds">Foto: sak YK Floor Hardener® (6 warna)</div>
+        </div>
+        <div class="qr"><div class="imgph qrbox"><div class="ico">QR</div><div class="nm">assets/company-profile/qr-floor-treatments.png</div></div><div class="qrcap">Scan untuk TDS</div></div>
+      </div>
+      <div>
+        <div class="ptitle"><span class="pnum">07</span><h3>Floor Treatments</h3></div>
+        <div class="ptype">YK Floor Hardener®</div>
+        <div class="painsol">
+          <div class="ln pain"><span class="tag">Masalah</span><span>Lantai gudang cepat aus, berdebu, &amp; kena oli, harus re-coating tiap tahun, biaya maintenance tinggi.</span></div>
+          <div class="ln sol"><span class="tag">Solusi</span><span>Bubuk pengeras yang membentuk lapisan <b>2–3 mm</b> tahan abrasi &amp; oli, tersedia 6 warna untuk zonasi area.</span></div>
+        </div>
+        <div class="pills"><span class="pill">Lapisan 2–3 mm</span><span class="pill">Tahan oli &amp; abrasi</span><span class="pill">6 pilihan warna</span></div>
+        <div class="pmeta"><div><span class="k">Dosis</span><span class="v">3 kg/m² (ringan) – 6 kg/m² (berat)</span></div><div><span class="k">Kemasan</span><span class="v">Sak 25kg</span></div></div>
+      </div>
+    </div>
+
+    <div class="prow">
+      <div class="pleft">
+        <div class="imgph thumb">
+          <div class="ico">▣</div><div class="nm">assets/img/yk-tile-adhesive.png</div><div class="rt">1024 × 1024 px · 1:1</div><div class="ds">Foto: zak YK Tile Adhesive®</div>
+        </div>
+        <div class="qr"><div class="imgph qrbox"><div class="ico">QR</div><div class="nm">assets/company-profile/qr-tile-adhesive.png</div></div><div class="qrcap">Scan untuk TDS</div></div>
+      </div>
+      <div>
+        <div class="ptitle"><span class="pnum">08</span><h3>Tile Adhesive</h3></div>
+        <div class="ptype">YK Tile Adhesive®</div>
+        <div class="painsol">
+          <div class="ln pain"><span class="tag">Masalah</span><span>Keramik lepas dalam hitungan bulan, &amp; renovasi harus bongkar dulu, mahal, berdebu, banyak puing.</span></div>
+          <div class="ln sol"><span class="tag">Solusi</span><span>Perekat daya rekat tinggi yang bisa pasang <b>on-tile</b> tanpa bongkar, renovasi 3× lebih cepat.</span></div>
+        </div>
+        <div class="pills"><span class="pill">Setting 30 menit</span><span class="pill">On-tile (tanpa bongkar)</span><span class="pill">Keramik · marmer · granit</span></div>
+        <div class="pmeta"><div><span class="k">Dosis</span><span class="v">± 6–7 m² per 25kg (tebal 2mm)</span></div><div><span class="k">Kemasan</span><span class="v">Zak 25kg · 6,25 L air/bag</span></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span><b>PT. YOSI HUTAMA KARYA</b> · Company Profile</span><span>08</span></div>
+</section>
+
+<!-- ============================================================
+     HAL 9, DETAIL PRODUK 09
+     ============================================================ -->
+<section class="page">
+  <div class="pad">
+    <div class="shead">
+      <div class="eyebrow">04 · Detail Produk · 09</div>
+      <h2>Concrete Admixture</h2>
+    </div>
+
+    <div class="prow">
+      <div class="pleft">
+        <div class="imgph thumb">
+          <div class="ico">▣</div><div class="nm">assets/img/yk-nn.png</div><div class="rt">1024 × 1024 px · 1:1</div><div class="ds">Foto: drum YK NN®</div>
+        </div>
+        <div class="qr"><div class="imgph qrbox"><div class="ico">QR</div><div class="nm">assets/company-profile/qr-concrete-admixture.png</div></div><div class="qrcap">Scan untuk TDS</div></div>
+      </div>
+      <div>
+        <div class="ptitle"><span class="pnum">09</span><h3>Concrete Admixture</h3></div>
+        <div class="ptype">YK NN®</div>
+        <div class="painsol">
+          <div class="ln pain"><span class="tag">Masalah</span><span>Beton lambat keras, bekisting tak bisa dibongkar, jadwal proyek molor dan biaya sewa alat membengkak.</span></div>
+          <div class="ln sol"><span class="tag">Solusi</span><span>Pengurang air yang memangkas <b>20% air</b> dan menaikkan kepadatan beton, struktur kuat lebih cepat, mutu konsisten.</span></div>
+        </div>
+        <div class="pills"><span class="pill">−20% air</span><span class="pill">+40% kuat tekan</span><span class="pill">12 jam kekuatan tinggi</span></div>
+        <div class="pmeta"><div><span class="k">Dosis</span><span class="v">0,30 – 2,30% berat semen</span></div><div><span class="k">Kemasan</span><span class="v">Drum 240kg / Bulk 1000kg</span></div></div>
+      </div>
+    </div>
+
+    <div class="about-pull" style="margin-top:9mm;">
+      <p>Setiap produk YK dilengkapi <span class="a">Technical Data Sheet</span> — scan QR untuk dosis lengkap, properti, dan standar yang dipenuhi.</p>
+    </div>
+  </div>
+  <div class="foot"><span><b>PT. YOSI HUTAMA KARYA</b> · Company Profile</span><span>09</span></div>
+</section>
+
+<!-- ============================================================
+     HAL 8, DUKUNGAN LAPANGAN
+     ============================================================ -->
+<section class="page">
+  <div class="pad">
+    <div class="shead">
+      <div class="eyebrow">05 · Dukungan Lapangan</div>
+      <h2>Aplikator Senior ke Lokasi Proyek Anda</h2>
+      <p class="lead">Kami tidak hanya menjual produk, kami menjual hasil. Setiap pesanan dilengkapi paket dukungan teknis lengkap, gratis.</p>
+    </div>
+
+    <div class="imgph sup-hero">
+      <div class="ico">▣</div>
+      <div class="nm">assets/company-profile/dukungan.png</div>
+      <div class="rt">1600 × 900 px · 16:9</div>
+      <div class="ds">Foto: aplikator senior konsultasi mix design dengan kontraktor di site</div>
+    </div>
+
+    <ul class="sup-list">
+      <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></span><span class="tt"><b>Site visit gratis</b><span>Aplikator senior datang langsung ke lokasi proyek untuk meninjau kondisi lapangan dan memastikan produk diaplikasikan dengan benar.</span></span></li>
+      <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M9 12h6M9 16h4"/></svg></span><span class="tt"><b>Konsultasi mix design</b><span>Rekomendasi dosis, rasio campuran, dan metode aplikasi yang disesuaikan dengan kebutuhan serta target mutu proyek Anda.</span></span></li>
+      <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6"/><path d="M10 3v6l-5 9a2 2 0 0 0 2 3h10a2 2 0 0 0 2-3l-5-9V3"/><path d="M7 16h10"/></svg></span><span class="tt"><b>Pengujian sample</b><span>Sampel produk dapat diuji di laboratorium klien atau pihak ketiga untuk memverifikasi mutu sebelum pemakaian skala penuh.</span></span></li>
+      <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/><path d="m9 12 2 2 4-4"/></svg></span><span class="tt"><b>Garansi hasil</b><span>Hasil aplikasi dijamin selama pemakaian mengikuti dosis dan prosedur yang tercantum pada Technical Data Sheet.</span></span></li>
+      <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 14v-2a9 9 0 0 1 18 0v2"/><path d="M21 16a2 2 0 0 1-2 2h-1v-6h1a2 2 0 0 1 2 2Z"/><path d="M3 16a2 2 0 0 0 2 2h1v-6H5a2 2 0 0 0-2 2Z"/></svg></span><span class="tt"><b>After-sales support</b><span>Dukungan teknis tetap berlanjut setelah pembelian, tanpa biaya tambahan, selama proyek Anda masih berjalan.</span></span></li>
+      <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><span class="tt"><b>Respon &lt; 24 jam</b><span>Setiap permintaan penawaran, pertanyaan teknis, atau keluhan kami tanggapi dalam waktu kurang dari 24 jam kerja.</span></span></li>
+    </ul>
+
+    <div class="quote">
+      <p>“Kami tidak hanya menjual produk, kami menjual hasil. Setiap sak yang keluar dari pabrik dilengkapi dukungan teknis di lapangan, karena formula terbaik pun butuh aplikasi yang benar.”</p>
+      <div class="c">Tim Aplikator Senior YK</div>
+    </div>
+  </div>
+  <div class="foot"><span><b>PT. YOSI HUTAMA KARYA</b> · Company Profile</span><span>10</span></div>
+</section>
+
+<!-- ============================================================
+     HAL 11, PENUTUP / CTA
+     ============================================================ -->
+<section class="page close">
+  <div class="bg">
+    <div class="imgph">
+      <div class="ico">▣</div>
+      <div class="nm">assets/company-profile/penutup.png</div>
+      <div class="rt">210 × 297 mm · full-bleed (portrait)</div>
+      <div class="ds">Foto: hasil proyek selesai / gedung jadi / handshake kontraktor (gelap-dramatis)</div>
+    </div>
+  </div>
+  <div class="scrim"></div>
+  <div class="inner">
+    <img class="close-logo" src="assets/company-profile/LogoYK.svg" alt="Logo YK" />
+    <div class="kicker">Mari Berkolaborasi</div>
+    <h2>Bangun Sekali,<br/>Kuat Selamanya.</h2>
+    <p class="sub">Hubungi tim sales kami untuk diskusi kebutuhan proyek Anda. Site visit gratis, konsultasi mix design tanpa biaya.</p>
+
+    <div class="contact">
+      <div class="cblock"><div class="k">Alamat</div><div class="v">Jl. Jend. Ahmad Yani Kav. 3,<br/>Kel. Kayu Putih, Kec. Pulo Gadung,<br/>Jakarta Timur 13210, Indonesia</div></div>
+      <div class="cblock"><div class="k">Kontak</div><div class="v">Telp · +62 21 475 7386<br/>Faks · +62 21 475 7387<br/>Email · info@yosihutamakarya.com</div></div>
+    </div>
+
+    <div class="cfoot">
+      <div class="tg">BUILD <span class="dot">·</span> PROTECT <span class="dot">·</span> PERFORM</div>
+      <div class="web">www.yosihutamakarya.com</div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Bila file gambar sudah diisi di folder assets/company-profile/, otomatis muncul.
+  // Bila belum ada, placeholder (nama file + rasio) tetap tampil.
+  document.querySelectorAll('.imgph').forEach(function(box){
+    var nm = box.querySelector('.nm'); if(!nm) return;
+    var src = nm.textContent.trim();
+    var img = new Image();
+    img.className = 'ph-real';
+    img.src = src;
+    img.onload = function(){ box.appendChild(img); };
+  });
+</script>
+</body>
+</html>
