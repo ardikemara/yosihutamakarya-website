@@ -132,7 +132,8 @@
   .close .tagfoot b{color:#fff;font-weight:900;letter-spacing:0.02em;}
 
   /* ---------- SCREEN-ONLY PRINT HINT ---------- */
-  .screen-only{position:fixed;top:12px;left:50%;transform:translateX(-50%);z-index:99;background:var(--yk-blue);color:#fff;font-family:var(--font-mono);font-size:11px;padding:8px 16px;border-radius:30px;box-shadow:0 4px 14px rgba(0,0,0,0.3);letter-spacing:0.04em;}
+  .screen-only{position:fixed;top:12px;left:50%;transform:translateX(-50%);z-index:99;background:var(--yk-blue);color:#fff;font-family:var(--font-mono);font-size:11px;padding:9px 18px;border-radius:30px;box-shadow:0 4px 14px rgba(0,0,0,0.3);letter-spacing:0.04em;text-decoration:none;cursor:pointer;font-weight:700;}
+  .screen-only:hover{background:var(--yk-blue-dark);}
 
   @page{size:A4;margin:0;}
   @media print{
@@ -144,7 +145,7 @@
 </head>
 <body>
 
-<div class="screen-only">Print / Ctrl+P → Save as PDF · Ukuran: A4 · Margin: None · ✓ Background graphics</div>
+<a class="screen-only" href="project-spec.pdf" download="Project-Spec-Sheet-YK.pdf">⬇&nbsp;&nbsp;Download PDF</a>
 
 <!-- ============ HAL 1 · COVER ============ -->
 <div class="page cover">
