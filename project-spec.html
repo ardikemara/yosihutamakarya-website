@@ -1,0 +1,415 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Project Spec Sheet · PT. Yosi Hutama Karya</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<style>
+  /* ============================================================
+     PROJECT SPEC SHEET — PT. YOSI HUTAMA KARYA (brand YK)
+     A4 print-ready. Buka di browser → Print → Save as PDF.
+     Print: A4, Margins = None/Default, centang "Background graphics".
+     Format mengikuti Company Profile YK.
+     FOTO: taruh di  assets/spec-sheet/  (lihat nama file di tiap slot).
+     ============================================================ */
+
+  :root{
+    --yk-black:#0A0A0A; --yk-cream:#F5F2EC; --yk-white:#FFFFFF;
+    --yk-blue:#1E40AF; --yk-blue-dark:#1E3A8A; --yk-blue-light:#3B82F6;
+    --yk-charcoal:#1F2937; --yk-grey:#6B7280; --yk-concrete:#9CA3AF;
+    --yk-border:#E5E7EB; --yk-bg-soft:#FAFAF7;
+    --font-sans:'Inter','Helvetica Neue',Arial,sans-serif;
+    --font-mono:'JetBrains Mono','Courier New',monospace;
+  }
+
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html{-webkit-text-size-adjust:100%;}
+  body{font-family:var(--font-sans);color:var(--yk-charcoal);background:#525659;line-height:1.55;-webkit-font-smoothing:antialiased;}
+  h1,h2,h3,h4{font-weight:800;color:var(--yk-black);line-height:1.12;letter-spacing:-0.02em;}
+  .eyebrow{font-size:10.5px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--yk-blue);}
+  .mono{font-family:var(--font-mono);}
+
+  /* ---------- A4 PAGE ---------- */
+  .page{position:relative;width:210mm;height:297mm;background:var(--yk-white);margin:10mm auto;box-shadow:0 4px 24px rgba(0,0,0,0.35);overflow:hidden;page-break-after:always;}
+  .page:last-child{page-break-after:auto;}
+  .pad{padding:18mm 17mm;height:100%;display:flex;flex-direction:column;}
+  .foot{position:absolute;left:17mm;right:17mm;bottom:9mm;display:flex;justify-content:space-between;align-items:center;font-family:var(--font-mono);font-size:8.5px;letter-spacing:0.12em;color:var(--yk-concrete);text-transform:uppercase;border-top:1px solid var(--yk-border);padding-top:6px;}
+  .foot b{color:var(--yk-charcoal);font-weight:700;}
+
+  /* ---------- IMAGE PLACEHOLDER (sama spt company-profile) ---------- */
+  .imgph{position:relative;overflow:hidden;background:repeating-linear-gradient(135deg,#EFEDE7 0 14px,#F6F4EF 14px 28px);border:1px solid var(--yk-border);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:var(--yk-concrete);gap:4px;}
+  .imgph .ph-real{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+  .imgph .ico{font-size:20px;opacity:0.5;}
+  .imgph .nm{font-family:var(--font-mono);font-size:9px;font-weight:700;color:var(--yk-charcoal);letter-spacing:0.04em;}
+  .imgph .rt{font-family:var(--font-mono);font-size:8px;color:var(--yk-grey);}
+  .imgph .ds{font-size:8px;max-width:82%;line-height:1.3;}
+
+  /* ---------- COVER ---------- */
+  .cover{background:var(--yk-black);color:#fff;}
+  .cover .bg{position:absolute;inset:0;}
+  .cover .bg .imgph{width:100%;height:100%;border:none;background:#141414;}
+  .cover .bg .imgph .nm,.cover .bg .imgph .rt,.cover .bg .imgph .ds{color:rgba(255,255,255,0.55);}
+  .cover .scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,10,10,0.66) 0%,rgba(10,10,10,0.30) 32%,rgba(10,10,10,0.55) 64%,rgba(10,10,10,0.97) 100%);}
+  .cover .inner{position:relative;height:100%;padding:20mm 17mm;display:flex;flex-direction:column;}
+  .cover .logo{display:flex;align-items:center;gap:14px;}
+  .cover .logo .logo-img{width:64px;height:64px;object-fit:contain;filter:invert(1) brightness(1.9);}
+  .cover .logo .txt{font-weight:800;font-size:15px;letter-spacing:0.04em;line-height:1.2;}
+  .cover .logo .txt small{display:block;font-family:var(--font-mono);font-size:9px;font-weight:500;letter-spacing:0.2em;color:rgba(255,255,255,0.6);margin-top:3px;}
+  .cover .mid{margin-top:auto;}
+  .cover .kicker{font-family:var(--font-mono);font-size:11px;letter-spacing:0.3em;color:var(--yk-blue-light);text-transform:uppercase;font-weight:700;margin-bottom:14px;text-shadow:0 1px 10px rgba(0,0,0,0.55);}
+  .cover h1{color:#fff;font-size:46px;line-height:1.04;letter-spacing:-0.03em;text-shadow:0 2px 18px rgba(0,0,0,0.6);}
+  .cover h1 .b{color:var(--yk-blue-light);}
+  .cover .sub{margin-top:18px;max-width:130mm;font-size:13px;color:rgba(255,255,255,0.82);line-height:1.6;text-shadow:0 1px 10px rgba(0,0,0,0.55);}
+  .cover .tagline{margin-top:30px;display:flex;gap:18px;align-items:center;font-weight:900;font-size:18px;letter-spacing:0.02em;color:#fff;}
+  .cover .tagline .dot{color:var(--yk-blue-light);}
+  .cover .cfoot{position:relative;margin-top:34px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.18);display:flex;justify-content:space-between;font-family:var(--font-mono);font-size:9.5px;letter-spacing:0.12em;color:rgba(255,255,255,0.7);text-transform:uppercase;}
+
+  /* ---------- SECTION HEADINGS ---------- */
+  .shead{margin-bottom:6mm;}
+  .shead .eyebrow{margin-bottom:6px;}
+  .shead h2{font-size:26px;}
+  .shead .lead{font-size:14px;color:var(--yk-grey);margin-top:7px;max-width:150mm;line-height:1.55;}
+
+  /* ---------- HERO BAND (foto di tiap halaman tipe) ---------- */
+  .hero-band{height:38mm;margin-bottom:6mm;flex-shrink:0;}
+
+  /* ---------- TYPE OVERVIEW CARDS ---------- */
+  .tgrid{display:grid;grid-template-columns:1fr 1fr;gap:7mm;margin-bottom:8mm;}
+  .tcard{border:1px solid var(--yk-border);border-top:3px solid var(--yk-blue);padding:7mm 7mm;background:var(--yk-white);display:flex;flex-direction:column;}
+  .tcard .tn{font-family:var(--font-mono);font-size:10px;color:var(--yk-blue);letter-spacing:0.18em;font-weight:700;margin-bottom:8px;}
+  .tcard h4{font-size:17px;margin-bottom:8px;letter-spacing:-0.01em;}
+  .tcard p{font-size:13px;color:var(--yk-grey);line-height:1.5;}
+  .tcard .sku{margin-top:11px;font-family:var(--font-mono);font-size:9.5px;font-weight:700;color:var(--yk-charcoal);letter-spacing:0.02em;line-height:1.5;}
+
+  /* ---------- STANDARDS BOX ---------- */
+  .qbox{margin-top:auto;background:var(--yk-black);color:#fff;padding:8mm 9mm;display:grid;grid-template-columns:1.4fr 1fr;gap:8mm;align-items:center;}
+  .qbox h3{color:#fff;font-size:18px;margin-bottom:9px;}
+  .qbox p{font-size:13px;color:rgba(255,255,255,0.82);line-height:1.55;}
+  .qbox .badges{display:flex;flex-wrap:wrap;gap:7px;}
+  .qbox .badge{font-family:var(--font-mono);font-size:10px;font-weight:700;letter-spacing:0.06em;padding:7px 11px;border:1px solid rgba(255,255,255,0.3);color:#fff;}
+  .qbox .badge.blue{background:var(--yk-blue);border-color:var(--yk-blue);}
+
+  /* ---------- TANTANGAN PULLQUOTE ---------- */
+  .challenge{padding:5mm 6mm;border-left:3px solid var(--yk-blue);background:var(--yk-bg-soft);margin-bottom:6mm;}
+  .challenge .cl{font-family:var(--font-mono);font-size:9px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:var(--yk-blue);margin-bottom:5px;}
+  .challenge p{font-size:13px;color:var(--yk-black);font-weight:600;line-height:1.45;}
+
+  /* ---------- SPEC TABLE ---------- */
+  .spec-table{width:100%;border-collapse:collapse;}
+  .spec-table thead th{background:var(--yk-black);color:#fff;font-family:var(--font-mono);font-size:8.5px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;text-align:left;padding:8px 9px;}
+  .spec-table tbody td{border-bottom:1px solid var(--yk-border);padding:8px 9px;vertical-align:top;line-height:1.4;}
+  .spec-table tbody tr:nth-child(even){background:var(--yk-bg-soft);}
+  .spec-table .c-tahap{font-weight:700;color:var(--yk-black);font-size:11px;width:25%;}
+  .spec-table .c-produk{color:var(--yk-blue);font-weight:700;font-size:11px;width:23%;}
+  .spec-table .c-dosis{font-family:var(--font-mono);font-size:9.5px;color:var(--yk-charcoal);width:25%;}
+  .spec-table .c-catatan{color:var(--yk-grey);font-size:10.5px;width:27%;}
+  .spec-table a.tds{color:var(--yk-blue);text-decoration:none;border-bottom:1px dotted rgba(30,64,175,0.55);}
+  .spec-table a.tds::after{content:"\2197";font-family:var(--font-mono);font-size:8px;margin-left:2px;vertical-align:super;color:var(--yk-blue-light);}
+  .tablenote{margin-top:6mm;font-family:var(--font-mono);font-size:9px;color:var(--yk-concrete);letter-spacing:0.03em;line-height:1.55;}
+
+  /* ---------- CLOSING ---------- */
+  .close{background:var(--yk-black);color:#fff;}
+  .close .bg{position:absolute;inset:0;}
+  .close .bg .imgph{width:100%;height:100%;border:none;background:#141414;}
+  .close .bg .imgph .nm,.close .bg .imgph .rt,.close .bg .imgph .ds{color:rgba(255,255,255,0.5);}
+  .close .scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,10,10,0.92) 0%,rgba(10,10,10,0.55) 30%,rgba(10,10,10,0.80) 70%,rgba(10,10,10,0.97) 100%);}
+  .close .inner{position:relative;height:100%;padding:20mm 17mm;display:flex;flex-direction:column;}
+  .close .logo-img{width:54px;height:54px;object-fit:contain;filter:invert(1) brightness(1.9);}
+  .close .kicker{font-family:var(--font-mono);font-size:11px;letter-spacing:0.3em;color:var(--yk-blue-light);text-transform:uppercase;font-weight:700;margin:18mm 0 12px;}
+  .close h2{color:#fff;font-size:36px;line-height:1.06;letter-spacing:-0.03em;}
+  .close h2 .b{color:var(--yk-blue-light);}
+  .close .csub{margin-top:14px;max-width:120mm;font-size:13px;color:rgba(255,255,255,0.8);line-height:1.6;}
+  .steps{margin-top:11mm;display:grid;grid-template-columns:repeat(4,1fr);gap:6mm;}
+  .steps .st{border-top:2px solid var(--yk-blue);padding-top:9px;}
+  .steps .st .num{font-family:var(--font-mono);font-size:11px;font-weight:700;color:var(--yk-blue-light);}
+  .steps .st b{display:block;margin-top:7px;font-size:13px;color:#fff;}
+  .steps .st span{display:block;margin-top:5px;font-size:10.5px;color:rgba(255,255,255,0.7);line-height:1.45;}
+  .contact{margin-top:auto;display:grid;grid-template-columns:1fr 1fr;gap:8mm;padding-top:14px;border-top:1px solid rgba(255,255,255,0.18);}
+  .contact .cl{font-family:var(--font-mono);font-size:9px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:var(--yk-blue-light);margin-bottom:7px;}
+  .contact p{font-size:12px;color:rgba(255,255,255,0.85);line-height:1.6;}
+  .close .tagfoot{margin-top:9mm;display:flex;justify-content:space-between;align-items:center;font-family:var(--font-mono);font-size:9.5px;letter-spacing:0.14em;color:rgba(255,255,255,0.7);text-transform:uppercase;}
+  .close .tagfoot b{color:#fff;font-weight:900;letter-spacing:0.02em;}
+
+  /* ---------- SCREEN-ONLY PRINT HINT ---------- */
+  .screen-only{position:fixed;top:12px;left:50%;transform:translateX(-50%);z-index:99;background:var(--yk-blue);color:#fff;font-family:var(--font-mono);font-size:11px;padding:8px 16px;border-radius:30px;box-shadow:0 4px 14px rgba(0,0,0,0.3);letter-spacing:0.04em;}
+
+  @page{size:A4;margin:0;}
+  @media print{
+    body{background:#fff;}
+    .page{margin:0;box-shadow:none;width:210mm;height:297mm;}
+    .screen-only{display:none !important;}
+  }
+</style>
+</head>
+<body>
+
+<div class="screen-only">Print / Ctrl+P → Save as PDF · Ukuran: A4 · Margin: None · ✓ Background graphics</div>
+
+<!-- ============ HAL 1 · COVER ============ -->
+<div class="page cover">
+  <div class="bg">
+    <div class="imgph">
+      <img class="ph-real" src="assets/spec-sheet/cover.jpg" alt="" onerror="this.style.display='none'" />
+      <div class="ico">▣</div>
+      <div class="nm">assets/spec-sheet/cover.jpg</div>
+      <div class="rt">210 × 297 mm · full-bleed (portrait)</div>
+      <div class="ds">Foto hero: proyek konstruksi / pengecoran beton (gelap-dramatis)</div>
+    </div>
+  </div>
+  <div class="scrim"></div>
+  <div class="inner">
+    <div class="logo">
+      <img class="logo-img" src="https://yosihutamakarya-website.vercel.app/assets/company-profile/LogoYK.svg" alt="Logo YK" />
+      <div class="txt">PT. YOSI HUTAMA KARYA<small>BUILD · PROTECT · PERFORM</small></div>
+    </div>
+    <div class="mid">
+      <div class="kicker">Project Spec Sheet</div>
+      <h1>Rekomendasi Produk &amp; Dosis <span class="b">per Tipe Proyek.</span></h1>
+      <p class="sub">Panduan teknis ringkas untuk engineer, QS, dan tim lapangan — memetakan produk YK di setiap tahap konstruksi, lengkap dengan dosis indikatif, untuk empat tipe proyek. Siap dimasukkan ke spesifikasi (RKS).</p>
+      <div class="tagline">BUILD <span class="dot">·</span> PROTECT <span class="dot">·</span> PERFORM</div>
+    </div>
+    <div class="cfoot">
+      <span>Jakarta Timur · Indonesia</span>
+      <span>www.yosihutamakarya.com</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============ HAL 2 · PANDUAN + TIPE PROYEK + STANDAR ============ -->
+<div class="page">
+  <div class="pad">
+    <div class="shead">
+      <div class="eyebrow">00 · Cara Pakai</div>
+      <h2>Satu Brand, Empat Tipe Proyek</h2>
+      <p class="lead">Cari tipe proyek yang sesuai, lihat tabel per tahap konstruksi, lalu ambil produk dan dosisnya. Dosis bersifat <b>indikatif/awal</b> — angka final mengikuti mix design dan kondisi lapangan; tim aplikator senior YK siap site visit gratis untuk verifikasi.</p>
+    </div>
+
+    <div class="tgrid">
+      <div class="tcard">
+        <div class="tn">/ 01</div>
+        <h4>High-Rise / Residensial</h4>
+        <p>Apartemen, kondominium, gedung bertingkat. Beton mutu tinggi, penulangan rapat, roof deck, basement, kamar mandi tiap unit.</p>
+        <div class="sku">YK NN® · YK Curing® · YK Grout® · YK Water Proofing®</div>
+      </div>
+      <div class="tcard">
+        <div class="tn">/ 02</div>
+        <h4>Pabrik / Industri</h4>
+        <p>Gudang, pabrik, logistik, parkiran. Lantai beban berat tahan abrasi &amp; oli, pondasi mesin presisi, area luas.</p>
+        <div class="sku">YK Floor Hardener® · YK NN® · YK Grout® · YK 72 Epoxy Grout®</div>
+      </div>
+      <div class="tcard">
+        <div class="tn">/ 03</div>
+        <h4>Infrastruktur</h4>
+        <p>Jembatan, jalan, dermaga, pelabuhan, terowongan. Beton tahan lingkungan agresif, grouting presisi, perbaikan struktur.</p>
+        <div class="sku">YK NN® · YK Fume® · YK Grout® · YK Curing®</div>
+      </div>
+      <div class="tcard">
+        <div class="tn">/ 04</div>
+        <h4>Hunian / Renovasi</h4>
+        <p>Rumah tinggal, ruko, perbaikan. Atap bocor, kamar mandi rembes, keramik lepas, plester retak, fitur on-tile.</p>
+        <div class="sku">YK Water Proofing® · YK Bond® · YK Tile Adhesive® · YK Plaster Mix®</div>
+      </div>
+    </div>
+
+    <div class="qbox">
+      <div>
+        <h3>Standar Internasional, Diuji Lokal</h3>
+        <p>Formula YK memenuhi standar internasional dan dirancang bebas klorin untuk struktur bertulang &amp; pratekan. Catatan: <b>Project Spec Sheet</b> ini memetakan produk per <b>proyek</b>; untuk spesifikasi mendalam per <b>produk</b>, klik nama produk untuk buka Technical Data Sheet (TDS).</p>
+      </div>
+      <div class="badges">
+        <span class="badge blue">ASTM C-1107</span>
+        <span class="badge blue">CRD C-621</span>
+        <span class="badge">SNI</span>
+        <span class="badge">Cl⁻ FREE</span>
+        <span class="badge">QC TIAP BATCH</span>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span><b>PT. YOSI HUTAMA KARYA</b> · Project Spec Sheet</span><span>02</span></div>
+</div>
+
+<!-- ============ HAL 3 · HIGH-RISE ============ -->
+<div class="page">
+  <div class="pad">
+    <div class="shead">
+      <div class="eyebrow">01 · High-Rise / Residensial</div>
+      <h2>Apartemen, Kondominium &amp; Gedung Bertingkat</h2>
+    </div>
+    <div class="hero-band imgph">
+      <img class="ph-real" src="assets/spec-sheet/highrise.jpg" alt="" onerror="this.style.display='none'" />
+      <div class="ico">▣</div>
+      <div class="nm">assets/spec-sheet/highrise.jpg</div>
+      <div class="rt">1600 × 900 px · 16:9</div>
+      <div class="ds">Foto: apartemen / gedung bertingkat dalam konstruksi</div>
+    </div>
+    <div class="challenge">
+      <div class="cl">Tantangan Utama</div>
+      <p>Beton struktural mutu tinggi dengan penulangan rapat, siklus cetakan cepat dibongkar, pelat luas (roof deck), basement, dan kamar mandi di tiap unit — semua beton bertulang/pratekan wajib bebas klorin.</p>
+    </div>
+    <table class="spec-table">
+      <thead><tr><th>Tahap / Kebutuhan</th><th>Produk YK</th><th>Dosis / Konsumsi</th><th>Catatan</th></tr></thead>
+      <tbody>
+        <tr><td class="c-tahap">Pengecoran struktur (kolom, pelat, dinding, core wall)</td><td class="c-produk"><a class="tds" href="TDS-YK-NN-charcoal.html">YK NN®</a></td><td class="c-dosis">0,30–2,30% berat semen</td><td class="c-catatan">−20% air → +40% kuat tekan (28 hari), kuat ≥12 jam, bebas klorin</td></tr>
+        <tr><td class="c-tahap">Zona mutu premium (kolom bawah, transfer beam)</td><td class="c-produk">YK Fume®</td><td class="c-dosis">3–10% berat semen</td><td class="c-catatan">Combo dengan YK NN® untuk beton kelas premium</td></tr>
+        <tr><td class="c-tahap">Pelepasan cetakan</td><td class="c-produk"><a class="tds" href="TDS-YK-Mould-Oil-charcoal.html">YK Mould Oil®</a></td><td class="c-dosis">1 L → 20–25 m² (plywood)</td><td class="c-catatan">Permukaan halus, cocok untuk steam curing</td></tr>
+        <tr><td class="c-tahap">Perawatan beton (roof deck, pelat luas)</td><td class="c-produk"><a class="tds" href="TDS-YK-Curing-charcoal.html">YK Curing®</a> / Curing Membrane®</td><td class="c-dosis">0,15–0,20 kg/m²</td><td class="c-catatan">Pilih Membrane bila permukaan akan dicat/dilapis ulang</td></tr>
+        <tr><td class="c-tahap">Pondasi mesin lift/genset, angkur</td><td class="c-produk"><a class="tds" href="TDS-YK-Grout-charcoal.html">YK Grout®</a></td><td class="c-dosis">±1.920 kg/m³ · tebal 20–50 mm</td><td class="c-catatan">Non-shrink, CRD C-621 &amp; ASTM C-1107</td></tr>
+        <tr><td class="c-tahap">Waterproofing atap / roof deck (expose)</td><td class="c-produk"><a class="tds" href="TDS-YK-Water-Proofing-charcoal.html">YK Water Proofing®</a></td><td class="c-dosis">0,3–0,35 kg/m² per lapis</td><td class="c-catatan">Tahan UV &amp; cuaca, sangat lentur</td></tr>
+        <tr><td class="c-tahap">Waterproofing basement</td><td class="c-produk">YK Seal 127®</td><td class="c-dosis">0,75–1,0 kg/m² × 2 lapis</td><td class="c-catatan">Tahan CO₂ &amp; klorida, bisa di permukaan lembab</td></tr>
+        <tr><td class="c-tahap">Kamar mandi tiap unit</td><td class="c-produk">YK Waterproofing Mortar® + YK Seal 127®</td><td class="c-dosis">2–3 kg/m² ×2 + 0,75–1,0 kg/m² ×2</td><td class="c-catatan">Paket dua lapis: dasar kedap + lapisan lentur</td></tr>
+      </tbody>
+    </table>
+    <div class="tablenote">Dosis indikatif — verifikasi via site visit &amp; mix design. Klik nama produk (bergaris bawah ↗) untuk buka TDS.</div>
+  </div>
+  <div class="foot"><span><b>PT. YOSI HUTAMA KARYA</b> · Project Spec Sheet</span><span>03</span></div>
+</div>
+
+<!-- ============ HAL 4 · PABRIK / INDUSTRI ============ -->
+<div class="page">
+  <div class="pad">
+    <div class="shead">
+      <div class="eyebrow">02 · Pabrik / Industri</div>
+      <h2>Gudang, Pabrik, Logistik &amp; Parkiran</h2>
+    </div>
+    <div class="hero-band imgph">
+      <img class="ph-real" src="assets/spec-sheet/pabrik.jpg" alt="" onerror="this.style.display='none'" />
+      <div class="ico">▣</div>
+      <div class="nm">assets/spec-sheet/pabrik.jpg</div>
+      <div class="rt">1600 × 900 px · 16:9</div>
+      <div class="ds">Foto: lantai pabrik/gudang heavy-duty / aplikasi floor hardener</div>
+    </div>
+    <div class="challenge">
+      <div class="cl">Tantangan Utama</div>
+      <p>Lantai beban berat / heavy traffic yang harus tahan abrasi dan minyak, pondasi mesin presisi, serta area lantai yang sangat luas.</p>
+    </div>
+    <table class="spec-table">
+      <thead><tr><th>Tahap / Kebutuhan</th><th>Produk YK</th><th>Dosis / Konsumsi</th><th>Catatan</th></tr></thead>
+      <tbody>
+        <tr><td class="c-tahap">Lantai &amp; beton struktural</td><td class="c-produk"><a class="tds" href="TDS-YK-NN-charcoal.html">YK NN®</a></td><td class="c-dosis">0,30–2,30% berat semen</td><td class="c-catatan">Kuat tekan tinggi, kurangi getaran tanpa perlambatan setting</td></tr>
+        <tr><td class="c-tahap">Pengerasan lantai (heavy traffic)</td><td class="c-produk"><a class="tds" href="TDS-YK-Floor-Hardener-charcoal.html">YK Floor Hardener®</a></td><td class="c-dosis">3 / 4–5 / 6 kg/m² (ringan/sedang/berat)</td><td class="c-catatan">Tahan abrasi &amp; oli, 6 warna, lapisan perkuatan 2–3 mm</td></tr>
+        <tr><td class="c-tahap">Perawatan lantai</td><td class="c-produk"><a class="tds" href="TDS-YK-Curing-charcoal.html">YK Curing®</a></td><td class="c-dosis">0,15–0,20 kg/m²</td><td class="c-catatan">Kurangi retak plastis &amp; debu; hemat tenaga vs siram manual</td></tr>
+        <tr><td class="c-tahap">Pondasi / dasar mesin (standar)</td><td class="c-produk"><a class="tds" href="TDS-YK-Grout-charcoal.html">YK Grout®</a></td><td class="c-dosis">±1.920 kg/m³ · tebal 20–50 mm</td><td class="c-catatan">CRD C-621 &amp; ASTM C-1107; tahan benturan &amp; getaran</td></tr>
+        <tr><td class="c-tahap">Mesin berat / getaran &amp; kimia tinggi</td><td class="c-produk">YK 72 Epoxy Grout®</td><td class="c-dosis">Set 12 kg (komponen A+B+C)</td><td class="c-catatan">Kekuatan sangat tinggi, bisa aplikasi di permukaan lembab</td></tr>
+        <tr><td class="c-tahap">Waterproofing atap pabrik</td><td class="c-produk"><a class="tds" href="TDS-YK-Water-Proofing-charcoal.html">YK Water Proofing®</a></td><td class="c-dosis">0,3–0,35 kg/m² per lapis</td><td class="c-catatan">Tahan UV, tanpa primer</td></tr>
+      </tbody>
+    </table>
+    <div class="tablenote">Dosis indikatif — verifikasi via site visit &amp; mix design. Klik nama produk (bergaris bawah ↗) untuk buka TDS.</div>
+  </div>
+  <div class="foot"><span><b>PT. YOSI HUTAMA KARYA</b> · Project Spec Sheet</span><span>04</span></div>
+</div>
+
+<!-- ============ HAL 5 · INFRASTRUKTUR ============ -->
+<div class="page">
+  <div class="pad">
+    <div class="shead">
+      <div class="eyebrow">03 · Infrastruktur</div>
+      <h2>Jembatan, Jalan, Dermaga &amp; Pelabuhan</h2>
+    </div>
+    <div class="hero-band imgph">
+      <img class="ph-real" src="assets/spec-sheet/infrastruktur.jpg" alt="" onerror="this.style.display='none'" />
+      <div class="ico">▣</div>
+      <div class="nm">assets/spec-sheet/infrastruktur.jpg</div>
+      <div class="rt">1600 × 900 px · 16:9</div>
+      <div class="ds">Foto: jembatan / dermaga / jalan beton / struktur marine</div>
+    </div>
+    <div class="challenge">
+      <div class="cl">Tantangan Utama</div>
+      <p>Beton mutu tinggi tahan lingkungan agresif (marine, pasang surut, sulfat), grouting presisi untuk bearing &amp; angkur, perawatan permukaan luas, dan perbaikan struktur eksisting.</p>
+    </div>
+    <table class="spec-table">
+      <thead><tr><th>Tahap / Kebutuhan</th><th>Produk YK</th><th>Dosis / Konsumsi</th><th>Catatan</th></tr></thead>
+      <tbody>
+        <tr><td class="c-tahap">Beton struktur (pier, pelat jembatan, pratekan)</td><td class="c-produk"><a class="tds" href="TDS-YK-NN-charcoal.html">YK NN®</a></td><td class="c-dosis">0,30–2,30% berat semen</td><td class="c-catatan">Bebas klorin — krusial untuk struktur pratekan &amp; lingkungan laut</td></tr>
+        <tr><td class="c-tahap">Durability tinggi (struktur laut / tahan klorida)</td><td class="c-produk">YK Fume®</td><td class="c-dosis">3–10% berat semen</td><td class="c-catatan">Mengurangi resapan air, gas &amp; klorin; tingkatkan kepadatan</td></tr>
+        <tr><td class="c-tahap">Perawatan beton (jalan, apron, taxiway, balok pratekan, dermaga)</td><td class="c-produk"><a class="tds" href="TDS-YK-Curing-charcoal.html">YK Curing®</a></td><td class="c-dosis">0,15–0,20 kg/m²</td><td class="c-catatan">Untuk permukaan luas berlalu-lintas; tidak mudah terbakar</td></tr>
+        <tr><td class="c-tahap">Grouting bearing pad, angkur, area pasang surut</td><td class="c-produk"><a class="tds" href="TDS-YK-Grout-charcoal.html">YK Grout®</a></td><td class="c-dosis">±1.920 kg/m³ · tebal 20–50 mm</td><td class="c-catatan">CRD C-621 &amp; ASTM C-1107; tahan struktur kelautan</td></tr>
+        <tr><td class="c-tahap">Beban dinamis tinggi (rel crane/kereta, mesin berat)</td><td class="c-produk">YK 72 Epoxy Grout®</td><td class="c-dosis">Set 12 kg (A+B+C)</td><td class="c-catatan">Ketahanan getaran sangat tinggi, bebas solvent</td></tr>
+        <tr><td class="c-tahap">Perbaikan beton (dinding pelabuhan, tiang jetty)</td><td class="c-produk"><a class="tds" href="TDS-YK-Grout-charcoal.html">YK Grout®</a> + YK Latex®</td><td class="c-dosis">Grout: metode grouting · Latex 1:1–1:4 air</td><td class="c-catatan">Latex (SBR) untuk mortar patching/rendering — tahan air &amp; abrasi</td></tr>
+      </tbody>
+    </table>
+    <div class="tablenote">Dosis indikatif — verifikasi via site visit &amp; mix design. Klik nama produk (bergaris bawah ↗) untuk buka TDS.</div>
+  </div>
+  <div class="foot"><span><b>PT. YOSI HUTAMA KARYA</b> · Project Spec Sheet</span><span>05</span></div>
+</div>
+
+<!-- ============ HAL 6 · HUNIAN / RENOVASI ============ -->
+<div class="page">
+  <div class="pad">
+    <div class="shead">
+      <div class="eyebrow">04 · Hunian / Renovasi</div>
+      <h2>Rumah Tinggal, Ruko &amp; Perbaikan</h2>
+    </div>
+    <div class="hero-band imgph">
+      <img class="ph-real" src="assets/spec-sheet/hunian.jpg" alt="" onerror="this.style.display='none'" />
+      <div class="ico">▣</div>
+      <div class="nm">assets/spec-sheet/hunian.jpg</div>
+      <div class="rt">1600 × 900 px · 16:9</div>
+      <div class="ds">Foto: renovasi rumah / waterproofing atap / pasang keramik</div>
+    </div>
+    <div class="challenge">
+      <div class="cl">Tantangan Utama</div>
+      <p>Masalah sehari-hari — atap bocor, kamar mandi rembes, keramik lepas, plester retak. Butuh produk siap pakai, panduan simpel, dan fitur hemat biaya seperti on-tile (tanpa bongkar keramik lama).</p>
+    </div>
+    <table class="spec-table">
+      <thead><tr><th>Tahap / Kebutuhan</th><th>Produk YK</th><th>Dosis / Konsumsi</th><th>Catatan</th></tr></thead>
+      <tbody>
+        <tr><td class="c-tahap">Waterproofing atap / dak</td><td class="c-produk"><a class="tds" href="TDS-YK-Water-Proofing-charcoal.html">YK Water Proofing®</a></td><td class="c-dosis">0,3–0,35 kg/m² per lapis</td><td class="c-catatan">Tahan UV; bisa dikombinasi membran polyester</td></tr>
+        <tr><td class="c-tahap">Kamar mandi, toilet, balkon</td><td class="c-produk">YK Waterproofing Mortar® + YK Seal 127®</td><td class="c-dosis">2–3 kg/m² ×2 + 0,75–1,0 kg/m² ×2</td><td class="c-catatan">"Paket anti bocor kamar mandi" — dasar kedap + lapisan lentur</td></tr>
+        <tr><td class="c-tahap">Bocor seketika (basement, talang, tekanan tinggi)</td><td class="c-produk"><a class="tds" href="TDS-YK-Accelerator-charcoal.html">YK Accelerator®</a></td><td class="c-dosis">Waterplug 1:2–1:5 dengan air</td><td class="c-catatan">Setting sangat cepat, kekuatan awal tinggi</td></tr>
+        <tr><td class="c-tahap">Plester dinding &amp; pasang bata</td><td class="c-produk"><a class="tds" href="TDS-YK-Plaster-Mix-charcoal.html">YK Plaster Mix®</a></td><td class="c-dosis">3,8–4,0 L air per bag 25 kg</td><td class="c-catatan">Fungsi ganda, cegah retak rambut, tinggal tambah air</td></tr>
+        <tr><td class="c-tahap">Bonding beton lama–baru / primer plester</td><td class="c-produk"><a class="tds" href="TDS-YK-Bond-charcoal.html">YK Bond®</a></td><td class="c-dosis">Campur air 1:1 s.d. 1:3</td><td class="c-catatan">"Hero product" renovasi — atasi plester retak &amp; lapisan lepas</td></tr>
+        <tr><td class="c-tahap">Patching / rendering / screed berkualitas</td><td class="c-produk">YK Latex®</td><td class="c-dosis">Rasio 1:1–1:4 dengan air</td><td class="c-catatan">Daya rekat &amp; elastisitas tinggi; jangan dipakai tanpa semen</td></tr>
+        <tr><td class="c-tahap">Pasang keramik / marmer / granit (incl. on-tile)</td><td class="c-produk"><a class="tds" href="TDS-YK-Tile-Adhesive-charcoal.html">YK Tile Adhesive®</a></td><td class="c-dosis">±6–7 m² per 25 kg (2 mm) · 6,25 L air/25 kg</td><td class="c-catatan">Bisa pasang di atas keramik lama → hemat biaya bongkar</td></tr>
+      </tbody>
+    </table>
+    <div class="tablenote">Dosis indikatif — verifikasi via site visit &amp; mix design. Klik nama produk (bergaris bawah ↗) untuk buka TDS.</div>
+  </div>
+  <div class="foot"><span><b>PT. YOSI HUTAMA KARYA</b> · Project Spec Sheet</span><span>06</span></div>
+</div>
+
+<!-- ============ HAL 7 · CARA PESAN + PENUTUP ============ -->
+<div class="page close">
+  <div class="bg">
+    <div class="imgph">
+      <img class="ph-real" src="assets/spec-sheet/penutup.jpg" alt="" onerror="this.style.display='none'" />
+      <div class="ico">▣</div>
+      <div class="nm">assets/spec-sheet/penutup.jpg</div>
+      <div class="rt">210 × 297 mm · full-bleed (portrait)</div>
+      <div class="ds">Foto: hasil proyek selesai / gedung jadi / handshake (gelap-dramatis)</div>
+    </div>
+  </div>
+  <div class="scrim"></div>
+  <div class="inner">
+    <img class="logo-img" src="https://yosihutamakarya-website.vercel.app/assets/company-profile/LogoYK.svg" alt="Logo YK" />
+    <div class="kicker">Cara Memulai</div>
+    <h2>Bangun Sekali, <span class="b">Kuat Selamanya.</span></h2>
+    <p class="csub">Hubungi tim sales kami untuk quotation, sample produk, atau jadwalkan site visit aplikator senior. Konsultasi mix design tanpa biaya.</p>
+
+    <div class="steps">
+      <div class="st"><div class="num">01</div><b>Konsultasi Gratis</b><span>Sampaikan volume, timeline, &amp; jenis struktur via form, WA, atau telepon.</span></div>
+      <div class="st"><div class="num">02</div><b>Site Visit Aplikator</b><span>Konsultasi mix design &amp; sample uji untuk proyek besar.</span></div>
+      <div class="st"><div class="num">03</div><b>Quotation &amp; PO</b><span>Penawaran resmi: harga, termin, &amp; jadwal pengiriman.</span></div>
+      <div class="st"><div class="num">04</div><b>Pengiriman + Support</b><span>Technical support di lapangan &amp; garansi hasil sesuai TDS.</span></div>
+    </div>
+
+    <div class="contact">
+      <div>
+        <div class="cl">Alamat</div>
+        <p>Jl. Jend. Ahmad Yani Kav. 3,<br/>Kel. Kayu Putih, Kec. Pulo Gadung,<br/>Jakarta Timur 13210, Indonesia</p>
+      </div>
+      <div>
+        <div class="cl">Kontak</div>
+        <p>Telp · +62 21 475 7386<br/>Faks · +62 21 475 7387<br/>Email · info@yosihutamakarya.com</p>
+      </div>
+    </div>
+
+    <div class="tagfoot">
+      <b>BUILD · PROTECT · PERFORM</b>
+      <span>www.yosihutamakarya.com</span>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
