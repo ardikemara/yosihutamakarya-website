@@ -57,12 +57,12 @@ Cocok kalau mau colaborasi multi-developer atau pakai CI/CD.
 
 ---
 
-## Custom Domain `yosihutamakarya.com`
+## Custom Domain `yosihutamakarya.net`
 
 Setelah deploy, di Vercel dashboard:
 
 1. Buka project → **Settings** → **Domains**
-2. Add domain: `yosihutamakarya.com`
+2. Add domain: `yosihutamakarya.net`
 3. Vercel akan kasih DNS records (A atau CNAME)
 4. Di registrar domain (Niagahoster/Cloudflare/etc), set DNS records sesuai instruksi
 5. Tunggu propagasi DNS (15 menit - 24 jam)

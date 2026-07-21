@@ -10,8 +10,7 @@ const BRAND = {
   address: 'KP. Kaum Tengah, Jl. Transyogi Cibubur – Cileungsi, Desa/Kel. Cileungsi, Kec. Cileungsi, Kab. Bogor, Jawa Barat 16820, Indonesia',
   phone: '+62 877-2200-4970',
   email: 'info@yosihutamakarya.net',
-  web: 'www.yosihutamakarya.com',
-  npwp: '91.567.890.1-234.000',
+  web: 'yosihutamakarya.net',
   bank: {
     name: 'Bank Mandiri',
     account: '123-00-9876543-2',
@@ -426,7 +425,7 @@ YK Tile Adhesive® punya fitur **ON-TILE**, pasang keramik baru LANGSUNG di atas
 
 Cocok untuk renovasi rumah, ruko, & kantor.
 
-Sales: 0812-XXXX-XXXX | yosihutamakarya.com
+Sales: 0812-XXXX-XXXX | yosihutamakarya.net
 #OnTile #Renovasi #TileAdhesive #YK` },
   { id: 'ig-4', type: 'caption_ig', category: 'Bonding Agent', title: 'Hero Product Tukang', text: `🛠️ 1 produk, 5 fungsi. Itulah YK Bond®.
 
@@ -457,7 +456,7 @@ Berlaku sampai 31 Mei 2026.
 
 Untuk quotation & info teknis, balas pesan ini atau telp:
 📞 0812-XXXX-XXXX
-🌐 yosihutamakarya.com
+🌐 yosihutamakarya.net
 
 Terima kasih 🙏` },
   { id: 'wa-2', type: 'whatsapp', category: 'Follow Up', title: 'Follow Up Pasca Penawaran', text: `Selamat siang Bapak/Ibu,
@@ -478,7 +477,7 @@ Segenap keluarga besar CV. Yosi Hutama Karya, Yosi Hutama Karya, mengucapkan:
 Terima kasih atas kepercayaan dan kerjasama yang telah terjalin selama ini. Semoga di tahun ini, semua proyek Bapak/Ibu lancar dan sukses.
 
 📞 +62 877-2200-4970
-🌐 yosihutamakarya.com
+🌐 yosihutamakarya.net
 
 #BuildProtectPerform` },
 
@@ -500,7 +499,7 @@ Salam hangat,
 [NAMA], Sales Manager
 CV. Yosi Hutama Karya
 +62 877-2200-4970 | info@yosihutamakarya.net
-www.yosihutamakarya.com` },
+yosihutamakarya.net` },
   { id: 'email-2', type: 'email', category: 'Newsletter', title: 'Newsletter Bulanan Tips Konstruksi', text: `Subject: [Edisi Mei] 3 Tips Anti Bocor untuk Musim Hujan + Promo Bulan Ini
 
 Halo Bapak/Ibu,

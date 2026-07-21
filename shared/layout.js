@@ -97,7 +97,7 @@ function renderFooter() {
             <ul>
               <li>📞 +62 877-2200-4970</li>
               <li>✉️ info@yosihutamakarya.net</li>
-              <li>🌐 yosihutamakarya.com</li>
+              <li>🌐 yosihutamakarya.net</li>
             </ul>
           </div>
         </div>

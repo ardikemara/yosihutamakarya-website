@@ -1,6 +1,6 @@
 # Yosi Hutama Karya · Website Prototype
 
-**CV. Yosi Hutama Karya**, prototype website lengkap untuk `yosihutamakarya.com`.
+**CV. Yosi Hutama Karya**, prototype website lengkap untuk `yosihutamakarya.net`.
 
 Berisi: **info site publik + lead gen + portal internal karyawan** dengan 3 tools (Surat Generator, Invoice Generator, Content Library).
 
@@ -122,7 +122,7 @@ Karena ini prototype, beberapa hal masih simulated:
 2. **Database**, pakai `localStorage` browser. Data hilang kalau clear browser data. Per-browser, tidak shared antar user.
 3. **PDF generation**, pakai html2pdf.js (client-side). Untuk produksi, lebih reliable pakai server-side (Puppeteer/wkhtmltopdf).
 4. **Email/WhatsApp send**, hanya copy ke clipboard (user paste manual ke aplikasi).
-5. **Domain**, file lokal, belum di-deploy ke `yosihutamakarya.com`.
+5. **Domain**, file lokal, belum di-deploy ke `yosihutamakarya.net`.
 
 ---
 
@@ -134,7 +134,7 @@ Sesuai yang sudah disepakati, stack production adalah **Next.js + Supabase**. Ro
 - [ ] Setup Next.js 14 (App Router) di Vercel/Netlify
 - [ ] Setup Supabase project: Database (Postgres), Auth, Storage
 - [ ] Migrate static pages: index, produk, tentang, kontak
-- [ ] Setup domain `yosihutamakarya.com` + SSL
+- [ ] Setup domain `yosihutamakarya.net` + SSL
 
 ### Phase 2, Auth & Database (1 minggu)
 - [ ] Supabase Auth dengan email/password untuk karyawan
