@@ -4,19 +4,18 @@
    =========================================== */
 
 const BRAND = {
-  legal: 'PT. YOSI HUTAMA KARYA',
+  legal: 'CV. YOSI HUTAMA KARYA',
   product: 'BUILD · PROTECT · PERFORM',
   tagline: 'BUILD · PROTECT · PERFORM',
-  address: 'Jl. Jend. Ahmad Yani Kav. 3, Kel. Kayu Putih, Kec. Pulo Gadung, Jakarta Timur 13210, Indonesia',
-  phone: '+62 21 475 7386',
-  fax: '+62 21 475 7387',
-  email: 'info@yosihutamankarya.com',
+  address: 'KP. Kaum Tengah, Jl. Transyogi Cibubur – Cileungsi, Desa/Kel. Cileungsi, Kec. Cileungsi, Kab. Bogor, Jawa Barat 16820, Indonesia',
+  phone: '+62 877-2200-4970',
+  email: 'info@yosihutamakarya.net',
   web: 'www.yosihutamakarya.com',
   npwp: '91.567.890.1-234.000',
   bank: {
     name: 'Bank Mandiri',
     account: '123-00-9876543-2',
-    holder: 'PT. YOSI HUTAMA KARYA'
+    holder: 'CV. YOSI HUTAMA KARYA'
   }
 };
 
@@ -366,9 +365,9 @@ Demikian surat jalan ini kami sampaikan.`
     icon: 'check',
     perihal: 'Berita Acara Serah Terima Barang',
     fields: [
-      { key: 'recipient_company', label: 'Pengirim (Vendor / Supplier)', type: 'text', required: true, placeholder: 'PT. Yosi Hutama Karya' },
+      { key: 'recipient_company', label: 'Pengirim (Vendor / Supplier)', type: 'text', required: true, placeholder: 'CV. Yosi Hutama Karya' },
       { key: 'recipient_attn', label: 'Up. (Person Pengirim)', type: 'text', placeholder: 'Bagian Logistik' },
-      { key: 'recipient_address', label: 'Alamat Pengirim', type: 'textarea', placeholder: 'Jl. Jend. Ahmad Yani Kav. 3, Jakarta Timur' },
+      { key: 'recipient_address', label: 'Alamat Pengirim', type: 'textarea', placeholder: 'KP. Kaum Tengah, Transyogi Cibubur – Cileungsi, Kab. Bogor' },
       { key: 'ref_po', label: 'Nomor PO / Surat Jalan Acuan', type: 'text', placeholder: 'SJ-2026-0042 / PO-2026-0042' },
       { key: 'received_date', label: 'Tanggal Terima Barang', type: 'text', placeholder: '29 Mei 2026' },
       { key: 'received_location', label: 'Lokasi Penerimaan', type: 'text', placeholder: 'Gudang Proyek Sky Garden, Jakarta Selatan' },
@@ -448,7 +447,7 @@ Pesan: 0812-XXXX-XXXX
 
 Selamat siang Bapak/Ibu,
 
-Kami dari PT. Yosi Hutama Karya ingin info-kan promo khusus akhir bulan:
+Kami dari CV. Yosi Hutama Karya ingin info-kan promo khusus akhir bulan:
 
 ✅ Diskon cash 5% untuk pemesanan di atas 500kg
 ✅ Free konsultasi & site visit aplikator
@@ -463,7 +462,7 @@ Untuk quotation & info teknis, balas pesan ini atau telp:
 Terima kasih 🙏` },
   { id: 'wa-2', type: 'whatsapp', category: 'Follow Up', title: 'Follow Up Pasca Penawaran', text: `Selamat siang Bapak/Ibu,
 
-Saya [NAMA] dari YK (PT. Yosi Hutama Karya).
+Saya [NAMA] dari YK (CV. Yosi Hutama Karya).
 
 Mohon ijin follow up terkait penawaran produk yang kami kirim minggu lalu untuk proyek [NAMA_PROYEK].
 
@@ -472,13 +471,13 @@ Apakah ada pertanyaan teknis atau ada hal yang masih perlu kami klarifikasi? Tim
 Terima kasih atas waktunya 🙏` },
   { id: 'wa-3', type: 'whatsapp', category: 'Greeting', title: 'Ucapan Hari Raya / Hari Besar', text: `*Selamat [HARI_RAYA]*
 
-Segenap keluarga besar PT. Yosi Hutama Karya, Yosi Hutama Karya, mengucapkan:
+Segenap keluarga besar CV. Yosi Hutama Karya, Yosi Hutama Karya, mengucapkan:
 
 "Selamat [HARI_RAYA], mohon maaf lahir dan batin."
 
 Terima kasih atas kepercayaan dan kerjasama yang telah terjalin selama ini. Semoga di tahun ini, semua proyek Bapak/Ibu lancar dan sukses.
 
-📞 +62 21 475 7386
+📞 +62 877-2200-4970
 🌐 yosihutamakarya.com
 
 #BuildProtectPerform` },
@@ -488,7 +487,7 @@ Terima kasih atas kepercayaan dan kerjasama yang telah terjalin selama ini. Semo
 
 Yth. Bapak/Ibu [NAMA],
 
-Perkenalkan, kami dari PT. Yosi Hutama Karya, produsen lokal aditif konstruksi merek YK. Kami melihat bahwa [NAMA_PERUSAHAAN] sedang menggarap proyek [NAMA_PROYEK], dan ingin menawarkan dukungan material konstruksi yang mungkin relevan:
+Perkenalkan, kami dari CV. Yosi Hutama Karya, produsen lokal aditif konstruksi merek YK. Kami melihat bahwa [NAMA_PERUSAHAAN] sedang menggarap proyek [NAMA_PROYEK], dan ingin menawarkan dukungan material konstruksi yang mungkin relevan:
 
 • YK NN® Superplasticizer, reduksi air 20%, kuat tekan +40%
 • YK Water Proofing® Waterproofing, tahan UV, anti bocor jangka panjang
@@ -499,8 +498,8 @@ Boleh saya jadwalkan 15 menit untuk diskusi singkat di minggu depan? Bapak/Ibu l
 
 Salam hangat,
 [NAMA], Sales Manager
-PT. Yosi Hutama Karya
-+62 21 475 7386 | info@yosihutamankarya.com
+CV. Yosi Hutama Karya
++62 877-2200-4970 | info@yosihutamakarya.net
 www.yosihutamakarya.com` },
   { id: 'email-2', type: 'email', category: 'Newsletter', title: 'Newsletter Bulanan Tips Konstruksi', text: `Subject: [Edisi Mei] 3 Tips Anti Bocor untuk Musim Hujan + Promo Bulan Ini
 
@@ -521,7 +520,7 @@ Selamat datang di newsletter bulanan Yosi Hutama Karya.
 ✓ Free membran polyester 1 roll per pembelian 4 pail
 ✓ Konsultasi gratis aplikator senior
 
-Berlaku sampai akhir bulan. Hubungi kami: +62 21 475 7386
+Berlaku sampai akhir bulan. Hubungi kami: +62 877-2200-4970
 
 Salam,
 Tim Yosi Hutama Karya` },

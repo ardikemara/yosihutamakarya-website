@@ -37,7 +37,7 @@ Folder ini buat naro semua gambar real yang akan replace placeholder di website.
 ## 5. About Page
 | File | Ratio | Suggested px | Konten |
 |---|---|---|---|
-| `tentang-kantor.jpg` | 16:9 | 1600 × 900 | Facade kantor PT. Yosi Hutama Karya / tim / fasilitas produksi |
+| `tentang-kantor.jpg` | 16:9 | 1600 × 900 | Facade kantor CV. Yosi Hutama Karya / tim / fasilitas produksi |
 
 ## 6. Katalog Produk (produk.html)
 Foto kemasan per SKU. Aspect ratio 4:3. Filename sesuai nama produk (lowercase, dash-separated, tanpa simbol ®).

@@ -68,11 +68,11 @@ function renderFooter() {
             <div style="display: flex; align-items: center; gap: 12px;">
               <img src="assets/yk-logo.svg" alt="YK Logo" width="48" height="48" class="logo-img-dark" style="object-fit: contain;" />
               <div style="color: #fff; font-weight: 800; line-height: 1.1;">
-                PT. YOSI HUTAMA KARYA
+                CV. YOSI HUTAMA KARYA
                 <div style="font-size: 11px; color: rgba(255,255,255,0.5); letter-spacing: 0.1em; margin-top: 4px;">BUILD · PROTECT · PERFORM</div>
               </div>
             </div>
-            <p>BUILD · PROTECT · PERFORM<br/>Solusi aditif konstruksi dari pondasi sampai finishing, dipercaya kontraktor, ready-mix, & precaster di Indonesia.</p>
+            <p>Solusi aditif konstruksi dari pondasi sampai finishing, dipercaya kontraktor, ready-mix, & precaster di Indonesia.</p>
           </div>
           <div>
             <h5>Produk</h5>
@@ -95,16 +95,15 @@ function renderFooter() {
           <div>
             <h5>Hubungi</h5>
             <ul>
-              <li>📞 +62 21 475 7386</li>
-              <li>📠 +62 21 475 7387</li>
-              <li>✉️ info@yosihutamankarya.com</li>
+              <li>📞 +62 877-2200-4970</li>
+              <li>✉️ info@yosihutamakarya.net</li>
               <li>🌐 yosihutamakarya.com</li>
             </ul>
           </div>
         </div>
         <div class="footer-bottom">
-          <div>© 2026 PT. Yosi Hutama Karya. Hak Cipta Dilindungi.</div>
-          <div>Jl. Jend. Ahmad Yani Kav. 3, Pulo Gadung, Jakarta Timur 13210</div>
+          <div>© 2026 CV. Yosi Hutama Karya. Hak Cipta Dilindungi.</div>
+          <div>KP. Kaum Tengah, Jl. Transyogi Cibubur – Cileungsi, Kab. Bogor 16820</div>
         </div>
       </div>
     </footer>

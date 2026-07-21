@@ -201,7 +201,7 @@
   function waPretext(l) {
     const u = DB.getUser();
     const salesName = u ? u.name.split(' ')[0] : 'tim sales';
-    let s = `Halo ${l.name}, saya ${salesName} dari PT. Yosi Hutama Karya. Terima kasih sudah mengirim permintaan via website kami.`;
+    let s = `Halo ${l.name}, saya ${salesName} dari CV. Yosi Hutama Karya. Terima kasih sudah mengirim permintaan via website kami.`;
     if (l.product) {
       s += ` Mengenai ketertarikan Bapak/Ibu pada *${l.product}*`;
       if (l.volume) s += ` (estimasi: ${l.volume})`;
@@ -214,7 +214,7 @@
 
   function emailHref(l) {
     if (!l.email) return '#';
-    const subj = encodeURIComponent(l.product ? `Penawaran ${l.product} · PT. Yosi Hutama Karya` : `Follow-up Permintaan · PT. Yosi Hutama Karya`);
+    const subj = encodeURIComponent(l.product ? `Penawaran ${l.product} · CV. Yosi Hutama Karya` : `Follow-up Permintaan · CV. Yosi Hutama Karya`);
     const body = encodeURIComponent(waPretext(l).replace(/\*/g, ''));
     return `mailto:${l.email}?subject=${subj}&body=${body}`;
   }

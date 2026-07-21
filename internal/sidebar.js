@@ -29,7 +29,7 @@ function renderSidebar(active) {
         <img class="logo logo-img-dark" src="../assets/yk-logo.svg" alt="YK Logo" style="object-fit: contain;" />
         <div class="sidebar-brand-text">
           Portal Internal
-          <small>PT. YOSI HUTAMA KARYA</small>
+          <small>CV. YOSI HUTAMA KARYA</small>
         </div>
       </div>
 

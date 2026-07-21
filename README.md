@@ -1,6 +1,6 @@
 # Yosi Hutama Karya · Website Prototype
 
-**PT. Yosi Hutama Karya**, prototype website lengkap untuk `yosihutamakarya.com`.
+**CV. Yosi Hutama Karya**, prototype website lengkap untuk `yosihutamakarya.com`.
 
 Berisi: **info site publik + lead gen + portal internal karyawan** dengan 3 tools (Surat Generator, Invoice Generator, Content Library).
 
@@ -46,15 +46,15 @@ yosihutamakarya-prototype/
 
 ## Brand & Identitas (sudah ter-embed)
 
-- **Legal Entity:** PT. YOSI HUTAMA KARYA *(dipakai di kop surat, invoice, dokumen resmi)*
+- **Legal Entity:** CV. YOSI HUTAMA KARYA *(dipakai di kop surat, invoice, dokumen resmi)*
 - **Product Brand:** BUILD · PROTECT · PERFORM *(dipakai di hero website, marketing)*
 - **Tagline:** `BUILD · PROTECT · PERFORM`
 - **Palette:** Monochrome industrial + Royal Blue accent
   - Black `#0A0A0A` · Cream `#F5F2EC` · Royal Blue `#1E40AF`
   - Charcoal `#1F2937` · Concrete Grey `#9CA3AF`
 - **Typography:** Inter (geometric sans-serif, bold)
-- **Alamat:** Jl. Jend. Ahmad Yani Kav. 3, Pulo Gadung, Jakarta Timur 13210
-- **Telepon:** +62 21 475 7386 · Email: info@yosihutamankarya.com
+- **Alamat:** KP. Kaum Tengah, Jl. Transyogi Cibubur – Cileungsi, Kab. Bogor 16820
+- **Telepon:** +62 877-2200-4970 · Email: info@yosihutamakarya.net
 
 ---
 
@@ -183,13 +183,13 @@ Sesuai yang sudah disepakati, stack production adalah **Next.js + Supabase**. Ro
 Hal-hal yang bisa di-iterate di session berikutnya:
 
 1. **Logo final**, saat ini pakai text "YK" dalam circle (placeholder). Punya file final monogram (Y+K fused)?
-2. **Nomor telepon WhatsApp**, di prototype masih `0812-XXXX-XXXX`. Nomor sales aktif yang mau ditampilkan?
+2. **Nomor telepon WhatsApp**, sudah diisi `0877-2200-4970` (sesuai NIB).
 3. **Foto produk**, apakah ada foto packaging real (sak, drum, pail) untuk halaman produk? Saat ini text-only.
 4. **Foto kantor**, untuk halaman Tentang
 5. **Testimoni klien**, section ini belum ada. Mau ditambah?
 6. **Multi-bahasa**, saat ini ID-only. Perlu EN version?
-7. **Domain email**, `yosihutamakarya.com` (web) vs `yosihutamankarya.com` (email, ada N ekstra). Verifikasi mana yang benar sebelum mass-print.
+7. **Domain email**, email resmi: `info@yosihutamakarya.net`.
 
 ---
 
-© 2026 PT. Yosi Hutama Karya · BUILD · PROTECT · PERFORM
+© 2026 CV. Yosi Hutama Karya · BUILD · PROTECT · PERFORM
