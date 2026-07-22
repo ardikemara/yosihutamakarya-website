@@ -25,6 +25,7 @@ function renderNav(activeKey) {
   const links = [
     { key: 'home', href: '/', label: 'Beranda', dropdown: '' },
     { key: 'produk', href: '/produk', label: 'Produk', dropdown: produkDropdown },
+    { key: 'blog', href: '/blog', label: 'Blog', dropdown: '' },
     { key: 'tentang', href: '/tentang', label: 'Tentang', dropdown: '' },
     { key: 'kontak', href: '/kontak', label: 'Kontak', dropdown: '' },
   ];

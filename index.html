@@ -335,6 +335,61 @@
   </div>
 </section>
 
+<!-- ============ 8b. ARTIKEL & PANDUAN ============ -->
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">Artikel &amp; Panduan</div>
+      <h2>Panduan Teknis dari Produsen, Bukan Reseller</h2>
+      <p>Harga, dosis, cara aplikasi, dan solusi masalah lapangan, ditulis langsung oleh tim teknis kami.</p>
+    </div>
+    <div class="home-blog-grid">
+
+      <a href="/blog/harga-floor-hardener" class="home-blog-card">
+        <img src="assets/img/blog/harga-floor-hardener-per-m2.webp" alt="Panduan harga floor hardener per m²" loading="lazy" width="1600" height="893" />
+        <div class="hbc-body">
+          <div class="hbc-cat">Panduan Harga</div>
+          <h3>Harga Floor Hardener per m² 2026 &amp; Cara Hitung Kebutuhannya</h3>
+          <p>Estimasi pasaran, rumus dosis 3-6 kg/m², dan cara dapat harga pabrik.</p>
+        </div>
+      </a>
+
+      <a href="/blog/pasang-keramik-di-atas-keramik-lama" class="home-blog-card">
+        <img src="assets/img/blog/pasang-keramik-di-atas-keramik-lama.webp" alt="Pasang keramik di atas keramik lama dengan tile adhesive on-tile" loading="lazy" width="1600" height="893" />
+        <div class="hbc-body">
+          <div class="hbc-cat">Panduan Aplikasi</div>
+          <h3>Cara Pasang Keramik di Atas Keramik Lama Tanpa Bongkar (On-Tile)</h3>
+          <p>6 langkah on-tile tanpa bongkar, hemat biaya puing, renovasi lebih cepat.</p>
+        </div>
+      </a>
+
+      <a href="/blog/penyebab-plester-dinding-retak" class="home-blog-card">
+        <img src="assets/img/blog/penyebab-plester-dinding-retak.webp" alt="Penyebab plester dinding retak dan cara memperbaikinya" loading="lazy" width="1600" height="893" />
+        <div class="hbc-body">
+          <div class="hbc-cat">Panduan Diagnosis</div>
+          <h3>7 Penyebab Plester Dinding Retak dan Cara Memperbaikinya</h3>
+          <p>Tabel diagnosis per jenis retak, penyebab, cara perbaikan, dan pencegahan.</p>
+        </div>
+      </a>
+
+    </div>
+    <div style="text-align: center; margin-top: 36px;">
+      <a href="/blog" class="btn btn-outline btn-lg">Lihat Semua Artikel →</a>
+    </div>
+  </div>
+</section>
+<style>
+  .home-blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+  @media (max-width: 860px) { .home-blog-grid { grid-template-columns: 1fr; } }
+  .home-blog-card { border: 1px solid var(--yk-border); background: #fff; display: flex; flex-direction: column; text-decoration: none; color: inherit; transition: box-shadow 0.15s, transform 0.15s; }
+  .home-blog-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+  .home-blog-card img { width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block; }
+  .home-blog-card .hbc-body { padding: 20px 22px 24px; display: flex; flex-direction: column; gap: 8px; }
+  .home-blog-card .hbc-cat { font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--yk-blue); font-weight: 700; }
+  .home-blog-card h3 { font-size: 1.1rem; line-height: 1.3; color: var(--yk-black); margin: 0; }
+  .home-blog-card p { font-size: 14px; color: var(--yk-grey); line-height: 1.6; margin: 0; }
+</style>
+
 <!-- ============ 9. CTA STRIP ============ -->
 <section class="cta-strip">
   <div class="container">
@@ -347,7 +402,7 @@
 <div id="yk-footer"></div>
 
 <script src="shared/data.js?v=6"></script>
-<script src="shared/layout.js?v=6"></script>
+<script src="shared/layout.js?v=7"></script>
 <script>
   mountLayout('home');
 
