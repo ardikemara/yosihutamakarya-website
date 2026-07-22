@@ -4,6 +4,16 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Detail Produk · Yosi Hutama Karya</title>
+<script>
+  // Canonical dinamis: /produk-detail?slug=...
+  (function(){
+    var s = new URLSearchParams(location.search).get('slug');
+    var l = document.createElement('link');
+    l.rel = 'canonical';
+    l.href = 'https://yosihutamakarya.net/produk-detail' + (s ? '?slug=' + encodeURIComponent(s) : '');
+    document.head.appendChild(l);
+  })();
+</script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="shared/style.css?v=2" />
 </head>
@@ -13,7 +23,7 @@
 <!-- HERO -->
 <section class="detail-hero">
   <div class="detail-hero-inner">
-    <a href="produk.html" class="detail-back">← Kembali ke Katalog</a>
+    <a href="/produk" class="detail-back">← Kembali ke Katalog</a>
     <div class="num-large" id="d-num">00</div>
     <div class="eyebrow" style="color: #93C5FD;" id="d-eyebrow">Lini Produk</div>
     <h1 id="d-name">Produk</h1>
@@ -167,7 +177,7 @@
     document.body.innerHTML = `
       <div style="padding: 80px 24px; text-align: center;">
         <h1>Produk tidak ditemukan</h1>
-        <p style="margin-top: 16px;">Slug "${slug}" tidak ada. <a href="produk.html">Kembali ke katalog</a></p>
+        <p style="margin-top: 16px;">Slug "${slug}" tidak ada. <a href="/produk">Kembali ke katalog</a></p>
       </div>
     `;
   } else {
@@ -186,7 +196,7 @@
     if (itemsWithTds.length) {
       const multi = product.items.length > 1;
       document.getElementById('d-hero-actions').innerHTML = itemsWithTds.map(it => `
-        <a href="${it.tds}" target="_blank" rel="noopener" class="btn btn-sm" style="background: #fff; color: var(--yk-black);">
+        <a href="/${it.tds.replace('.html','')}" target="_blank" rel="noopener" class="btn btn-sm" style="background: #fff; color: var(--yk-black);">
           Technical Data Sheet${multi ? ' · ' + it.name : ''} ↗
         </a>
       `).join('');
@@ -198,9 +208,6 @@
       <div class="pain-card">
         <div class="img-ph">
           <img class="ph-real" src="assets/img/produk-detail/${slug}-masalah-${i + 1}.jpg?v=2" alt="${p.label}" onerror="phFallback(this)">
-          <div class="ph-name">${slug}-masalah-${i + 1}.jpg</div>
-          <div class="ph-size">FOTO MASALAH · 16:9</div>
-          <div class="ph-desc">${p.label}</div>
         </div>
         <div class="pain-label">${p.label}</div>
         <div class="pain-desc">${p.desc}</div>
@@ -218,9 +225,6 @@
       <div class="solver-card">
         <div class="img-ph">
           <img class="ph-real" src="assets/img/produk-detail/${slug}-solusi-${i + 1}.jpg?v=2" alt="${s.problem}" onerror="phFallback(this)">
-          <div class="ph-name">${slug}-solusi-${i + 1}.jpg</div>
-          <div class="ph-size">FOTO SOLUSI · 16:9</div>
-          <div class="ph-desc">${s.headline}</div>
         </div>
         <div class="solver-problem">${s.problem}</div>
         <div class="solver-headline">${s.headline}</div>
@@ -240,9 +244,6 @@
       <div class="prod-item">
         <div class="img-ph">
           <img class="ph-real" src="assets/img/${slugify(it.name)}.jpg" alt="${it.name}" onerror="phFallback(this)">
-          <div class="ph-name">${slugify(it.name)}.jpg</div>
-          <div class="ph-size">FOTO PRODUK · 16:9</div>
-          <div class="ph-desc">${it.name} — ${it.type}</div>
         </div>
         <div>
           <div class="item-name">${it.name}</div>
@@ -257,14 +258,14 @@
           <div><strong>Kemasan</strong>${it.pack}</div>
         </div>
         <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px;">
-          ${it.tds ? `<a href="${it.tds}" target="_blank" rel="noopener" class="btn btn-outline btn-sm">Technical Data Sheet ↗</a>` : ''}
-          <a href="kontak.html?produk=${encodeURIComponent(it.name)}" class="btn btn-blue btn-sm">Minta Quotation →</a>
+          ${it.tds ? `<a href="/${it.tds.replace('.html','')}" target="_blank" rel="noopener" class="btn btn-outline btn-sm">Technical Data Sheet ↗</a>` : ''}
+          <a href="/kontak?produk=${encodeURIComponent(it.name)}" class="btn btn-blue btn-sm">Minta Quotation →</a>
         </div>
       </div>
     `).join('');
 
     // CTA link
-    document.getElementById('d-cta-link').href = `kontak.html?produk=${encodeURIComponent(product.name)}`;
+    document.getElementById('d-cta-link').href = `/kontak?produk=${encodeURIComponent(product.name)}`;
   }
 </script>
 </body>

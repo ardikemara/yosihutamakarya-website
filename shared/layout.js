@@ -9,7 +9,7 @@ function renderNav(activeKey) {
     <div class="nav-dropdown">
       <div class="nav-dropdown-inner">
         ${PRODUCTS.map(p => `
-          <a href="produk-detail.html?slug=${p.slug}" class="nav-dd-item">
+          <a href="/produk-detail?slug=${p.slug}" class="nav-dd-item">
             <span class="nav-dd-num">${p.num}</span>
             <span class="nav-dd-text">
               <span class="nav-dd-name">${p.name}</span>
@@ -18,15 +18,15 @@ function renderNav(activeKey) {
           </a>
         `).join('')}
       </div>
-      <a href="produk.html" class="nav-dd-all">Lihat semua produk →</a>
+      <a href="/produk" class="nav-dd-all">Lihat semua produk →</a>
     </div>
   ` : '';
 
   const links = [
-    { key: 'home', href: 'index.html', label: 'Beranda', dropdown: '' },
-    { key: 'produk', href: 'produk.html', label: 'Produk', dropdown: produkDropdown },
-    { key: 'tentang', href: 'tentang.html', label: 'Tentang', dropdown: '' },
-    { key: 'kontak', href: 'kontak.html', label: 'Kontak', dropdown: '' },
+    { key: 'home', href: '/', label: 'Beranda', dropdown: '' },
+    { key: 'produk', href: '/produk', label: 'Produk', dropdown: produkDropdown },
+    { key: 'tentang', href: '/tentang', label: 'Tentang', dropdown: '' },
+    { key: 'kontak', href: '/kontak', label: 'Kontak', dropdown: '' },
   ];
   const linksHTML = links.map(l => {
     const activeCls = l.key === activeKey ? 'active' : '';
@@ -42,7 +42,7 @@ function renderNav(activeKey) {
   return `
     <nav class="nav">
       <div class="nav-inner">
-        <a href="index.html" class="nav-brand">
+        <a href="/" class="nav-brand">
           <img class="logo" src="assets/yk-logo.svg" alt="YK Logo" />
           <div class="nav-brand-text">
             YOSI HUTAMA KARYA
@@ -51,8 +51,8 @@ function renderNav(activeKey) {
         </a>
         <div class="nav-links">
           ${linksHTML}
-          <a href="internal/login.html" class="nav-internal" style="color: var(--yk-blue); font-weight: 600; font-size: 13px;">Portal Internal →</a>
-          <a href="kontak.html" class="nav-cta">Minta Penawaran</a>
+          <a href="/internal/login" class="nav-internal" style="color: var(--yk-blue); font-weight: 600; font-size: 13px;">Portal Internal →</a>
+          <a href="/kontak" class="nav-cta">Minta Penawaran</a>
         </div>
       </div>
     </nav>
@@ -77,19 +77,19 @@ function renderFooter() {
           <div>
             <h5>Produk</h5>
             <ul>
-              <li><a href="produk.html#concrete-admixture">Concrete Admixture</a></li>
-              <li><a href="produk.html#waterproofing">Waterproofing</a></li>
-              <li><a href="produk.html#floor-treatments">Floor Treatments</a></li>
-              <li><a href="produk.html#bonding-agent">Bonding Agent</a></li>
-              <li><a href="produk.html">Lihat semua →</a></li>
+              <li><a href="/produk#concrete-admixture">Concrete Admixture</a></li>
+              <li><a href="/produk#waterproofing">Waterproofing</a></li>
+              <li><a href="/produk#floor-treatments">Floor Treatments</a></li>
+              <li><a href="/produk#bonding-agent">Bonding Agent</a></li>
+              <li><a href="/produk">Lihat semua →</a></li>
             </ul>
           </div>
           <div>
             <h5>Perusahaan</h5>
             <ul>
-              <li><a href="tentang.html">Tentang Kami</a></li>
-              <li><a href="kontak.html">Kontak Sales</a></li>
-              <li><a href="internal/login.html">Portal Internal</a></li>
+              <li><a href="/tentang">Tentang Kami</a></li>
+              <li><a href="/kontak">Kontak Sales</a></li>
+              <li><a href="/internal/login">Portal Internal</a></li>
             </ul>
           </div>
           <div>
