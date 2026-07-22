@@ -66,7 +66,7 @@ function renderNav(activeKey) {
     <nav class="nav">
       <div class="nav-inner">
         <a href="/" class="nav-brand">
-          <img class="logo" src="assets/yk-logo.svg" alt="YK Logo" />
+          <img class="logo" src="/assets/yk-logo.svg" alt="YK Logo" />
           <div class="nav-brand-text">
             YOSI HUTAMA KARYA
             <small>BUILD · PROTECT · PERFORM</small>
@@ -95,7 +95,7 @@ function renderFooter() {
         <div class="footer-grid">
           <div class="footer-brand">
             <div style="display: flex; align-items: center; gap: 12px;">
-              <img src="assets/yk-logo.svg" alt="YK Logo" width="48" height="48" class="logo-img-dark" style="object-fit: contain;" />
+              <img src="/assets/yk-logo.svg" alt="YK Logo" width="48" height="48" class="logo-img-dark" style="object-fit: contain;" />
               <div style="color: #fff; font-weight: 800; line-height: 1.1;">
                 CV. YOSI HUTAMA KARYA
                 <div style="font-size: 11px; color: rgba(255,255,255,0.5); letter-spacing: 0.1em; margin-top: 4px;">BUILD · PROTECT · PERFORM</div>
