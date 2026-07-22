@@ -74,7 +74,6 @@ function renderNav(activeKey) {
         </a>
         <div class="nav-links">
           ${linksHTML}
-          <a href="/internal/login" class="nav-internal" style="color: var(--yk-blue); font-weight: 600; font-size: 13px;">Portal Internal →</a>
           <a href="/kontak" class="nav-cta">Minta Penawaran</a>
         </div>
         <button class="nav-burger" aria-label="Buka menu" aria-expanded="false">
@@ -83,7 +82,6 @@ function renderNav(activeKey) {
       </div>
       <div class="nav-mobile">
         ${mobileLinks}
-        <a href="/internal/login" class="nm-internal">Portal Internal →</a>
         <a href="/kontak" class="nm-cta">Minta Penawaran</a>
       </div>
     </nav>
@@ -120,7 +118,6 @@ function renderFooter() {
             <ul>
               <li><a href="/tentang">Tentang Kami</a></li>
               <li><a href="/kontak">Kontak Sales</a></li>
-              <li><a href="/internal/login">Portal Internal</a></li>
             </ul>
           </div>
           <div>
