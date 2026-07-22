@@ -39,7 +39,30 @@ function renderNav(activeKey) {
     return `<a href="${l.href}" class="${activeCls}">${l.label}</a>`;
   }).join('');
 
+  const mobileLinks = links.map(l =>
+    `<a href="${l.href}" class="${l.key === activeKey ? 'active' : ''}">${l.label}</a>`
+  ).join('');
+
   return `
+    <style>
+      .nav-burger { display: none; background: none; border: 0; padding: 8px; cursor: pointer; }
+      .nav-burger svg { width: 26px; height: 26px; display: block; color: var(--yk-black); }
+      .nav-mobile { display: none; }
+      @media (max-width: 900px) {
+        .nav { position: relative; }
+        .nav-inner { gap: 8px; }
+        .nav-brand .logo { width: 36px; height: 36px; }
+        .nav-brand-text { font-size: 13px; white-space: nowrap; }
+        .nav-brand-text small { font-size: 8px; letter-spacing: 0.08em; }
+        .nav-links { display: none !important; }
+        .nav-burger { display: block; margin-left: auto; }
+        .nav-mobile.open { display: block; position: absolute; top: 100%; left: 0; right: 0; background: #fff; border-bottom: 1px solid var(--yk-border); box-shadow: 0 16px 32px rgba(0,0,0,0.12); z-index: 999; }
+        .nav-mobile a { display: block; padding: 14px 20px; border-top: 1px solid var(--yk-border); color: var(--yk-charcoal); font-weight: 600; font-size: 15px; }
+        .nav-mobile a.active { color: var(--yk-blue); }
+        .nav-mobile .nm-internal { color: var(--yk-blue); }
+        .nav-mobile .nm-cta { background: var(--yk-black); color: #fff; text-align: center; margin: 12px 16px 16px; padding: 14px; border-top: 0; }
+      }
+    </style>
     <nav class="nav">
       <div class="nav-inner">
         <a href="/" class="nav-brand">
@@ -54,6 +77,14 @@ function renderNav(activeKey) {
           <a href="/internal/login" class="nav-internal" style="color: var(--yk-blue); font-weight: 600; font-size: 13px;">Portal Internal →</a>
           <a href="/kontak" class="nav-cta">Minta Penawaran</a>
         </div>
+        <button class="nav-burger" aria-label="Buka menu" aria-expanded="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+      <div class="nav-mobile">
+        ${mobileLinks}
+        <a href="/internal/login" class="nm-internal">Portal Internal →</a>
+        <a href="/kontak" class="nm-cta">Minta Penawaran</a>
       </div>
     </nav>
   `;
@@ -165,4 +196,15 @@ function mountLayout(activeKey) {
   if (navMount) navMount.innerHTML = renderNav(activeKey);
   if (footMount) footMount.innerHTML = renderFooter();
   renderWaFloat();
+
+  // Toggle menu mobile
+  const burger = document.querySelector('.nav-burger');
+  const mobileMenu = document.querySelector('.nav-mobile');
+  if (burger && mobileMenu) {
+    burger.addEventListener('click', function() {
+      const open = mobileMenu.classList.toggle('open');
+      burger.setAttribute('aria-expanded', open);
+      burger.setAttribute('aria-label', open ? 'Tutup menu' : 'Buka menu');
+    });
+  }
 }
