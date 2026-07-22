@@ -43,7 +43,14 @@
 
 <section class="section">
   <div class="container">
-    <div style="display: grid; grid-template-columns: 1.4fr 1fr; gap: 48px;">
+    <style>
+      .kontak-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 48px; }
+      @media (max-width: 900px) {
+        .kontak-grid { grid-template-columns: 1fr; gap: 40px; }
+        .kontak-grid > div > div[style*="min-height"] { min-height: 0 !important; }
+      }
+    </style>
+    <div class="kontak-grid">
       <div>
         <div style="min-height: 72px;">
           <h3 style="margin-bottom: 6px;">Formulir Lead</h3>
