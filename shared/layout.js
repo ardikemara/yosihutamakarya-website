@@ -109,7 +109,7 @@ function renderFooter() {
               <li><a href="/produk#concrete-admixture">Concrete Admixture</a></li>
               <li><a href="/produk#waterproofing">Waterproofing</a></li>
               <li><a href="/produk#floor-treatments">Floor Treatments</a></li>
-              <li><a href="/produk#bonding-agent">Bonding Agent</a></li>
+              <li><a href="/produk/bonding-agent">Bonding Agent</a></li>
               <li><a href="/produk">Lihat semua →</a></li>
             </ul>
           </div>

@@ -5,33 +5,74 @@
   "headers": [
     {
       "source": "/(.*)",
-      "has": [{ "type": "host", "value": "(.*)\\.vercel\\.app" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "(.*)\\.vercel\\.app"
+        }
+      ],
       "headers": [
-        { "key": "X-Robots-Tag", "value": "noindex" }
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex"
+        }
       ]
     },
     {
       "source": "/assets/(.*)",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
       ]
     },
     {
       "source": "/shared/(.*)",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=3600" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600"
+        }
       ]
     },
     {
       "source": "/(.*)\\.html",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
       ]
     }
   ],
   "redirects": [
-    { "source": "/portal", "destination": "/internal/login.html", "permanent": false },
-    { "source": "/login", "destination": "/internal/login.html", "permanent": false },
-    { "source": "/dashboard", "destination": "/internal/dashboard.html", "permanent": false }
+    {
+      "source": "/portal",
+      "destination": "/internal/login.html",
+      "permanent": false
+    },
+    {
+      "source": "/login",
+      "destination": "/internal/login.html",
+      "permanent": false
+    },
+    {
+      "source": "/dashboard",
+      "destination": "/internal/dashboard.html",
+      "permanent": false
+    },
+    {
+      "source": "/produk-detail",
+      "has": [
+        {
+          "type": "query",
+          "key": "slug",
+          "value": "bonding-agent"
+        }
+      ],
+      "destination": "/produk/bonding-agent",
+      "permanent": true
+    }
   ]
 }
