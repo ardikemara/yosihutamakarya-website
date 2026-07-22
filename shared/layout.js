@@ -112,7 +112,8 @@ function renderFooter() {
 
 function renderWaFloat() {
   const waNumber = '6287722004970';
-  const waText = 'Halo CV. Yosi Hutama Karya, saya mau tanya produk & minta penawaran harga. Bisa dibantu?';
+  const waPage = location.pathname === '/' || location.pathname === '/index.html' ? 'beranda' : location.pathname.replace('.html', '');
+  const waText = 'Halo, saya dari website yosihutamakarya.net (halaman: ' + waPage + '). Saya mau tanya produk & minta penawaran harga. Bisa dibantu?';
   const waUrl = 'https://wa.me/' + waNumber + '?text=' + encodeURIComponent(waText);
   const wrap = document.createElement('div');
   wrap.innerHTML = `
