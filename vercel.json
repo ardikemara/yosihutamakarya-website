@@ -68,10 +68,111 @@
         {
           "type": "query",
           "key": "slug",
+          "value": "mould-curing"
+        }
+      ],
+      "destination": "/produk/mould-curing",
+      "permanent": true
+    },
+    {
+      "source": "/produk-detail",
+      "has": [
+        {
+          "type": "query",
+          "key": "slug",
           "value": "bonding-agent"
         }
       ],
       "destination": "/produk/bonding-agent",
+      "permanent": true
+    },
+    {
+      "source": "/produk-detail",
+      "has": [
+        {
+          "type": "query",
+          "key": "slug",
+          "value": "grouting"
+        }
+      ],
+      "destination": "/produk/grouting",
+      "permanent": true
+    },
+    {
+      "source": "/produk-detail",
+      "has": [
+        {
+          "type": "query",
+          "key": "slug",
+          "value": "mortar-admixture"
+        }
+      ],
+      "destination": "/produk/mortar-admixture",
+      "permanent": true
+    },
+    {
+      "source": "/produk-detail",
+      "has": [
+        {
+          "type": "query",
+          "key": "slug",
+          "value": "ready-mix-mortar"
+        }
+      ],
+      "destination": "/produk/ready-mix-mortar",
+      "permanent": true
+    },
+    {
+      "source": "/produk-detail",
+      "has": [
+        {
+          "type": "query",
+          "key": "slug",
+          "value": "waterproofing"
+        }
+      ],
+      "destination": "/produk/waterproofing",
+      "permanent": true
+    },
+    {
+      "source": "/produk-detail",
+      "has": [
+        {
+          "type": "query",
+          "key": "slug",
+          "value": "floor-treatments"
+        }
+      ],
+      "destination": "/produk/floor-treatments",
+      "permanent": true
+    },
+    {
+      "source": "/produk-detail",
+      "has": [
+        {
+          "type": "query",
+          "key": "slug",
+          "value": "tile-adhesive"
+        }
+      ],
+      "destination": "/produk/tile-adhesive",
+      "permanent": true
+    },
+    {
+      "source": "/produk-detail",
+      "has": [
+        {
+          "type": "query",
+          "key": "slug",
+          "value": "concrete-admixture"
+        }
+      ],
+      "destination": "/produk/concrete-admixture",
+      "permanent": true
+    },
+    {
+      "source": "/produk-detail",
+      "destination": "/produk",
       "permanent": true
     }
   ]

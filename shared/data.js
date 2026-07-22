@@ -130,7 +130,7 @@ const PRODUCTS = [
   }
 ];
 
-/* PRODUCT DETAIL — pain points & solver cards per produk */
+/* PRODUCT DETAIL, pain points & solver cards per produk */
 const PRODUCT_DETAILS = {
   'concrete-admixture': {
     painHeadline: 'Masalah Klasik di Setiap Proyek Beton',
@@ -172,15 +172,15 @@ const PRODUCT_DETAILS = {
       { label: 'Adukan manual boros', desc: 'Tukang sering boros pasir & semen, proporsi naik-turun tiap batch.', consequence: 'Material terbuang, biaya membengkak, mutu finishing inkonsisten.' },
       { label: 'Plesteran retak susut', desc: 'Adukan manual tidak terkontrol, plester retak rambut setelah kering.', consequence: 'Rework cat & finishing, klien komplain berulang kali.' },
       { label: 'Mutu plester beda-beda tiap tukang', desc: 'Tiap tukang campur sendiri, proporsi naik-turun, hasil plester tidak seragam antar tembok.', consequence: 'Finishing cat belang-belang, harus rework di area yang mutunya beda.' },
-      { label: 'Butuh adukan beda untuk plester & pasang bata', desc: 'Tukang biasa pakai 2 jenis adukan: 1 untuk plester, 1 untuk pasang batu bata — repot, boros stok.', consequence: 'Stok material dobel, manajemen lapangan ribet, waktu kerja lebih lama.' }
+      { label: 'Butuh adukan beda untuk plester & pasang bata', desc: 'Tukang biasa pakai 2 jenis adukan: 1 untuk plester, 1 untuk pasang batu bata, repot, boros stok.', consequence: 'Stok material dobel, manajemen lapangan ribet, waktu kerja lebih lama.' }
     ],
     summary: 'Mortar siap pakai untuk plesteran dinding & pemasangan batu bata, mutu konsisten tiap batch, hemat waktu kerja di lapangan.',
     solverHeadline: 'Bagaimana YK Plaster Mix® Menyelesaikan 4 Masalah Itu',
     solvers: [
       { problem: 'Adukan manual boros', headline: 'YK Plaster Mix® proporsi terstandar pabrik, tinggal tambah air.', proofNumber: '3.8 L', proofText: 'air per bag 25kg, mutu sama', outcome: 'Tukang gak boros material, hemat waktu campur, mutu konsisten tiap batch.', tag: 'YK Plaster Mix®' },
       { problem: 'Plesteran retak susut', headline: 'YK Plaster Mix® mencegah retak susut, hasil dinding lebih halus.', proofNumber: 'Retak ↓↓', proofText: '+ dinding halus tanpa rework', outcome: 'Plesteran rapi & kuat, gak perlu acian ekstra atau perbaikan ulang.', tag: 'YK Plaster Mix®' },
-      { problem: 'Mutu plester beda-beda tiap tukang', headline: 'YK Plaster Mix® mutu pabrik konsisten — tiap bag identik.', proofNumber: 'MUTU SAMA', proofText: 'tiap bag 25kg, batch ke batch', outcome: 'Plester rata di seluruh proyek, finishing cat hasilnya seragam.', tag: 'YK Plaster Mix®' },
-      { problem: 'Butuh adukan beda untuk plester & pasang bata', headline: 'YK Plaster Mix® fungsi ganda — pasang batu bata + plester dalam 1 produk.', proofNumber: '1 PRODUK', proofText: 'plester + pasang batu bata', outcome: 'Stok material lebih simple, tukang gak perlu campur 2 jenis, kerja lebih cepat.', tag: 'YK Plaster Mix®' }
+      { problem: 'Mutu plester beda-beda tiap tukang', headline: 'YK Plaster Mix® mutu pabrik konsisten, tiap bag identik.', proofNumber: 'MUTU SAMA', proofText: 'tiap bag 25kg, batch ke batch', outcome: 'Plester rata di seluruh proyek, finishing cat hasilnya seragam.', tag: 'YK Plaster Mix®' },
+      { problem: 'Butuh adukan beda untuk plester & pasang bata', headline: 'YK Plaster Mix® fungsi ganda, pasang batu bata + plester dalam 1 produk.', proofNumber: '1 PRODUK', proofText: 'plester + pasang batu bata', outcome: 'Stok material lebih simple, tukang gak perlu campur 2 jenis, kerja lebih cepat.', tag: 'YK Plaster Mix®' }
     ]
   },
   'waterproofing': {
@@ -214,7 +214,7 @@ const PRODUCT_DETAILS = {
       { problem: 'Beton susah lepas', headline: 'YK Mould Oil® siap pakai, oles ke cetakan sebelum cor.', proofNumber: '1 L = 25 m²', proofText: 'cetakan kayu/plywood', outcome: 'Cetakan mudah dibongkar tanpa rusak, awet untuk pengecoran berulang.', tag: 'YK Mould Oil®' },
       { problem: 'Permukaan kasar bernoda', headline: 'YK Mould Oil® hasil permukaan beton halus, tidak bernoda.', proofNumber: 'HALUS', proofText: '+ cocok untuk steam curing', outcome: 'Tidak perlu finishing ekstra, langsung siap dicat atau exposed.', tag: 'YK Mould Oil®' },
       { problem: 'Retak plastis beton baru', headline: 'YK Curing® cegah kehilangan air, alternatif siram manual.', proofNumber: 'ANTI RETAK', proofText: '+ hemat tenaga vs siram air', outcome: 'Cocok jalan raya, apron, dermaga, & roof deck, kuat tekan terjaga.', tag: 'YK Curing®' },
-      { problem: 'Curing tidak bisa dicat', headline: 'YK Curing® bisa dibersihkan saat permukaan siap untuk cat atau finishing.', proofNumber: 'CLEAN-READY', proofText: '+ surface prep ringan sebelum cat', outcome: 'Pas untuk bangunan & industri yang butuh finishing cat — curing maksimal, cat tetap nempel.', tag: 'YK Curing®' }
+      { problem: 'Curing tidak bisa dicat', headline: 'YK Curing® bisa dibersihkan saat permukaan siap untuk cat atau finishing.', proofNumber: 'CLEAN-READY', proofText: '+ surface prep ringan sebelum cat', outcome: 'Pas untuk bangunan & industri yang butuh finishing cat, curing maksimal, cat tetap nempel.', tag: 'YK Curing®' }
     ]
   },
   'floor-treatments': {
@@ -247,7 +247,7 @@ const PRODUCT_DETAILS = {
     solvers: [
       { problem: 'Grout biasa menyusut', headline: 'YK Grout® formula tidak menyusut, memenuhi standar internasional.', proofNumber: 'NO SHRINK', proofText: 'CRD C-621 + ASTM C-1107', outcome: 'Celah baut & mesin terisi penuh, fondasi presisi sekali pasang.', tag: 'YK Grout®' },
       { problem: 'Setting time lambat', headline: 'YK Grout® setting awal cepat, mudah mengalir, konsistensi bisa diatur.', proofNumber: '4-8 JAM', proofText: 'setting awal @ 27°C', outcome: 'Mesin atau struktur bisa cepat digunakan, downtime minim.', tag: 'YK Grout®' },
-      { problem: 'Mesin berat bergetar', headline: 'YK Grout® tahan getaran tinggi — formula stabil untuk fondasi mesin & rel.', proofNumber: 'TAHAN GETARAN', proofText: '+ no shrink, fondasi presisi', outcome: 'Mesin berat, rel crane, & rel kereta stabil tanpa re-grouting berulang.', tag: 'YK Grout®' },
+      { problem: 'Mesin berat bergetar', headline: 'YK Grout® tahan getaran tinggi, formula stabil untuk fondasi mesin & rel.', proofNumber: 'TAHAN GETARAN', proofText: '+ no shrink, fondasi presisi', outcome: 'Mesin berat, rel crane, & rel kereta stabil tanpa re-grouting berulang.', tag: 'YK Grout®' },
       { problem: 'Lingkungan korosif rusak', headline: 'YK Grout® tahan korosi & kimia, awet di area pelabuhan & industri.', proofNumber: 'TAHAN KIMIA', proofText: '+ struktur kelautan & pabrik', outcome: 'Cocok area pelabuhan, kelautan, & industri kimia, awet jangka panjang.', tag: 'YK Grout®' }
     ]
   },
@@ -335,7 +335,7 @@ Demikian penawaran ini kami sampaikan. Atas perhatian dan kerjasamanya, kami uca
       { key: 'recipient_attn', label: 'Up. (Person)', type: 'text', placeholder: 'Bapak Andi Wijaya / Site Manager' },
       { key: 'recipient_address', label: 'Alamat Pengiriman', type: 'textarea', required: true, placeholder: 'Proyek Apartemen Sky Garden, Jl. Sudirman No. 45, Jakarta Selatan' },
       { key: 'ref_po', label: 'Nomor PO / Invoice Acuan', type: 'text', placeholder: 'PO-2026-0042' },
-      { key: 'item_list', label: 'Daftar Barang Dikirim', type: 'textarea', required: true, placeholder: 'YK NN® Drum 240kg — 2 drum\nYK Bond® Pail 20kg — 5 pail\nYK Water Proofing® Coating 20kg — 8 can' },
+      { key: 'item_list', label: 'Daftar Barang Dikirim', type: 'textarea', required: true, placeholder: 'YK NN® Drum 240kg, 2 drum\nYK Bond® Pail 20kg, 5 pail\nYK Water Proofing® Coating 20kg, 8 can' },
       { key: 'vehicle_plate', label: 'No. Polisi Kendaraan', type: 'text', placeholder: 'B 1234 XYZ' },
       { key: 'driver_name', label: 'Nama Pengemudi', type: 'text', placeholder: 'Pak Joko' },
       { key: 'signer_name', label: 'Nama Penanda Tangan (Pengirim)', type: 'text', required: true, placeholder: 'Ardi Kemara' },
@@ -370,7 +370,7 @@ Demikian surat jalan ini kami sampaikan.`
       { key: 'ref_po', label: 'Nomor PO / Surat Jalan Acuan', type: 'text', placeholder: 'SJ-2026-0042 / PO-2026-0042' },
       { key: 'received_date', label: 'Tanggal Terima Barang', type: 'text', placeholder: '29 Mei 2026' },
       { key: 'received_location', label: 'Lokasi Penerimaan', type: 'text', placeholder: 'Gudang Proyek Sky Garden, Jakarta Selatan' },
-      { key: 'item_list', label: 'Daftar Barang Diterima', type: 'textarea', required: true, placeholder: 'YK NN® Drum 240kg — 2 drum (kondisi baik)\nYK Bond® Pail 20kg — 5 pail (kondisi baik)' },
+      { key: 'item_list', label: 'Daftar Barang Diterima', type: 'textarea', required: true, placeholder: 'YK NN® Drum 240kg, 2 drum (kondisi baik)\nYK Bond® Pail 20kg, 5 pail (kondisi baik)' },
       { key: 'condition_note', label: 'Catatan Kondisi Barang', type: 'textarea', placeholder: 'Semua barang diterima lengkap dan dalam kondisi baik. Tidak ada barang rusak / kurang.' },
       { key: 'signer_name', label: 'Nama Penanda Tangan (Penerima)', type: 'text', required: true, placeholder: 'Bapak Andi Wijaya' },
       { key: 'signer_title', label: 'Jabatan Penanda Tangan', type: 'text', required: true, placeholder: 'Site Manager' }

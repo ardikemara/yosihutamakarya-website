@@ -346,15 +346,15 @@
 
 <div id="yk-footer"></div>
 
-<script src="shared/data.js?v=3"></script>
-<script src="shared/layout.js?v=5"></script>
+<script src="shared/data.js?v=6"></script>
+<script src="shared/layout.js?v=6"></script>
 <script>
   mountLayout('home');
 
   // Render product grid
   const grid = document.getElementById('product-grid');
   grid.innerHTML = PRODUCTS.map(p => `
-    <a href="/produk-detail?slug=${p.slug}" class="product-card" style="text-decoration:none;color:inherit;">
+    <a href="/produk/${p.slug}" class="product-card" style="text-decoration:none;color:inherit;">
       <div class="num">${p.num} / 09</div>
       <h3>${p.name}</h3>
       <p>${p.headline}</p>

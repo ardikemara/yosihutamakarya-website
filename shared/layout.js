@@ -9,7 +9,7 @@ function renderNav(activeKey) {
     <div class="nav-dropdown">
       <div class="nav-dropdown-inner">
         ${PRODUCTS.map(p => `
-          <a href="/produk-detail?slug=${p.slug}" class="nav-dd-item">
+          <a href="/produk/${p.slug}" class="nav-dd-item">
             <span class="nav-dd-num">${p.num}</span>
             <span class="nav-dd-text">
               <span class="nav-dd-name">${p.name}</span>
