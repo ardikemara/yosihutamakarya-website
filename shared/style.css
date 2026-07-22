@@ -256,7 +256,8 @@ h4 { font-size: 1.125rem; }
 }
 @media (max-width: 900px) {
   .hero-content-row { grid-template-columns: 1fr; gap: 32px; }
-  .hero-image { max-width: 360px; margin: 0 auto; }
+  .hero-image { width: 100%; max-width: 360px; margin: 0 auto; justify-self: center; }
+  .hero-image .img-ph { width: 100%; }
 }
 .hero-inner { position: relative; z-index: 2; max-width: 1240px; margin: 0 auto; padding: 0 24px; }
 .hero h1 { color: var(--yk-white); max-width: 800px; margin-bottom: 24px; text-wrap: balance; }
@@ -420,6 +421,12 @@ h4 { font-size: 1.125rem; }
 @media (max-width: 800px) {
   .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
   .footer-bottom { flex-direction: column; gap: 12px; }
+}
+@media (max-width: 640px) {
+  .footer { padding-bottom: 96px; } /* ruang untuk tombol WA floating */
+  .footer-grid { grid-template-columns: 1fr; gap: 36px; }
+  .footer-brand p { max-width: none; }
+  .footer-bottom { align-items: flex-start; text-align: left; }
 }
 
 /* ===== CARDS / PANELS ===== */
@@ -1075,8 +1082,9 @@ h4 { font-size: 1.125rem; }
 @media (max-width: 900px) {
   .steps-row { grid-template-columns: 1fr; gap: 24px; }
   .steps-row::before { display: none; }
-  .step-card { text-align: left; display: grid; grid-template-columns: 56px 1fr; gap: 20px; }
-  .step-card .step-num { margin: 0; }
+  .step-card { text-align: left; display: grid; grid-template-columns: 56px 1fr; gap: 8px 20px; align-items: center; }
+  .step-card .step-num { margin: 0; grid-row: 1 / span 2; align-self: start; }
+  .step-card h4, .step-card p { grid-column: 2; margin: 0; }
 }
 
 /* ===== RESOURCES ===== */
