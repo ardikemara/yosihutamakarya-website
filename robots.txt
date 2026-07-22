@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /internal/
 
-Sitemap: https://yosihutamakarya.net/sitemap.xml
+Sitemap: https://www.yosihutamakarya.net/sitemap.xml
