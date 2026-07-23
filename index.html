@@ -345,6 +345,15 @@
     </div>
     <div class="home-blog-grid">
 
+      <a href="/blog/harga-minyak-bekisting" class="home-blog-card">
+        <img src="assets/img/blog/harga-minyak-bekisting-per-liter.webp" alt="Drum minyak bekisting YK Mould Oil di area bekisting proyek" loading="lazy" width="1600" height="900" />
+        <div class="hbc-body">
+          <div class="hbc-cat">Panduan Harga</div>
+          <h3>Harga Minyak Bekisting per Liter 2026 &amp; Cara Memilih Merk</h3>
+          <p>Estimasi pasaran per liter, banding merk lokal vs impor, dan cara hitung kebutuhan.</p>
+        </div>
+      </a>
+
       <a href="/blog/harga-floor-hardener" class="home-blog-card">
         <img src="assets/img/blog/harga-floor-hardener-per-m2.webp" alt="Panduan harga floor hardener per m²" loading="lazy" width="1600" height="893" />
         <div class="hbc-body">
@@ -379,15 +388,16 @@
   </div>
 </section>
 <style>
-  .home-blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
-  @media (max-width: 860px) { .home-blog-grid { grid-template-columns: 1fr; } }
+  .home-blog-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
+  @media (max-width: 1100px) { .home-blog-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; } }
+  @media (max-width: 620px) { .home-blog-grid { grid-template-columns: 1fr; } }
   .home-blog-card { border: 1px solid var(--yk-border); background: #fff; display: flex; flex-direction: column; text-decoration: none; color: inherit; transition: box-shadow 0.15s, transform 0.15s; }
   .home-blog-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
   .home-blog-card img { width: 100%; height: auto; aspect-ratio: 16/9; object-fit: cover; display: block; }
-  .home-blog-card .hbc-body { padding: 20px 22px 24px; display: flex; flex-direction: column; gap: 8px; }
-  .home-blog-card .hbc-cat { font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--yk-blue); font-weight: 700; }
-  .home-blog-card h3 { font-size: 1.1rem; line-height: 1.3; color: var(--yk-black); margin: 0; }
-  .home-blog-card p { font-size: 14px; color: var(--yk-grey); line-height: 1.6; margin: 0; }
+  .home-blog-card .hbc-body { padding: 18px 20px 22px; display: flex; flex-direction: column; gap: 8px; }
+  .home-blog-card .hbc-cat { font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--yk-blue); font-weight: 700; }
+  .home-blog-card h3 { font-size: 1rem; line-height: 1.32; color: var(--yk-black); margin: 0; }
+  .home-blog-card p { font-size: 13.5px; color: var(--yk-grey); line-height: 1.55; margin: 0; }
 </style>
 
 <!-- ============ 9. CTA STRIP ============ -->
