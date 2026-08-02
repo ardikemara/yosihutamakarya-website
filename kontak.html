@@ -184,6 +184,13 @@
 
     btn.disabled = false; btn.textContent = origLabel;
     if (saved) {
+      // Event konversi GA4: hanya dikirim saat submit berhasil
+      if (typeof gtag === 'function') {
+        gtag('event', 'generate_lead', {
+          form_location: 'kontak',
+          product: new URLSearchParams(location.search).get('produk') || 'umum'
+        });
+      }
       showToast('✓ Permintaan terkirim! Tim sales akan menghubungi Anda dalam 1×24 jam.', 'success');
       e.target.reset();
     } else {
