@@ -28,7 +28,7 @@ const PRODUCTS = [
     description: 'Mempermudah lepas cetakan dan jaga kelembaban beton baru agar tidak retak.',
     skus: ['YK Mould Oil®', 'YK Curing®'],
     items: [
-      { name: 'YK Mould Oil®', type: 'Form Release', desc: 'Minyak bekisting siap pakai untuk lepas cetakan kayu/logam/plastik.', stats: ['1L = 25 m² kayu', 'Permukaan halus', 'Cocok semua cetakan'], dose: '1L = 25 m² kayu / 40 m² logam', pack: 'Drum 200 liter', tds: 'TDS-YK-Mould-Oil-charcoal.html' },
+      { name: 'YK Mould Oil®', type: 'Form Release', desc: 'Minyak bekisting siap pakai untuk lepas cetakan kayu/logam/plastik.', stats: ['1L = 20–25 m² kayu', 'Permukaan halus', 'Cocok semua cetakan'], dose: '1L = 20–25 m² kayu / ± 40 m² logam', pack: 'Drum 200 L / Jerigen 20 L', tds: 'TDS-YK-Mould-Oil-charcoal.html' },
       { name: 'YK Curing®', type: 'Polyolefins', desc: 'Curing compound untuk jalan raya, landasan, apron, dermaga, & roof deck.', stats: ['Cegah retak plastis', 'Tidak mudah terbakar', 'Hemat tenaga'], dose: '0.15 – 0.20 kg/m²', pack: 'Drum 225kg / Can 20kg', tds: 'TDS-YK-Curing-charcoal.html' }
     ]
   },
@@ -206,15 +206,15 @@ const PRODUCT_DETAILS = {
       { label: 'Beton susah lepas', desc: 'Beton lengket di cetakan, dibongkar paksa, cetakan rusak.', consequence: 'Cetakan cepat rusak, biaya ganti bekisting tinggi.' },
       { label: 'Permukaan kasar bernoda', desc: 'Beton setelah dibongkar muncul noda & tekstur tidak rata.', consequence: 'Butuh finishing ekstra, biaya acian & cat naik.' },
       { label: 'Retak plastis beton baru', desc: 'Beton baru kehilangan air cepat, muncul retak permukaan.', consequence: 'Kuat tekan turun, durability struktur jangka panjang anjlok.' },
-      { label: 'Curing tidak bisa dicat', desc: 'Permukaan beton sudah di-curing susah dilapis cat atau finishing.', consequence: 'Harus sandblasting/solvent dulu, biaya finishing membengkak.' }
+      { label: 'Cat mengelupas', desc: 'Lapisan di permukaan beton tidak dibersihkan sebelum finishing.', consequence: 'Cat tidak menempel, pekerjaan finishing harus diulang.' }
     ],
     summary: 'Produk pelengkap pengecoran beton, lepas cetakan mudah, permukaan halus, & beton baru terjaga kelembabannya.',
-    solverHeadline: 'Bagaimana Mould Release & Curing Menyelesaikan 4 Masalah Itu',
+    solverHeadline: 'Cara Mould Release & Curing Menangani Tiap Masalah',
     solvers: [
-      { problem: 'Beton susah lepas', headline: 'YK Mould Oil® siap pakai, oles ke cetakan sebelum cor.', proofNumber: '1 L = 25 m²', proofText: 'cetakan kayu/plywood', outcome: 'Cetakan mudah dibongkar tanpa rusak, awet untuk pengecoran berulang.', tag: 'YK Mould Oil®' },
+      { problem: 'Beton susah lepas', headline: 'YK Mould Oil® siap pakai, oles ke cetakan sebelum cor.', proofNumber: '1 L = 20–25 m²', proofText: 'cetakan kayu/plywood', outcome: 'Cetakan mudah dibongkar tanpa rusak, awet untuk pengecoran berulang.', tag: 'YK Mould Oil®' },
       { problem: 'Permukaan kasar bernoda', headline: 'YK Mould Oil® hasil permukaan beton halus, tidak bernoda.', proofNumber: 'HALUS', proofText: '+ cocok untuk steam curing', outcome: 'Tidak perlu finishing ekstra, langsung siap dicat atau exposed.', tag: 'YK Mould Oil®' },
       { problem: 'Retak plastis beton baru', headline: 'YK Curing® cegah kehilangan air, alternatif siram manual.', proofNumber: 'ANTI RETAK', proofText: '+ hemat tenaga vs siram air', outcome: 'Cocok jalan raya, apron, dermaga, & roof deck, kuat tekan terjaga.', tag: 'YK Curing®' },
-      { problem: 'Curing tidak bisa dicat', headline: 'YK Curing® bisa dibersihkan saat permukaan siap untuk cat atau finishing.', proofNumber: 'CLEAN-READY', proofText: '+ surface prep ringan sebelum cat', outcome: 'Pas untuk bangunan & industri yang butuh finishing cat, curing maksimal, cat tetap nempel.', tag: 'YK Curing®' }
+      { problem: 'Cat mengelupas', headline: 'Lapisan YK Curing® dibersihkan dulu sebelum finishing.', proofNumber: 'PROSEDUR TDS', proofText: 'sandblast/solvent sebelum cat atau screed', outcome: 'Permukaan bersih dan siap untuk cat atau screed.', tag: 'YK Curing®' }
     ]
   },
   'floor-treatments': {
