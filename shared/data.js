@@ -7,7 +7,7 @@ const BRAND = {
   legal: 'CV. YOSI HUTAMA KARYA',
   product: 'BUILD · PROTECT · PERFORM',
   tagline: 'BUILD · PROTECT · PERFORM',
-  address: 'KP. Kaum Tengah, Jl. Transyogi Cibubur – Cileungsi, Desa/Kel. Cileungsi, Kec. Cileungsi, Kab. Bogor, Jawa Barat 16820, Indonesia',
+  address: 'Jl. Raya Narogong Km. 21, Cileungsi, Desa/Kel. Cileungsi, Kec. Cileungsi, Kab. Bogor, Jawa Barat 16820, Indonesia',
   phone: '+62 877-2200-4970',
   email: 'info@yosihutamakarya.net',
   web: 'yosihutamakarya.net',
@@ -366,7 +366,7 @@ Demikian surat jalan ini kami sampaikan.`
     fields: [
       { key: 'recipient_company', label: 'Pengirim (Vendor / Supplier)', type: 'text', required: true, placeholder: 'CV. Yosi Hutama Karya' },
       { key: 'recipient_attn', label: 'Up. (Person Pengirim)', type: 'text', placeholder: 'Bagian Logistik' },
-      { key: 'recipient_address', label: 'Alamat Pengirim', type: 'textarea', placeholder: 'KP. Kaum Tengah, Transyogi Cibubur – Cileungsi, Kab. Bogor' },
+      { key: 'recipient_address', label: 'Alamat Pengirim', type: 'textarea', placeholder: 'Jl. Raya Narogong Km. 21, Cileungsi, Kab. Bogor' },
       { key: 'ref_po', label: 'Nomor PO / Surat Jalan Acuan', type: 'text', placeholder: 'SJ-2026-0042 / PO-2026-0042' },
       { key: 'received_date', label: 'Tanggal Terima Barang', type: 'text', placeholder: '29 Mei 2026' },
       { key: 'received_location', label: 'Lokasi Penerimaan', type: 'text', placeholder: 'Gudang Proyek Sky Garden, Jakarta Selatan' },
