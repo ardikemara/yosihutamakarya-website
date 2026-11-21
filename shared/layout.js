@@ -135,6 +135,12 @@ function renderFooter() {
           <div>KP. Kaum Tengah, Jl. Transyogi Cibubur – Cileungsi, Kab. Bogor 16820</div>
         </div>
       </div>
+      <div class="footer-art" aria-hidden="true">
+        <div class="footer-art-fade"></div>
+        <img class="footer-art-bg" src="/assets/img/footer/footer-plant-1600.webp" srcset="/assets/img/footer/footer-plant-800.webp 800w, /assets/img/footer/footer-plant-1600.webp 1600w" sizes="100vw" width="1600" height="686" loading="lazy" decoding="async" alt="" />
+        <div class="footer-art-word">YOSI HUTAMA KARYA</div>
+        <div class="footer-art-tag">BUILD · PROTECT · PERFORM</div>
+      </div>
     </footer>
   `;
 }
