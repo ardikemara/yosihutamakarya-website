@@ -53,7 +53,7 @@ yosihutamakarya-prototype/
   - Black `#0A0A0A` · Cream `#F5F2EC` · Royal Blue `#1E40AF`
   - Charcoal `#1F2937` · Concrete Grey `#9CA3AF`
 - **Typography:** Inter (geometric sans-serif, bold)
-- **Alamat:** KP. Kaum Tengah, Jl. Transyogi Cibubur – Cileungsi, Kab. Bogor 16820
+- **Alamat:** Jl. Raya Narogong Km. 21, Cileungsi, Kab. Bogor 16820
 - **Telepon:** +62 877-2200-4970 · Email: info@yosihutamakarya.net
 
 ---
