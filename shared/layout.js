@@ -132,7 +132,7 @@ function renderFooter() {
         </div>
         <div class="footer-bottom">
           <div>© 2026 CV. Yosi Hutama Karya. Hak Cipta Dilindungi.</div>
-          <div>KP. Kaum Tengah, Jl. Transyogi Cibubur – Cileungsi, Kab. Bogor 16820</div>
+          <div>Jl. Raya Narogong Km. 21, Cileungsi, Kab. Bogor 16820</div>
         </div>
       </div>
       <div class="footer-art" aria-hidden="true">
@@ -228,8 +228,12 @@ function showToast(msg, type) {
 function mountLayout(activeKey) {
   const navMount = document.getElementById('yk-nav');
   const footMount = document.getElementById('yk-footer');
-  if (navMount) { navMount.innerHTML = renderNav(activeKey); navMount.setAttribute('data-track', 'nav'); }
-  if (footMount) { footMount.innerHTML = renderFooter(); footMount.setAttribute('data-track', 'footer'); }
+  // Nav/footer sudah ditulis di HTML oleh tools/prerender-layout.js; render di sini
+  // hanya sebagai cadangan untuk halaman yang belum di-prerender.
+  if (navMount && !navMount.firstElementChild) navMount.innerHTML = renderNav(activeKey);
+  if (navMount) navMount.setAttribute('data-track', 'nav');
+  if (footMount && !footMount.firstElementChild) footMount.innerHTML = renderFooter();
+  if (footMount) footMount.setAttribute('data-track', 'footer');
   renderWaFloat();
 
   // Toggle menu mobile

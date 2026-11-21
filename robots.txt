@@ -1,4 +1,18 @@
+# Mesin pencari dan asisten AI boleh membaca semua halaman publik.
 User-agent: *
+Allow: /
+Disallow: /internal/
+
+# Bot AI disebut eksplisit supaya jelas diizinkan (jawaban ChatGPT, Perplexity,
+# Claude, Gemini / Google AI Overview).
+User-agent: GPTBot
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: PerplexityBot
+User-agent: ClaudeBot
+User-agent: Claude-SearchBot
+User-agent: Google-Extended
+User-agent: Applebot-Extended
 Allow: /
 Disallow: /internal/
 

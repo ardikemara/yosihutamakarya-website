@@ -44,7 +44,119 @@
 <link rel="stylesheet" href="shared/style.css?v=5" />
 </head>
 <body>
-<div id="yk-nav"></div>
+<div id="yk-nav" data-track="nav"><!--yk:nav-->
+<style>
+      .nav-burger { display: none; background: none; border: 0; padding: 8px; cursor: pointer; }
+      .nav-burger svg { width: 26px; height: 26px; display: block; color: var(--yk-black); }
+      .nav-mobile { display: none; }
+      @media (max-width: 900px) {
+        .nav { position: relative; }
+        .nav-inner { gap: 8px; }
+        .nav-brand .logo { width: 36px; height: 36px; }
+        .nav-brand-text { font-size: 13px; white-space: nowrap; }
+        .nav-brand-text small { font-size: 8px; letter-spacing: 0.08em; }
+        .nav-links { display: none !important; }
+        .nav-burger { display: block; margin-left: auto; }
+        .nav-mobile.open { display: block; position: absolute; top: 100%; left: 0; right: 0; background: #fff; border-bottom: 1px solid var(--yk-border); box-shadow: 0 16px 32px rgba(0,0,0,0.12); z-index: 999; }
+        .nav-mobile a { display: block; padding: 14px 20px; border-top: 1px solid var(--yk-border); color: var(--yk-charcoal); font-weight: 600; font-size: 15px; }
+        .nav-mobile a.active { color: var(--yk-blue); }
+        .nav-mobile .nm-internal { color: var(--yk-blue); }
+        .nav-mobile .nm-cta { background: var(--yk-black); color: #fff; text-align: center; margin: 12px 16px 16px; padding: 14px; border-top: 0; }
+      }
+    </style>
+    <nav class="nav">
+      <div class="nav-inner">
+        <a href="/" class="nav-brand">
+          <img class="logo" src="/assets/yk-logo.svg" alt="YK Logo" />
+          <div class="nav-brand-text">
+            YOSI HUTAMA KARYA
+            <small>BUILD · PROTECT · PERFORM</small>
+          </div>
+        </a>
+        <div class="nav-links">
+          <a href="/" class="">Beranda</a><div class="has-dropdown">
+        <a href="/produk" class="active">Produk <span class="nav-caret">▾</span></a>
+    <div class="nav-dropdown">
+      <div class="nav-dropdown-inner">
+          <a href="/produk/mould-curing" class="nav-dd-item">
+            <span class="nav-dd-num">01</span>
+            <span class="nav-dd-text">
+              <span class="nav-dd-name">Mould Release & Curing</span>
+              <span class="nav-dd-audience">Kontraktor pengecoran · Precaster · Ready-mix</span>
+            </span>
+          </a>
+          <a href="/produk/bonding-agent" class="nav-dd-item">
+            <span class="nav-dd-num">02</span>
+            <span class="nav-dd-text">
+              <span class="nav-dd-name">Bonding Agent</span>
+              <span class="nav-dd-audience">Kontraktor renovasi · Perbaikan struktur</span>
+            </span>
+          </a>
+          <a href="/produk/grouting" class="nav-dd-item">
+            <span class="nav-dd-num">03</span>
+            <span class="nav-dd-text">
+              <span class="nav-dd-name">Grouting</span>
+              <span class="nav-dd-audience">Kontraktor sipil · Pabrik · Engineering</span>
+            </span>
+          </a>
+          <a href="/produk/mortar-admixture" class="nav-dd-item">
+            <span class="nav-dd-num">04</span>
+            <span class="nav-dd-text">
+              <span class="nav-dd-name">Mortar Admixture</span>
+              <span class="nav-dd-audience">Tukang batu · Kontraktor renovasi · Toko bangunan</span>
+            </span>
+          </a>
+          <a href="/produk/ready-mix-mortar" class="nav-dd-item">
+            <span class="nav-dd-num">05</span>
+            <span class="nav-dd-text">
+              <span class="nav-dd-name">Ready Mix Mortar</span>
+              <span class="nav-dd-audience">Kontraktor finishing · Developer · Renovasi</span>
+            </span>
+          </a>
+          <a href="/produk/waterproofing" class="nav-dd-item">
+            <span class="nav-dd-num">06</span>
+            <span class="nav-dd-text">
+              <span class="nav-dd-name">Waterproofing</span>
+              <span class="nav-dd-audience">Pemilik rumah · Kontraktor · Aplikator</span>
+            </span>
+          </a>
+          <a href="/produk/floor-treatments" class="nav-dd-item">
+            <span class="nav-dd-num">07</span>
+            <span class="nav-dd-text">
+              <span class="nav-dd-name">Floor Treatments</span>
+              <span class="nav-dd-audience">Gudang · Pabrik · Parkiran · Bengkel</span>
+            </span>
+          </a>
+          <a href="/produk/tile-adhesive" class="nav-dd-item">
+            <span class="nav-dd-num">08</span>
+            <span class="nav-dd-text">
+              <span class="nav-dd-name">Tile Adhesive</span>
+              <span class="nav-dd-audience">Kontraktor finishing · Toko bangunan · Renovasi</span>
+            </span>
+          </a>
+          <a href="/produk/concrete-admixture" class="nav-dd-item">
+            <span class="nav-dd-num">09</span>
+            <span class="nav-dd-text">
+              <span class="nav-dd-name">Concrete Admixture</span>
+              <span class="nav-dd-audience">Kontraktor · Ready-mix Plant · Precaster</span>
+            </span>
+          </a>
+      </div>
+      <a href="/produk" class="nav-dd-all">Lihat semua produk →</a>
+    </div>
+      </div><a href="/blog" class="">Blog</a><a href="/tentang" class="">Tentang</a><a href="/kontak" class="">Kontak</a>
+          <a href="/kontak" class="nav-cta">Minta Penawaran</a>
+        </div>
+        <button class="nav-burger" aria-label="Buka menu" aria-expanded="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+      <div class="nav-mobile">
+        <a href="/" class="">Beranda</a><a href="/produk" class="active">Produk</a><a href="/blog" class="">Blog</a><a href="/tentang" class="">Tentang</a><a href="/kontak" class="">Kontak</a>
+        <a href="/kontak" class="nm-cta">Minta Penawaran</a>
+      </div>
+    </nav>
+<!--/yk:nav--></div>
 
 <!-- HERO -->
 <section class="detail-hero">
@@ -116,7 +228,59 @@
   </div>
 </section>
 
-<div id="yk-footer"></div>
+<div id="yk-footer" data-track="footer"><!--yk:footer-->
+<footer class="footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <img src="/assets/yk-logo.svg" alt="YK Logo" width="48" height="48" class="logo-img-dark" style="object-fit: contain;" />
+              <div style="color: #fff; font-weight: 800; line-height: 1.1;">
+                CV. YOSI HUTAMA KARYA
+                <div style="font-size: 11px; color: rgba(255,255,255,0.5); letter-spacing: 0.1em; margin-top: 4px;">BUILD · PROTECT · PERFORM</div>
+              </div>
+            </div>
+            <p>Solusi aditif konstruksi dari pondasi sampai finishing, dipercaya kontraktor, ready-mix, & precaster di Indonesia.</p>
+          </div>
+          <div>
+            <h5>Produk</h5>
+            <ul>
+              <li><a href="/produk#concrete-admixture">Concrete Admixture</a></li>
+              <li><a href="/produk#waterproofing">Waterproofing</a></li>
+              <li><a href="/produk#floor-treatments">Floor Treatments</a></li>
+              <li><a href="/produk/bonding-agent">Bonding Agent</a></li>
+              <li><a href="/produk">Lihat semua →</a></li>
+            </ul>
+          </div>
+          <div>
+            <h5>Perusahaan</h5>
+            <ul>
+              <li><a href="/tentang">Tentang Kami</a></li>
+              <li><a href="/kontak">Kontak Sales</a></li>
+            </ul>
+          </div>
+          <div>
+            <h5>Hubungi</h5>
+            <ul>
+              <li>📞 +62 877-2200-4970</li>
+              <li>✉️ info@yosihutamakarya.net</li>
+              <li>🌐 yosihutamakarya.net</li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <div>© 2026 CV. Yosi Hutama Karya. Hak Cipta Dilindungi.</div>
+          <div>Jl. Raya Narogong Km. 21, Cileungsi, Kab. Bogor 16820</div>
+        </div>
+      </div>
+      <div class="footer-art" aria-hidden="true">
+        <div class="footer-art-fade"></div>
+        <img class="footer-art-bg" src="/assets/img/footer/footer-plant-1600.webp" srcset="/assets/img/footer/footer-plant-800.webp 800w, /assets/img/footer/footer-plant-1600.webp 1600w" sizes="100vw" width="1600" height="686" loading="lazy" decoding="async" alt="" />
+        <div class="footer-art-word">YOSI HUTAMA KARYA</div>
+        <div class="footer-art-tag">BUILD · PROTECT · PERFORM</div>
+      </div>
+    </footer>
+<!--/yk:footer--></div>
 
 <style>
   .prod-item-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
@@ -179,8 +343,8 @@
   }
 </style>
 
-<script defer src="shared/data.js?v=6"></script>
-<script defer src="shared/layout.js?v=9"></script>
+<script defer src="shared/data.js?v=7"></script>
+<script defer src="shared/layout.js?v=10"></script>
 <script>document.addEventListener("DOMContentLoaded",function(){
   mountLayout('produk');
 

@@ -13,6 +13,8 @@ Situs statis (HTML/CSS/JS polos, tanpa build step) untuk https://www.yosihutamak
 - Portal internal: `internal/*.html` (pakai Supabase, lihat bawah).
 - Shared: `shared/style.css`, `shared/data.js` (data produk), `shared/layout.js` (nav + footer).
   Kalau mengubah file di `shared/`, naikkan query versi di tag `<script>`/`<link>` (mis. `data.js?v=6` → `?v=7`) di semua halaman, karena `/shared/*` di-cache immutable 1 tahun (lihat `vercel.json`).
+- Nav + footer ditulis langsung di HTML tiap halaman (di antara komentar `<!--yk:nav-->` / `<!--yk:footer-->`) supaya terbaca bot AI dan tidak ada layout shift. Sumbernya tetap `renderNav()`/`renderFooter()` di `shared/layout.js` + `PRODUCTS` di `shared/data.js`. Setelah mengubah nav, footer, atau daftar produk, jalankan `node tools/prerender-layout.js` lalu commit hasilnya.
+- SEO/GEO: `robots.txt` mengizinkan bot AI secara eksplisit, `llms.txt` = ringkasan perusahaan + produk untuk asisten AI (perbarui kalau ada produk/kontak baru), `sitemap.xml` lastmod diisi tanggal perubahan nyata.
 - Gambar: `assets/img/` (lihat `assets/img/README.md` untuk rasio tiap slot).
 
 ## Mengganti gambar
