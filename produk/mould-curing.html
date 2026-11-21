@@ -216,11 +216,27 @@
   .mc-faq details[open] summary::after { content: "−"; }
   .mc-faq summary:focus-visible { outline: 2px solid var(--yk-blue); outline-offset: 4px; }
   .mc-faq details p { margin: 10px 0 0; font-size: 15px; line-height: 1.7; color: var(--yk-charcoal); }
-  .mc-about { max-width: 760px; margin-top: 48px; }
-  .mc-about h2 { font-size: 20px; margin: 0 0 10px; }
-  .mc-about p { font-size: 15px; line-height: 1.75; color: var(--yk-charcoal); margin: 0 0 16px; }
-  .related-links { margin: 0; padding-left: 18px; }
-  .related-links li { margin-bottom: 8px; font-size: 15px; line-height: 1.6; }
+  /* Tentang + Informasi terkait (alternatif B) */
+  .mc-about { background: #fff; border-top: 1px solid var(--yk-border); }
+  .mc-about-top { display: grid; grid-template-columns: 1fr 1.3fr; gap: 40px; align-items: end; margin-bottom: 28px; }
+  .mc-about-top h2 { margin-bottom: 0; }
+  .mc-about-top p { font-size: 15px; line-height: 1.75; color: var(--yk-charcoal); margin: 0; }
+  .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+  .mc-rel { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--yk-border); border: 1px solid var(--yk-border); list-style: none; margin: 0; padding: 0; }
+  .mc-rel li { background: #fff; display: flex; }
+  .mc-rel a { display: flex; flex-direction: column; width: 100%; color: inherit; text-decoration: none; }
+  .lp .mc-rel a { color: inherit; font-weight: inherit; }
+  .mc-rel img { display: block; width: 100%; height: auto; aspect-ratio: 4/3; object-fit: cover; background: var(--yk-cream, #f5f2ec); }
+  .mc-rel .bd { padding: 14px 16px 18px; display: flex; flex-direction: column; gap: 4px; flex: 1; }
+  .mc-rel .tag { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--yk-blue); }
+  .mc-rel .tt { font-size: 14px; line-height: 1.4; font-weight: 700; color: var(--yk-black); flex: 1; }
+  .mc-rel .arr { font-size: 13px; font-weight: 800; color: var(--yk-blue); margin-top: 6px; }
+  .mc-rel .tag::before { content: attr(data-l); }
+  .mc-rel .arr::after { content: attr(data-l); content: attr(data-l) / ""; }
+  .mc-rel .tt::first-letter { text-transform: uppercase; }
+  .mc-rel a:hover { opacity: 1; }
+  .mc-rel a:hover .tt { text-decoration: underline; }
+  .mc-rel a:focus-visible { outline: 3px solid var(--yk-blue); outline-offset: -3px; }
   /* CTA penutup (sama dengan PR #2) */
   .lp-cta-final { background: var(--yk-blue); color: #fff; padding: 56px 0; text-align: center; }
   .lp-cta-final h2 { color: #fff; }
@@ -246,6 +262,9 @@
     .mc-grid { grid-template-columns: 1fr 1fr; }
     .mc-duo { grid-template-columns: 1fr; }
     .mc-card .cap { padding: 12px 12px 14px; }
+    .mc-about-top { grid-template-columns: 1fr; gap: 8px; margin-bottom: 20px; }
+    .mc-rel { grid-template-columns: 1fr 1fr; }
+    .mc-rel .bd { padding: 12px 12px 14px; }
   }
 </style>
 </head>
@@ -399,17 +418,37 @@
         <p>Harga pasaran bervariasi menurut kemasan dan merek. Harga resmi YK mengikuti volume pembelian langsung dari produsen. Silakan minta penawaran, respon dalam 24 jam kerja.</p>
       </details>
     </div>
-    <div class="mc-about">
-      <h2>Tentang minyak bekisting &amp; curing compound YK</h2>
+  </div>
+</section>
+
+<section class="mc-sec mc-about">
+  <div class="lp">
+    <div class="mc-about-top">
+      <div>
+        <div class="eyebrow">Pelajari lebih lanjut</div>
+        <h2>Tentang minyak bekisting &amp; curing compound YK</h2>
+      </div>
       <p>Minyak bekisting, atau form release agent, adalah cairan yang dioleskan ke cetakan agar beton mudah dilepas tanpa merusak permukaan. Curing compound adalah lapisan yang menjaga kelembaban beton baru agar tidak retak plastis saat mengeras. YK Mould Oil® diproduksi CV. Yosi Hutama Karya, produsen aditif konstruksi di Cileungsi, Bogor, dengan quality control tiap batch.</p>
-      <h2>Informasi terkait</h2>
-      <ul class="related-links" data-track="related">
-        <li><a href="/blog/harga-minyak-bekisting">panduan harga minyak bekisting per liter dan cara memilih merk</a></li>
-        <li><a href="/TDS-YK-Mould-Oil-charcoal">spesifikasi teknis YK Mould Oil (TDS)</a></li>
-        <li><a href="/TDS-YK-Curing-charcoal">spesifikasi teknis YK Curing (TDS)</a></li>
-        <li><a href="/#proyek">proyek apartemen 32 lantai di Jakarta Selatan</a></li>
-      </ul>
     </div>
+    <h2 class="sr-only">Informasi terkait</h2>
+    <ul class="mc-rel related-links" data-track="related">
+        <li><a href="/blog/harga-minyak-bekisting">
+          <img src="/assets/img/blog/harga-minyak-bekisting-per-liter-800.webp" srcset="/assets/img/blog/harga-minyak-bekisting-per-liter-480.webp 480w, /assets/img/blog/harga-minyak-bekisting-per-liter-800.webp 800w" sizes="(max-width: 760px) 50vw, 250px" width="800" height="450" loading="lazy" decoding="async" alt="Drum YK Mould Oil® di lokasi proyek beton, ilustrasi panduan harga minyak bekisting" />
+          <span class="bd"><span class="tag" data-l="Panduan"></span><span class="tt">panduan harga minyak bekisting per liter dan cara memilih merk</span><span class="arr" data-l="Baca →"></span></span>
+        </a></li>
+        <li><a href="/TDS-YK-Mould-Oil-charcoal">
+          <img src="/assets/img/katalog/yk-mould-oil-800.webp" srcset="/assets/img/katalog/yk-mould-oil-500.webp 500w, /assets/img/katalog/yk-mould-oil-800.webp 800w" sizes="(max-width: 760px) 50vw, 250px" width="800" height="600" loading="lazy" decoding="async" alt="Drum YK Mould Oil® 200 liter di proyek bekisting" />
+          <span class="bd"><span class="tag" data-l="TDS"></span><span class="tt">spesifikasi teknis YK Mould Oil (TDS)</span><span class="arr" data-l="Buka ↗"></span></span>
+        </a></li>
+        <li><a href="/TDS-YK-Curing-charcoal">
+          <img src="/assets/img/katalog/yk-curing-800.webp" srcset="/assets/img/katalog/yk-curing-500.webp 500w, /assets/img/katalog/yk-curing-800.webp 800w" sizes="(max-width: 760px) 50vw, 250px" width="800" height="600" loading="lazy" decoding="async" alt="Drum dan can YK Curing® di jalan beton yang baru dicor" />
+          <span class="bd"><span class="tag" data-l="TDS"></span><span class="tt">spesifikasi teknis YK Curing (TDS)</span><span class="arr" data-l="Buka ↗"></span></span>
+        </a></li>
+        <li><a href="/#proyek">
+          <img src="/assets/img/proyek-1-800.webp" srcset="/assets/img/proyek-1-480.webp 480w, /assets/img/proyek-1-800.webp 800w" sizes="(max-width: 760px) 50vw, 250px" width="800" height="598" loading="lazy" decoding="async" alt="Proyek apartemen 32 lantai di Jakarta Selatan" />
+          <span class="bd"><span class="tag" data-l="Proyek"></span><span class="tt">proyek apartemen 32 lantai di Jakarta Selatan</span><span class="arr" data-l="Lihat →"></span></span>
+        </a></li>
+    </ul>
   </div>
 </section>
 
