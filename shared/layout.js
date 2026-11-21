@@ -174,6 +174,37 @@ function renderWaFloat() {
   });
 }
 
+// Lacak klik CTA penawaran (/kontak) dan download TDS (/TDS-*) sebagai event GA4.
+// Satu listener terdelegasi untuk semua halaman. Lokasi link diambil dari atribut
+// data-track terdekat (mis. nav, hero, spec, related, cta_final), fallback 'other'.
+document.addEventListener('click', function(e) {
+  if (typeof gtag !== 'function') return;
+  const a = e.target.closest && e.target.closest('a[href]');
+  if (!a) return;
+  let url;
+  try { url = new URL(a.getAttribute('href'), location.href); } catch (err) { return; }
+  if (url.origin !== location.origin) return;
+  const path = url.pathname;
+  let eventName, product = '';
+  if (/^\/kontak(\.html)?\/?$/.test(path)) {
+    eventName = 'quote_click';
+    product = url.searchParams.get('produk') || '';
+  } else if (/^\/TDS-/.test(path)) {
+    eventName = 'tds_download';
+    product = path.replace(/^\/TDS-/, '').replace(/\.html$/, '');
+  } else {
+    return;
+  }
+  const loc = a.closest('[data-track]');
+  gtag('event', eventName, {
+    page_path: location.pathname,
+    link_location: loc ? loc.getAttribute('data-track') : 'other',
+    product: product,
+    link_text: (a.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 100),
+    transport_type: 'beacon'
+  });
+});
+
 function showToast(msg, type) {
   type = type || 'success';
   let t = document.getElementById('yk-toast');
@@ -191,8 +222,8 @@ function showToast(msg, type) {
 function mountLayout(activeKey) {
   const navMount = document.getElementById('yk-nav');
   const footMount = document.getElementById('yk-footer');
-  if (navMount) navMount.innerHTML = renderNav(activeKey);
-  if (footMount) footMount.innerHTML = renderFooter();
+  if (navMount) { navMount.innerHTML = renderNav(activeKey); navMount.setAttribute('data-track', 'nav'); }
+  if (footMount) { footMount.innerHTML = renderFooter(); footMount.setAttribute('data-track', 'footer'); }
   renderWaFloat();
 
   // Toggle menu mobile
