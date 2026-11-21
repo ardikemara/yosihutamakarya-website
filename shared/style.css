@@ -422,8 +422,40 @@ h4 { font-size: 1.125rem; }
   .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
   .footer-bottom { flex-direction: column; gap: 12px; }
 }
+/* Footer A2: foto batching plant + nama raksasa (dekoratif, aria-hidden).
+   Ukuran relatif lebar foto (cqw, fallback vw). Teks dimask agar tampak
+   berdiri di belakang silo; browser tanpa mask tetap menampilkan teks utuh. */
+.footer { padding-bottom: 0; }
+.footer .footer-bottom { padding-bottom: 32px; }
+.footer-art { position: relative; width: 100%; overflow: hidden; container-type: inline-size; }
+.footer-art-bg { display: block; width: 100%; height: auto; }
+.footer-art-fade {
+  position: absolute; inset: 0 0 auto 0; height: 40%; z-index: 1;
+  background: linear-gradient(var(--yk-black), rgba(10,10,10,0));
+}
+.footer-art-word {
+  position: absolute; inset: 0; z-index: 2; pointer-events: none;
+  text-align: center; white-space: nowrap; line-height: 1;
+  font-weight: 900; letter-spacing: -0.035em; color: rgba(255,255,255,0.95);
+  font-size: 6.9vw; padding-top: 15.2vw;
+  font-size: 6.9cqw; padding-top: 15.2cqw; /* ~35% tinggi foto */
+  -webkit-mask-image: url('/assets/img/footer/footer-plant-mask.png');
+  -webkit-mask-size: 100% 100%; -webkit-mask-repeat: no-repeat;
+  mask-image: url('/assets/img/footer/footer-plant-mask.png');
+  mask-size: 100% 100%; mask-repeat: no-repeat;
+}
+.footer-art-tag {
+  position: absolute; left: 0; right: 0; z-index: 3; pointer-events: none;
+  text-align: center; white-space: nowrap; font-weight: 700;
+  -webkit-mask-image: none; mask-image: none; /* tagline sengaja tidak di-mask */
+  text-shadow: 0 1px 8px rgba(0,0,0,0.6);
+  letter-spacing: 0.6em; color: rgba(255,255,255,0.75);
+  top: 23.8vw; font-size: max(9px, 1.25vw);
+  top: 23.8cqw; font-size: max(9px, 1.25cqw);
+}
 @media (max-width: 640px) {
-  .footer { padding-bottom: 96px; } /* ruang untuk tombol WA floating */
+  /* Ruang tombol WA floating: foto di bawah footer (tinggi >= 96px di HP) kini jadi ruang itu. */
+  .footer .footer-art { min-height: 96px; }
   .footer-grid { grid-template-columns: 1fr; gap: 36px; }
   .footer-brand p { max-width: none; }
   .footer-bottom { align-items: flex-start; text-align: left; }
